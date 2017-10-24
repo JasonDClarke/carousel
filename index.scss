@@ -1,0 +1,96 @@
+$carousel-width: 100%;
+$carousel-height: 100vh;
+
+.container {
+  width: $carousel-width;
+  height: $carousel-height;
+  border: 1px solid red;
+  border-radius: 50%;
+  //makes images positioned absolutely relative to the container
+  position: relative;
+  overflow: hidden;
+}
+
+
+img {
+position: absolute;
+width: $carousel-width;
+;
+height: $carousel-height;
+left: $carousel-width;
+;
+}
+
+.onRight {
+  left: $carousel-width;
+;
+}
+
+.onLeft {
+  left: -$carousel-width;
+;
+}
+
+.selected {
+left: 0px;
+}
+
+.anim-select-left {
+animation-name: slideInLeft;
+animation-duration: 0.5s;
+}
+
+.anim-select-right {
+animation-name: slideInRight;
+animation-duration: 0.5s;
+}
+
+.anim-select-top {
+animation-name: slideInTop;
+animation-duration: 0.5s;
+}
+
+.anim-select-bottom {
+animation-name: slideInBottom;
+animation-duration: 0.5s;
+}
+
+@keyframes slideInTop {
+  0%   { top: -$carousel-height; }
+  100% { top: 0px; }
+}
+
+@keyframes slideInLeft {
+  0%   { left: $carousel-width; }
+  100% { left: 0px; }
+}
+
+@keyframes slideInRight {
+  0%   { left: -$carousel-width; }
+  100% { left: 0px; }
+}
+
+@keyframes slideInBottom {
+  0%   { top: $carousel-height; }
+  100% { top: 0px; }
+}
+
+@keyframes slideOutRight {
+  0%   { left: 0px; }
+  100% { left: $carousel-width; }
+}
+
+@keyframes slideOutLeft {
+  0%   { left: 0px; }
+  100% { left: -$carousel-width; }
+}
+
+.anim-deselect-right {
+animation-name: slideOutRight;
+animation-duration: 0.5s;
+}
+
+.anim-deselect-left {
+animation-name: slideOutLeft;
+animation-duration: 0.5s;
+}
