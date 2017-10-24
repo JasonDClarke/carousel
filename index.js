@@ -1,10 +1,14 @@
 
 //Create the default carousel
-let c = new Carousel(3)
+let c = Carousel(3, 0)
 c.init();
 
 //init carousel functions
 //// init carousel
+function Carousel(numPics, initPicId, carouselInteractions) {
+
+  return new Carousel(numPics, initPicId, carouselInteractions);
+
 function Carousel(numPics, initPicId, carouselInteractions) {
   this.numPics = numPics;
   this.DOMPics = getDOMPics(numPics);
@@ -12,7 +16,7 @@ function Carousel(numPics, initPicId, carouselInteractions) {
   this.carouselInteractionConfigs = carouselInteractions || [];
   this.addInteractionListeners = function(carouselInteractions){
       this.carouselInteractionConfigs.forEach(function(item) {
-      CarouselInteraction(item)
+      addInteractionListener(item)
     });
   };
 
@@ -71,10 +75,9 @@ function getDOMPics(numPics) {
   return DOMPics;
 }
 
-
 ///constructing interactions
 ////
-function CarouselInteraction(carouselInteractionConfig) {
+function addInteractionListener(carouselInteractionConfig) {
   let x = carouselInteractionConfig;
   return x.DOMHook.addEventListener(
     x.eventType,
@@ -112,4 +115,4 @@ function moveCssClass(a, b, cssClass) {
 /// newPicIdFns
 function goRight(currPicId, numPics) {return (currPicId-1+numPics)%numPics};
 function goLeft(currPicId, numPics) {return (currPicId+1)%numPics};
-function goRandom(currPicId, numPics) {return Math.floor(Math.random()*numPics)}
+};
