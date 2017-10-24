@@ -1,44 +1,63 @@
-// let carousel = {
-//   DOMPics: [],
-//   numPics: 0,
-//   currPicId: 0
-// }
-//
-// let carouselInteraction = {
-//   DOMHook: null,
-//
-// }
 
-
-let DOMPics =[];
-let numPics = 3;
-for (var i=0; i<numPics; i++) {
-  DOMPics[i] = document.getElementsByClassName('carouselImage')[i];
+let carouselInteractionConfig = {
+  DOMHook: null,
+  eventType: null,
+  entranceAnim: null,
+  exitAnim: null,
+  newPicIdFn: null
 }
 
-let idButton = [];
-for (var i=0; i<numPics; i++) {
-  idButton[i] = document.getElementsByClassName('idButton')[i];
+//// init carousel
+function Carousel(numPics, initPicId, carouselInteractions) {
+  this.numPics = numPics;
+  this.DOMPics = getDOMPics(numPics);
+  this.currPicId = initPicId;
+  this.carouselInteractions = addInteractions(carouselInteractions);
 }
 
-let leftButton = document.getElementsByClassName('leftButton')[0];
-let rightButton = document.getElementsByClassName('rightButton')[0];
 
-let currPicId = 0;
+
+let c = new Carousel(3, 0, [new LeftButtonInteraction, new RightButtonInteraction,
+new PaginationInteraction(0), new PaginationInteraction(1), new PaginationInteraction(2)]);
+
+
+//init carousel functions
+function getDOMPics(numPics) {
+  let DOMPics =[];
+  for (var i=0; i<numPics; i++) {
+    DOMPics[i] = document.getElementsByClassName('carouselImage')[i];
+  }
+  return DOMPics;
+}
+
+function addInteractions(carouselInteractions) {
+  return carouselInteractions.map((item)=>CarouselInteraction(item));
+}
+/////
+
+
+///constructing interactions
+////
+function CarouselInteraction(carouselInteractionConfig) {
+  let x = carouselInteractionConfig;
+  return x.DOMHook.addEventListener(
+    x.eventType,
+    slideTransition.bind(this, x.entranceAnim,x.exitAnim, x.newPicIdFn));
+}
 
 function slideTransition(entranceAnim, exitAnim, newPicIdFn) {
-  if (newPicIdFn(currPicId) === currPicId) {
+  if (newPicIdFn(c.currPicId, c.numPics) === c.currPicId) {
     console.log("returned as already right image");
     return;
   }
 
-  let prevPicId = currPicId;
-  let newPicId = newPicIdFn(currPicId);
-  moveCssClass(DOMPics[prevPicId], DOMPics[newPicId], "selected");
-  runAnimationClass(DOMPics[newPicId], entranceAnim);
-  runAnimationClass(DOMPics[prevPicId], exitAnim);
+  let prevPicId = c.currPicId;
+  let newPicId = newPicIdFn(c.currPicId, c.numPics);
+  moveCssClass(c.DOMPics[prevPicId], c.DOMPics[newPicId], "selected");
+  runAnimationClass(c.DOMPics[newPicId], entranceAnim);
+  runAnimationClass(c.DOMPics[prevPicId], exitAnim);
 
-  currPicId = newPicId;
+  c.currPicId = newPicId;
 }
 
 function runAnimationClass(htmlEl, animClass) {
@@ -49,26 +68,35 @@ function runAnimationClass(htmlEl, animClass) {
   })
 }
 
-function goRight(a) {return (a-1+numPics)%numPics};
-function goLeft(a) {return (a+1)%numPics};
-
 function moveCssClass(a, b, cssClass) {
   a.classList.remove(cssClass);
   b.classList.add(cssClass);
 }
 
+/// newPicIdFns
+function goRight(a, numPics) {return (a-1+numPics)%numPics};
+function goLeft(a, numPics) {return (a+1)%numPics};
 
+function LeftButtonInteraction() {
+  this.DOMHook = document.getElementsByClassName('leftButton')[0],
+  this.eventType = "click",
+  this.entranceAnim = "anim-select-top",
+  this.exitAnim = "anim-deselect-left",
+  this.newPicIdFn = goLeft
+}
 
+function RightButtonInteraction() {
+  this.DOMHook = document.getElementsByClassName('rightButton')[0],
+  this.eventType = "click",
+  this.entranceAnim = "anim-select-bottom",
+  this.exitAnim = "anim-deselect-right",
+  this.newPicIdFn = goRight
+}
 
-
-rightButton.addEventListener("click", slideTransition.bind(this, "anim-select-bottom",
-"anim-deselect-right", goRight));
-
-leftButton.addEventListener("click", slideTransition.bind(this, "anim-select-top",
-"anim-deselect-left", goLeft));
-
-for (let i=0; i<numPics; i++) {
-  idButton[i].addEventListener("click",
-    slideTransition.bind(this, "anim-select-top",
-"anim-deselect-left", ()=>i));
+function PaginationInteraction(i) {
+  this.DOMHook = document.getElementsByClassName('idButton')[i],
+  this.eventType = "click",
+  this.entranceAnim = "anim-select-top",
+  this.exitAnim = "anim-deselect-right",
+  this.newPicIdFn = ()=>i
 }
