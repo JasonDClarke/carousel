@@ -1,7 +1,7 @@
 $carousel-width: 100%;
 $carousel-height: 100vh;
 
-.container {
+.carouselContainer {
   width: $carousel-width;
   height: $carousel-height;
   border: 1px solid red;
@@ -33,6 +33,7 @@ left: $carousel-width;
 
 .selected {
 left: 0px;
+z-index:1;
 }
 
 .anim-select-left {
@@ -93,4 +94,33 @@ animation-duration: 0.5s;
 .anim-deselect-left {
 animation-name: slideOutLeft;
 animation-duration: 0.5s;
+}
+
+.paginationButton {
+  width: 100px;
+  height: 100px;
+  color: red;
+  background-color: white;
+  border: none;
+  font-size: 50px;
+  &:active,
+  &:focus {
+    border-radius:  50%;
+    border: solid red 4px;
+  }
+  &:hover {
+    border-radius:  50%;
+    border-style: solid;
+    border-color: rgba(100, 100, 100, 0.5);
+    border-width: 4px;
+  }
+}
+
+
+
+.buttons {
+  text-align: center;
+  width: 100%;
+  margin-top: 10px;
+
 }

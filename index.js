@@ -1,27 +1,68 @@
 
-let carouselInteractionConfig = {
-  DOMHook: null,
-  eventType: null,
-  entranceAnim: null,
-  exitAnim: null,
-  newPicIdFn: null
-}
+//Create the default carousel
+let c = new Carousel(3)
+c.init();
 
+//init carousel functions
 //// init carousel
 function Carousel(numPics, initPicId, carouselInteractions) {
   this.numPics = numPics;
   this.DOMPics = getDOMPics(numPics);
-  this.currPicId = initPicId;
-  this.carouselInteractions = addInteractions(carouselInteractions);
+  this.currPicId = initPicId || 0;
+  this.carouselInteractionConfigs = carouselInteractions || [];
+  this.addInteractionListeners = function(carouselInteractions){
+      this.carouselInteractionConfigs.forEach(function(item) {
+      CarouselInteraction(item)
+    });
+  };
+
+  this.addPaginationInteractions = function(eventType, entranceAnim, exitAnim) {
+    for (let i=0; i<numPics; i++) {
+      let interactionConfig = {
+        DOMHook: document.getElementsByClassName('paginationButton')[i],
+        eventType: eventType || "click",
+        entranceAnim: entranceAnim || "anim-select-right",
+        exitAnim: exitAnim || "anim-deselect-right",
+        newPicIdFn: ()=>i
+      }
+      this.carouselInteractionConfigs.push(interactionConfig);
+    }
+  }
+
+  this.addLeftButtonInteraction = function(eventType, entranceAnim, exitAnim, newPicIdFn) {
+    let interactionConfig = {
+      DOMHook: document.getElementsByClassName('leftButton')[0],
+      eventType: eventType || "click",
+      entranceAnim: entranceAnim || "anim-select-left",
+      exitAnim: exitAnim || "anim-deselect-left",
+      newPicIdFn: newPicIdFn || goLeft
+    }
+    this.carouselInteractionConfigs.push(interactionConfig);
+  }
+
+  this.addRightButtonInteraction = function(eventType, entranceAnim, exitAnim, newPicIdFn) {
+    let interactionConfig = {
+      DOMHook: document.getElementsByClassName('rightButton')[0],
+      eventType: eventType || "click",
+      entranceAnim: entranceAnim || "anim-select-right",
+      exitAnim: exitAnim || "anim-deselect-right",
+      newPicIdFn: newPicIdFn || goRight
+    }
+    this.carouselInteractionConfigs.push(interactionConfig);
+  }
+
+  this.addCustomInteraction = function(carouselInteractionConfig) {
+    this.carouselInteractionConfigs.push(carouselInteractionConfig);
+  }
+
+  this.init = function() {
+    this.addPaginationInteractions()
+    this.addLeftButtonInteraction()
+    this.addRightButtonInteraction()
+    this.addInteractionListeners()
+  }
 }
 
-
-
-let c = new Carousel(3, 0, [new LeftButtonInteraction, new RightButtonInteraction,
-new PaginationInteraction(0), new PaginationInteraction(1), new PaginationInteraction(2)]);
-
-
-//init carousel functions
 function getDOMPics(numPics) {
   let DOMPics =[];
   for (var i=0; i<numPics; i++) {
@@ -29,11 +70,6 @@ function getDOMPics(numPics) {
   }
   return DOMPics;
 }
-
-function addInteractions(carouselInteractions) {
-  return carouselInteractions.map((item)=>CarouselInteraction(item));
-}
-/////
 
 
 ///constructing interactions
@@ -46,13 +82,13 @@ function CarouselInteraction(carouselInteractionConfig) {
 }
 
 function slideTransition(entranceAnim, exitAnim, newPicIdFn) {
-  if (newPicIdFn(c.currPicId, c.numPics) === c.currPicId) {
+  let newPicId = newPicIdFn(c.currPicId, c.numPics);
+  if (newPicId === c.currPicId) {
     console.log("returned as already right image");
     return;
   }
 
   let prevPicId = c.currPicId;
-  let newPicId = newPicIdFn(c.currPicId, c.numPics);
   moveCssClass(c.DOMPics[prevPicId], c.DOMPics[newPicId], "selected");
   runAnimationClass(c.DOMPics[newPicId], entranceAnim);
   runAnimationClass(c.DOMPics[prevPicId], exitAnim);
@@ -74,29 +110,6 @@ function moveCssClass(a, b, cssClass) {
 }
 
 /// newPicIdFns
-function goRight(a, numPics) {return (a-1+numPics)%numPics};
-function goLeft(a, numPics) {return (a+1)%numPics};
-
-function LeftButtonInteraction() {
-  this.DOMHook = document.getElementsByClassName('leftButton')[0],
-  this.eventType = "click",
-  this.entranceAnim = "anim-select-top",
-  this.exitAnim = "anim-deselect-left",
-  this.newPicIdFn = goLeft
-}
-
-function RightButtonInteraction() {
-  this.DOMHook = document.getElementsByClassName('rightButton')[0],
-  this.eventType = "click",
-  this.entranceAnim = "anim-select-bottom",
-  this.exitAnim = "anim-deselect-right",
-  this.newPicIdFn = goRight
-}
-
-function PaginationInteraction(i) {
-  this.DOMHook = document.getElementsByClassName('idButton')[i],
-  this.eventType = "click",
-  this.entranceAnim = "anim-select-top",
-  this.exitAnim = "anim-deselect-right",
-  this.newPicIdFn = ()=>i
-}
+function goRight(currPicId, numPics) {return (currPicId-1+numPics)%numPics};
+function goLeft(currPicId, numPics) {return (currPicId+1)%numPics};
+function goRandom(currPicId, numPics) {return Math.floor(Math.random()*numPics)}
