@@ -1,25 +1,15 @@
 .carouselContainer {
   width: 100%;
   height: 100vh;
-  border: 1px solid red;
-  border-radius: 50%;
   position: relative;
   overflow: hidden;
 }
 
-img {
+.carouselImage {
   position: absolute;
   width: 100%;
   height: 100vh;
   left: 100%;
-}
-
-.onRight {
-  left: 100%;
-}
-
-.onLeft {
-  left: -100%;
 }
 
 .selected {
@@ -27,23 +17,8 @@ img {
   z-index: 1;
 }
 
-.anim-select-left {
-  animation-name: slideInLeft;
-  animation-duration: 0.5s;
-}
-
-.anim-select-right {
-  animation-name: slideInRight;
-  animation-duration: 0.5s;
-}
-
 .anim-select-top {
   animation-name: slideInTop;
-  animation-duration: 0.5s;
-}
-
-.anim-select-bottom {
-  animation-name: slideInBottom;
   animation-duration: 0.5s;
 }
 
@@ -55,14 +30,11 @@ img {
     top: 0px;
   }
 }
-@keyframes slideInLeft {
-  0% {
-    left: 100%;
-  }
-  100% {
-    left: 0px;
-  }
+.anim-select-right {
+  animation-name: slideInRight;
+  animation-duration: 0.5s;
 }
+
 @keyframes slideInRight {
   0% {
     left: -100%;
@@ -71,6 +43,11 @@ img {
     left: 0px;
   }
 }
+.anim-select-bottom {
+  animation-name: slideInBottom;
+  animation-duration: 0.5s;
+}
+
 @keyframes slideInBottom {
   0% {
     top: 100vh;
@@ -79,6 +56,37 @@ img {
     top: 0px;
   }
 }
+.anim-select-left {
+  animation-name: slideInLeft;
+  animation-duration: 0.5s;
+}
+
+@keyframes slideInLeft {
+  0% {
+    left: 100%;
+  }
+  100% {
+    left: 0px;
+  }
+}
+.anim-deselect-top {
+  animation-name: slideOutTop;
+  animation-duration: 0.5s;
+}
+
+@keyframes slideOutTop {
+  0% {
+    top: 0px;
+  }
+  100% {
+    top: -100%;
+  }
+}
+.anim-deselect-right {
+  animation-name: slideOutRight;
+  animation-duration: 0.5s;
+}
+
 @keyframes slideOutRight {
   0% {
     left: 0px;
@@ -87,6 +95,24 @@ img {
     left: 100%;
   }
 }
+.anim-deselect-Bottom {
+  animation-name: slideOutBottom;
+  animation-duration: 0.5s;
+}
+
+@keyframes slideOutBottom {
+  0% {
+    top: 0px;
+  }
+  100% {
+    top: 100%;
+  }
+}
+.anim-deselect-left {
+  animation-name: slideOutLeft;
+  animation-duration: 0.5s;
+}
+
 @keyframes slideOutLeft {
   0% {
     left: 0px;
@@ -95,14 +121,9 @@ img {
     left: -100%;
   }
 }
-.anim-deselect-right {
-  animation-name: slideOutRight;
-  animation-duration: 0.5s;
-}
-
-.anim-deselect-left {
-  animation-name: slideOutLeft;
-  animation-duration: 0.5s;
+.carouselContainer {
+  border: 1px solid red;
+  border-radius: 50%;
 }
 
 .paginationButton {
