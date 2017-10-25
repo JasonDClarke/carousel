@@ -4,15 +4,20 @@
     global.Carousel = factory()
 }(this, function() { 'use strict';
 
-  return function(container, numPics, initPicId) {
+  return function(config) {
     const c = this;
-    c.numPics = numPics;
-    c.currPicId = initPicId || 0;
-    c.carouselInteractionConfigs = [];
-    c.DOMPics = getDOMPics(numPics);
 
-    //add selected class to currPicId
-    container.getElementsByClassName('carouselImage')[c.currPicId].classList.add("selected");
+    // all config inputs
+    c.container = config.container
+    c.numPics = config.numPics;
+    c.currPicId = config.initPicIndex || 0;
+    //
+
+    c.carouselInteractionConfigs = [];
+    c.DOMPics = getDOMPics(c.numPics);
+
+    //add "selected" class to currPic
+    c.container.getElementsByClassName('carouselImage')[c.currPicId].classList.add("selected");
 
     c.init = function() {
       c.addPaginationInteractions()
@@ -21,9 +26,9 @@
     }
 
     c.addPaginationInteractions = function(eventType, entranceAnim, exitAnim) {
-      for (let i=0; i<numPics; i++) {
+      for (let i=0; i<c.numPics; i++) {
         let interactionConfig = {
-          DOMHook: container.getElementsByClassName('paginationButton')[i],
+          DOMHook: c.container.getElementsByClassName('paginationButton')[i],
           eventType: eventType || "click",
           entranceAnim: entranceAnim || "anim-select-right",
           exitAnim: exitAnim || "anim-deselect-right",
@@ -36,7 +41,7 @@
 
     c.addLeftButtonInteraction = function(eventType, entranceAnim, exitAnim, newPicIdFn) {
       let interactionConfig = {
-        DOMHook: container.getElementsByClassName('leftButton')[0],
+        DOMHook: c.container.getElementsByClassName('leftButton')[0],
         eventType: eventType || "click",
         entranceAnim: entranceAnim || "anim-select-left",
         exitAnim: exitAnim || "anim-deselect-left",
@@ -48,7 +53,7 @@
 
     c.addRightButtonInteraction = function(eventType, entranceAnim, exitAnim, newPicIdFn) {
       let interactionConfig = {
-        DOMHook: container.getElementsByClassName('rightButton')[0],
+        DOMHook: c.container.getElementsByClassName('rightButton')[0],
         eventType: eventType || "click",
         entranceAnim: entranceAnim || "anim-select-right",
         exitAnim: exitAnim || "anim-deselect-right",
@@ -67,7 +72,7 @@
     function getDOMPics(numPics) {
       let DOMPics =[];
       for (var i=0; i<numPics; i++) {
-        DOMPics[i] = container.getElementsByClassName('carouselImage')[i];
+        DOMPics[i] = c.container.getElementsByClassName('carouselImage')[i];
       }
       return DOMPics;
     }

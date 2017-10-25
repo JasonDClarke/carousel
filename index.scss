@@ -27,7 +27,8 @@ $carousel-height: 60vh;
   }
 
 
-//animation classes
+//animation classes : note that if making custom animations properties "left" may need to be
+//reset
 .anim-select-top {
 animation-name: slideInTop;
 animation-duration: 0.5s;
@@ -135,11 +136,6 @@ animation-duration: 0.5s;
     background-color: white;
     border: 10px solid black;
     font-size: 50px;
-    // &:active,
-    // &:focus {
-    //   border-radius:  50%;
-    //   border: solid red 4px;
-    // }
     &:hover {
       border-radius:  50%;
       border-style: solid;
@@ -169,11 +165,6 @@ animation-duration: 0.5s;
     background-color: white;
     border: none;
     font-size: 50px;
-    // &:active,
-    // &:focus {
-    //   border-radius:  50%;
-    //   border: solid red 4px;
-    // }
     &:hover {
       border-radius:  50%;
       border-style: solid;

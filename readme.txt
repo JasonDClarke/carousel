@@ -1,30 +1,33 @@
 Quick start:
 
-js // initialises a Carousel with five pictures and no event listeners.
-let c = new Carousel(5);
+let c = new Carousel({
+container: document.getElementsByClassName("carousel")[0],
+numPics: 3,
+initPicIndex: 2});
+
 c.init();
 
-The Carousel constructor
-Carousel(numPics, initPicIndex, carouselInteractions, customHooks);
-The first argument is required and signifies the number of pictures.
+The Carousel constructor:
+The Carousel function takes an object containing:
+container: html element containing the carousel (required)
+numPics: number of pictures (required),
+initPicIndex: the index of the picture initially shown (optional, defaults to 0)
 
-The other arguments are optional.
-The second argument is the index of the first picture to be shown.
-This picture must have the class "selected" in the HTML. It defaults to 0.
-
-The third argument can be used to edit the hooks used to access the html.
-By default these hooks are used.
-
-
-WARNING: this will break default behaviour. See below for more discussion.
+The constructor does not add any event listeners.
 
 
 
-Init quickly hooks event listeners.
+The init method quickly hooks event listeners.
 init does 3 things
-// initialises left button listener which hooks to "leftButton" in HTML by default
-// initialises right button listener which hooks to "rightButton" in HTML by default
-// initialises pagination listener which hooks to "paginationButton" in HTML by default
+// initialises default left button listener,
+ which hooks to "leftButton" in HTML by default.
+
+// initialises default right button listener,
+ which hooks to "rightButton" in HTML by default.
+
+// initialises defaultpagination listener,
+ which hooks to "paginationButton" in HTML by default.
+
 c.init();
 
 4 custom methods allow more granular control:
@@ -37,8 +40,8 @@ EventType defaults to "click".
 entranceAnim defaults to "anim-select-right"
 exitAnim defaults to "anim-deselect-right"
 This adds to each pagination button an animation when the event occurs.
-entranceAnim is the animation applied to the entering image.
-exitAnim is the animation applied to the leaving image.
+entranceAnim is the animation class applied to the entering image.
+exitAnim is the animation class applied to the leaving image.
 
 2.
 c.addRightButtonInteraction(eventType, entranceAnim, exitAnim, newPicIdFn)
@@ -62,6 +65,7 @@ c.addCustomInteraction(interactionConfig);
 to add a custom interaction/event listener enter an object of this form.
 All fields are required.
 
+example:
 {
 DOMHook: document.getElementsByClassName("nameOfClass")[0],
 eventType: "hover"
