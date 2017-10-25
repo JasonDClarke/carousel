@@ -44,21 +44,17 @@ entranceAnim is the animation class applied to the entering image.
 exitAnim is the animation class applied to the leaving image.
 
 2.
-c.addRightButtonInteraction(eventType, entranceAnim, exitAnim, newPicIdFn)
+c.addRightButtonInteraction(eventType, entranceAnim, exitAnim)
 
 First 3 arguments do as above and are optional.
 
-The last argument is also optional. It gives control of how the next picture
-is selected. See section 4 for details.
 
 3.
-c.addLeftButtonInteraction(eventType, entranceAnim, exitAnim, newPicIdFn)
+c.addLeftButtonInteraction(eventType, entranceAnim, exitAnim)
 
 First 3 arguments do as above and are optional, except that
 entranceAnim defaults to "anim-select-left"
 exitAnim defaults to "anim-deselect-left"
-
-
 
 4.
 c.addCustomInteraction(interactionConfig);
@@ -82,18 +78,3 @@ number of pictures as arguments, that returns the new picture index.
 The function takes in whole numbers from 0 to numPics-1 and must always return
 a value from 0 to numPics-1.
 The function given returns a random image.
-
-
-
-<div class="carouselContainer">
-  <img class="selected carouselImage" src="#" />
-  <img class="carouselImage" src="#" />
-  <img class="carouselImage" src="#" />
-</div>
-
-
-<button class="leftButton"> &lt; </button>
-<button class="paginationButton">0</button>
-<button class="paginationButton">1</button>
-<button class="paginationButton">2</button>
-<button class="rightButton"> &gt; </button>

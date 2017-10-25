@@ -7,6 +7,37 @@
   return function(config) {
     const c = this;
 
+    // let requiredConfig = {
+    //   containerSel: config.containerSel,
+    //   numPics: config.numPics
+    // }
+    //
+    // let defaultConfig = {
+    //   initPicIndex: 0,
+    //   pagination: {
+    //     DOMHook: c.container.getElementsByClassName('paginationButton')[i],
+    //     eventType: "click",
+    //     entranceAnim: "anim-select-right",
+    //     exitAnim: "anim-deselect-right",
+    //     newPicIdFn: ()=>i
+    //   },
+    //   leftButton: {
+    //     DOMHook: c.container.getElementsByClassName('leftButton')[0],
+    //     eventType: "click",
+    //     entranceAnim: "anim-select-left",
+    //     exitAnim: "anim-deselect-left",
+    //     newPicIdFn: goLeft
+    //   },
+    //   rightButton: {
+    //     DOMHook: c.container.getElementsByClassName('rightButton')[0],
+    //     eventType: "click",
+    //     entranceAnim: "anim-select-right",
+    //     exitAnim: "anim-deselect-right",
+    //     newPicIdFn: goRight
+    //   }
+    // }
+    //
+    // let config = merge(requiredConfig, defaultConfig, customConfig);
     // all config inputs
     c.container = config.container
     c.numPics = config.numPics;
@@ -14,15 +45,16 @@
     //
 
     c.carouselInteractionConfigs = [];
+    c.removeListenerFunctions = [];
     c.DOMPics = getDOMPics(c.numPics);
 
     //add "selected" class to currPic
     c.container.getElementsByClassName('carouselImage')[c.currPicId].classList.add("selected");
 
-    c.init = function() {
-      c.addPaginationInteractions()
-      c.addLeftButtonInteraction()
-      c.addRightButtonInteraction()
+    c.init = function(eventType) {
+      c.addPaginationInteractions(eventType)
+      c.addLeftButtonInteraction(eventType)
+      c.addRightButtonInteraction(eventType)
     }
 
     c.addPaginationInteractions = function(eventType, entranceAnim, exitAnim) {
@@ -39,25 +71,21 @@
       }
     }
 
-    c.addLeftButtonInteraction = function(eventType, entranceAnim, exitAnim, newPicIdFn) {
+    c.addLeftButtonInteraction = function(eventType, entranceAnim, exitAnim) {
       let interactionConfig = {
         DOMHook: c.container.getElementsByClassName('leftButton')[0],
         eventType: eventType || "click",
         entranceAnim: entranceAnim || "anim-select-left",
         exitAnim: exitAnim || "anim-deselect-left",
-        newPicIdFn: newPicIdFn || goLeft
+        newPicIdFn: goLeft
       }
       c.carouselInteractionConfigs.push(interactionConfig);
       addInteractionListener(interactionConfig)
     }
 
-    c.addRightButtonInteraction = function(eventType, entranceAnim, exitAnim, newPicIdFn) {
+    c.addRightButtonInteraction = function(eventType, entranceAnim, exitAnim) {
       let interactionConfig = {
-        DOMHook: c.container.getElementsByClassName('rightButton')[0],
-        eventType: eventType || "click",
-        entranceAnim: entranceAnim || "anim-select-right",
-        exitAnim: exitAnim || "anim-deselect-right",
-        newPicIdFn: newPicIdFn || goRight
+
       }
       c.carouselInteractionConfigs.push(interactionConfig);
       addInteractionListener(interactionConfig)
@@ -81,9 +109,13 @@
   ////
   function addInteractionListener(carouselInteractionConfig) {
     let x = carouselInteractionConfig;
-    return x.DOMHook.addEventListener(
-      x.eventType,
-      slideTransition.bind(c, x.entranceAnim,x.exitAnim, x.newPicIdFn));
+    let eventTarget = x.DOMHook;
+    let eventType = x.eventType;
+    let callback = slideTransition.bind(this, x.entranceAnim,x.exitAnim, x.newPicIdFn);
+    let addListener = eventTarget.addEventListener.bind(eventTarget, eventType, callback);
+    addListener()
+    let removeListener = eventTarget.removeEventListener.bind(eventTarget, eventType, callback)
+    c.removeListenerFunctions.push(removeListener);
   }
 
   function slideTransition(entranceAnim, exitAnim, newPicIdFn) {
