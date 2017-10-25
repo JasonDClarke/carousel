@@ -1,118 +1,27 @@
 
 //Create the default carousel
-let c = Carousel(3, 0)
-c.init();
+let d = new Carousel(3, 0)
+d.init();
 
+//create a non-default carousel
+let e = new Carousel(3,1, [], {
+  paginationButton: 'paginationButton2',
+  leftButton: 'leftButton2',
+  rightButton: 'rightButton2',
+  selected: 'selected2',
+  carouselImage: 'carouselImage2'
+});
+e.addPaginationInteractions("click", "anim-select-top", "anim-deselect-top");
+e.addLeftButtonInteraction("click", "anim-select-right", "anim-deselect-left");
+e.addRightButtonInteraction();
+e.addCustomInteraction({
+  DOMHook: document.getElementsByClassName("magicButton")[0],
+  eventType: "click",
+  entranceAnim: "anim-select-right",
+  exitAnim: "anim-deselect-right",
+  newPicIdFn: goRandom
+});
+e.addInteractionListeners();
 //init carousel functions
 //// init carousel
-function Carousel(numPics, initPicId, carouselInteractions) {
-
-  return new Carousel(numPics, initPicId, carouselInteractions);
-
-function Carousel(numPics, initPicId, carouselInteractions) {
-  this.numPics = numPics;
-  this.DOMPics = getDOMPics(numPics);
-  this.currPicId = initPicId || 0;
-  this.carouselInteractionConfigs = carouselInteractions || [];
-  this.addInteractionListeners = function(carouselInteractions){
-      this.carouselInteractionConfigs.forEach(function(item) {
-      addInteractionListener(item)
-    });
-  };
-
-  this.addPaginationInteractions = function(eventType, entranceAnim, exitAnim) {
-    for (let i=0; i<numPics; i++) {
-      let interactionConfig = {
-        DOMHook: document.getElementsByClassName('paginationButton')[i],
-        eventType: eventType || "click",
-        entranceAnim: entranceAnim || "anim-select-right",
-        exitAnim: exitAnim || "anim-deselect-right",
-        newPicIdFn: ()=>i
-      }
-      this.carouselInteractionConfigs.push(interactionConfig);
-    }
-  }
-
-  this.addLeftButtonInteraction = function(eventType, entranceAnim, exitAnim, newPicIdFn) {
-    let interactionConfig = {
-      DOMHook: document.getElementsByClassName('leftButton')[0],
-      eventType: eventType || "click",
-      entranceAnim: entranceAnim || "anim-select-left",
-      exitAnim: exitAnim || "anim-deselect-left",
-      newPicIdFn: newPicIdFn || goLeft
-    }
-    this.carouselInteractionConfigs.push(interactionConfig);
-  }
-
-  this.addRightButtonInteraction = function(eventType, entranceAnim, exitAnim, newPicIdFn) {
-    let interactionConfig = {
-      DOMHook: document.getElementsByClassName('rightButton')[0],
-      eventType: eventType || "click",
-      entranceAnim: entranceAnim || "anim-select-right",
-      exitAnim: exitAnim || "anim-deselect-right",
-      newPicIdFn: newPicIdFn || goRight
-    }
-    this.carouselInteractionConfigs.push(interactionConfig);
-  }
-
-  this.addCustomInteraction = function(carouselInteractionConfig) {
-    this.carouselInteractionConfigs.push(carouselInteractionConfig);
-  }
-
-  this.init = function() {
-    this.addPaginationInteractions()
-    this.addLeftButtonInteraction()
-    this.addRightButtonInteraction()
-    this.addInteractionListeners()
-  }
-}
-
-function getDOMPics(numPics) {
-  let DOMPics =[];
-  for (var i=0; i<numPics; i++) {
-    DOMPics[i] = document.getElementsByClassName('carouselImage')[i];
-  }
-  return DOMPics;
-}
-
-///constructing interactions
-////
-function addInteractionListener(carouselInteractionConfig) {
-  let x = carouselInteractionConfig;
-  return x.DOMHook.addEventListener(
-    x.eventType,
-    slideTransition.bind(this, x.entranceAnim,x.exitAnim, x.newPicIdFn));
-}
-
-function slideTransition(entranceAnim, exitAnim, newPicIdFn) {
-  let newPicId = newPicIdFn(c.currPicId, c.numPics);
-  if (newPicId === c.currPicId) {
-    console.log("returned as already right image");
-    return;
-  }
-
-  let prevPicId = c.currPicId;
-  moveCssClass(c.DOMPics[prevPicId], c.DOMPics[newPicId], "selected");
-  runAnimationClass(c.DOMPics[newPicId], entranceAnim);
-  runAnimationClass(c.DOMPics[prevPicId], exitAnim);
-
-  c.currPicId = newPicId;
-}
-
-function runAnimationClass(htmlEl, animClass) {
-  htmlEl.classList.add(animClass);
-  htmlEl.addEventListener("animationend", function i() {
-    htmlEl.classList.remove(animClass);
-    htmlEl.removeEventListener("animationend", i);
-  })
-}
-
-function moveCssClass(a, b, cssClass) {
-  a.classList.remove(cssClass);
-  b.classList.add(cssClass);
-}
-
-/// newPicIdFns
-function goRight(currPicId, numPics) {return (currPicId-1+numPics)%numPics};
-function goLeft(currPicId, numPics) {return (currPicId+1)%numPics};
-};
+function goRandom(currPicId, numPics) {return Math.floor(Math.random()*numPics)}
