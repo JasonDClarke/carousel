@@ -1,6 +1,6 @@
 
 //Create the default carousel
-let d = new Carousel(3, 0)
+let d = new Carousel(document.getElementsByClassName("carousel")[0], 3)
 // let d = new Carousel({
 //   amountOfPics: 3,
 //   startOnPic: 0
@@ -8,13 +8,7 @@ let d = new Carousel(3, 0)
 d.init();
 
 //create a non-default carousel
-let e = new Carousel(3,1, {
-  paginationButton: 'paginationButton2',
-  leftButton: 'leftButton2',
-  rightButton: 'rightButton2',
-  selected: 'selected2',
-  carouselImage: 'carouselImage2'
-});
+let e = new Carousel(document.getElementsByClassName("carousel")[1], 3, 2);
 e.addPaginationInteractions("click", "anim-select-top", "anim-deselect-top");
 e.addLeftButtonInteraction("click", "anim-select-right", "anim-deselect-left");
 e.addRightButtonInteraction();

@@ -4,20 +4,15 @@
     global.Carousel = factory()
 }(this, function() { 'use strict';
 
-  return function(numPics, initPicId, customHooks, containerName) {
-    const container = document.getElementsByClassName(containerName)[0];
+  return function(container, numPics, initPicId) {
     const c = this;
     c.numPics = numPics;
     c.currPicId = initPicId || 0;
     c.carouselInteractionConfigs = [];
-    c.hooks = customHooks || {
-      paginationButton: 'paginationButton',
-      leftButton: 'leftButton',
-      rightButton: 'rightButton',
-      selected: 'selected',
-      carouselImage: 'carouselImage'
-    };
     c.DOMPics = getDOMPics(numPics);
+
+    //add selected class to currPicId
+    container.getElementsByClassName('carouselImage')[c.currPicId].classList.add("selected");
 
     c.init = function() {
       c.addPaginationInteractions()
@@ -28,7 +23,7 @@
     c.addPaginationInteractions = function(eventType, entranceAnim, exitAnim) {
       for (let i=0; i<numPics; i++) {
         let interactionConfig = {
-          DOMHook: container.getElementsByClassName(c.hooks.paginationButton)[i],
+          DOMHook: container.getElementsByClassName('paginationButton')[i],
           eventType: eventType || "click",
           entranceAnim: entranceAnim || "anim-select-right",
           exitAnim: exitAnim || "anim-deselect-right",
@@ -41,7 +36,7 @@
 
     c.addLeftButtonInteraction = function(eventType, entranceAnim, exitAnim, newPicIdFn) {
       let interactionConfig = {
-        DOMHook: container.getElementsByClassName(c.hooks.leftButton)[0],
+        DOMHook: container.getElementsByClassName('leftButton')[0],
         eventType: eventType || "click",
         entranceAnim: entranceAnim || "anim-select-left",
         exitAnim: exitAnim || "anim-deselect-left",
@@ -53,7 +48,7 @@
 
     c.addRightButtonInteraction = function(eventType, entranceAnim, exitAnim, newPicIdFn) {
       let interactionConfig = {
-        DOMHook: container.getElementsByClassName(c.hooks.rightButton)[0],
+        DOMHook: container.getElementsByClassName('rightButton')[0],
         eventType: eventType || "click",
         entranceAnim: entranceAnim || "anim-select-right",
         exitAnim: exitAnim || "anim-deselect-right",
@@ -72,7 +67,7 @@
     function getDOMPics(numPics) {
       let DOMPics =[];
       for (var i=0; i<numPics; i++) {
-        DOMPics[i] = container.getElementsByClassName(c.hooks.carouselImage)[i];
+        DOMPics[i] = container.getElementsByClassName('carouselImage')[i];
       }
       return DOMPics;
     }
@@ -94,7 +89,7 @@
     }
 
     let prevPicId = c.currPicId;
-    moveCssClass(c.DOMPics[prevPicId], c.DOMPics[newPicId], c.hooks.selected);
+    moveCssClass(c.DOMPics[prevPicId], c.DOMPics[newPicId], 'selected');
     runAnimationClass(c.DOMPics[newPicId], entranceAnim);
     runAnimationClass(c.DOMPics[prevPicId], exitAnim);
 

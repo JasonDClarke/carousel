@@ -2,54 +2,29 @@
 $carousel-width: 100%;
 $carousel-height: 60vh;
 
-.carouselContainer {
+  .carouselContainer {
+    width: $carousel-width;
+    height: $carousel-height;
+    //allows images to be positioned absolutely relative to the container
+    position: relative;
+    //hides images not in view
+    overflow: hidden;
+  }
+
+
+  .carouselImage {
+  //posiitioned relative to container
+  position: absolute;
   width: $carousel-width;
   height: $carousel-height;
-  //allows images to be positioned absolutely relative to the container
-  position: relative;
-  //hides images not in view
-  overflow: hidden;
-}
+  left: $carousel-width;
+  }
 
-
-.carouselImage {
-//posiitioned relative to container
-position: absolute;
-width: $carousel-width;
-height: $carousel-height;
-left: $carousel-width;
-}
-
-.selected {
-left: 0px;
-//makes sure selected is always at front when sliding, good for consistent animations
-z-index:1;
-}
-
-//
-.carouselContainer2 {
-  width: $carousel-width;
-  height: $carousel-height;
-  //allows images to be positioned absolutely relative to the container
-  position: relative;
-  //hides images not in view
-  overflow: hidden;
-}
-
-
-.carouselImage2 {
-//posiitioned relative to container
-position: absolute;
-width: $carousel-width;
-height: $carousel-height;
-left: $carousel-width;
-}
-
-.selected2 {
-left: 0px;
-//makes sure selected is always at front when sliding, good for consistent animations
-z-index:1;
-}
+  .selected {
+  left: 0px;
+  //makes sure selected is always at front when sliding, good for consistent animations
+  z-index:1;
+  }
 
 
 //animation classes
@@ -147,72 +122,70 @@ animation-duration: 0.5s;
 
 
 //specific stylings
+.carousel1 {
+  .carouselContainer {
+    border: 10px solid green;
+    border-radius: 0;
+  }
 
-.carouselContainer {
-  border: 10px solid green;
-  border-radius: 0;
-}
+  .paginationButton {
+    width: 100px;
+    height: 100px;
+    color: red;
+    background-color: white;
+    border: 10px solid black;
+    font-size: 50px;
+    // &:active,
+    // &:focus {
+    //   border-radius:  50%;
+    //   border: solid red 4px;
+    // }
+    &:hover {
+      border-radius:  50%;
+      border-style: solid;
+      border-color: rgba(100, 100, 100, 0.5);
+      border-width: 4px;
+    }
+  }
 
-.paginationButton {
-  width: 100px;
-  height: 100px;
-  color: red;
-  background-color: white;
-  border: 10px solid black;
-  font-size: 50px;
-  // &:active,
-  // &:focus {
-  //   border-radius:  50%;
-  //   border: solid red 4px;
-  // }
-  &:hover {
-    border-radius:  50%;
-    border-style: solid;
-    border-color: rgba(100, 100, 100, 0.5);
-    border-width: 4px;
+  .buttons {
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+
   }
 }
 
-.buttons {
-  text-align: center;
-  width: 100%;
-  margin-top: 10px;
-
-}
-
-.carouselContainer2 {
-  border: 1px solid red;
-  border-radius: 50%;
-}
-
-.paginationButton2 {
-  width: 100px;
-  height: 100px;
-  color: red;
-  background-color: white;
-  border: none;
-  font-size: 50px;
-  // &:active,
-  // &:focus {
-  //   border-radius:  50%;
-  //   border: solid red 4px;
-  // }
-  &:hover {
-    border-radius:  50%;
-    border-style: solid;
-    border-color: rgba(100, 100, 100, 0.5);
-    border-width: 4px;
+.carousel2 {
+  .carouselContainer {
+    border: 1px solid red;
+    border-radius: 50%;
   }
-}
 
-.buttons2 {
-  text-align: center;
-  width: 100%;
-  margin-top: 10px;
-}
+  .paginationButton {
+    width: 100px;
+    height: 100px;
+    color: red;
+    background-color: white;
+    border: none;
+    font-size: 50px;
+    // &:active,
+    // &:focus {
+    //   border-radius:  50%;
+    //   border: solid red 4px;
+    // }
+    &:hover {
+      border-radius:  50%;
+      border-style: solid;
+      border-color: rgba(100, 100, 100, 0.5);
+      border-width: 4px;
+    }
+  }
 
-.magicButton {
-  color: purple;
-  height: 200px;
-  width: 200px
+  .buttons {
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
 }

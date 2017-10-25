@@ -17,25 +17,6 @@
   z-index: 1;
 }
 
-.carouselContainer2 {
-  width: 100%;
-  height: 60vh;
-  position: relative;
-  overflow: hidden;
-}
-
-.carouselImage2 {
-  position: absolute;
-  width: 100%;
-  height: 60vh;
-  left: 100%;
-}
-
-.selected2 {
-  left: 0px;
-  z-index: 1;
-}
-
 .anim-select-top {
   animation-name: slideInTop;
   animation-duration: 0.5s;
@@ -144,12 +125,11 @@
     left: -100%;
   }
 }
-.carouselContainer {
+.carousel1 .carouselContainer {
   border: 10px solid green;
   border-radius: 0;
 }
-
-.paginationButton {
+.carousel1 .paginationButton {
   width: 100px;
   height: 100px;
   color: red;
@@ -157,25 +137,23 @@
   border: 10px solid black;
   font-size: 50px;
 }
-.paginationButton:hover {
+.carousel1 .paginationButton:hover {
   border-radius: 50%;
   border-style: solid;
   border-color: rgba(100, 100, 100, 0.5);
   border-width: 4px;
 }
-
-.buttons {
+.carousel1 .buttons {
   text-align: center;
   width: 100%;
   margin-top: 10px;
 }
 
-.carouselContainer2 {
+.carousel2 .carouselContainer {
   border: 1px solid red;
   border-radius: 50%;
 }
-
-.paginationButton2 {
+.carousel2 .paginationButton {
   width: 100px;
   height: 100px;
   color: red;
@@ -183,23 +161,16 @@
   border: none;
   font-size: 50px;
 }
-.paginationButton2:hover {
+.carousel2 .paginationButton:hover {
   border-radius: 50%;
   border-style: solid;
   border-color: rgba(100, 100, 100, 0.5);
   border-width: 4px;
 }
-
-.buttons2 {
+.carousel2 .buttons {
   text-align: center;
   width: 100%;
   margin-top: 10px;
-}
-
-.magicButton {
-  color: purple;
-  height: 200px;
-  width: 200px;
 }
 
 /*# sourceMappingURL=index.css.map */
