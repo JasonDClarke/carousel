@@ -4,101 +4,109 @@
     global.Carousel = factory()
 }(this, function() { 'use strict';
 
-  return function(config) {
-    const c = this;
+  return function(requiredConfig, customConfig) {
 
-    // all config inputs
-    c.container = config.container
-    c.numPics = config.numPics;
-    c.currPicId = config.initPicIndex || 0;
-    //
-
-    c.carouselInteractionConfigs = [];
-    c.DOMPics = getDOMPics(c.numPics);
-
-    //add "selected" class to currPic
-    c.container.getElementsByClassName('carouselImage')[c.currPicId].classList.add("selected");
-
-    c.init = function() {
-      c.addPaginationInteractions()
-      c.addLeftButtonInteraction()
-      c.addRightButtonInteraction()
+  let defaultConfig = {
+    initPicIndex: 0,
+    pagination: {
+      className: 'paginationButton',
+      eventType: "click",
+      entranceAnim: "anim-select-right",
+      exitAnim: "anim-deselect-right",
+      // newPicIdFn: '()=>i'
+    },
+    leftButton: {
+      className: 'leftButton',
+      eventType: "click",
+      entranceAnim: "anim-select-left",
+      exitAnim: "anim-deselect-left",
+      newPicIdFn: 'goLeft'
+    },
+    rightButton: {
+      className: 'rightButton',
+      eventType: "click",
+      entranceAnim: "anim-select-right",
+      exitAnim: "anim-deselect-right",
+      newPicIdFn: 'goRight'
     }
+  }
 
-    c.addPaginationInteractions = function(eventType, entranceAnim, exitAnim) {
-      for (let i=0; i<c.numPics; i++) {
-        let interactionConfig = {
-          DOMHook: c.container.getElementsByClassName('paginationButton')[i],
-          eventType: eventType || "click",
-          entranceAnim: entranceAnim || "anim-select-right",
-          exitAnim: exitAnim || "anim-deselect-right",
-          newPicIdFn: ()=>i
-        }
-        c.carouselInteractionConfigs.push(interactionConfig);
-        addInteractionListener(interactionConfig)
-      }
+  let config=defaultConfig;
+  if (customConfig) {
+  merge(config, customConfig);
+  }
+
+  //STATE
+  let picIndexState = config.initPicIndex;
+
+  
+  const DOMPics = getDOMPics(requiredConfig.numPics);
+
+  init();
+
+  function init() {
+    assignClassToSelectedImage(config.initPicIndex)
+    addPaginationListeners(config.pagination)
+    addListener(config.leftButton)
+    addListener(config.rightButton)
+    if (config.customListeners) {
+    addCustomListeners(config.customListeners)
     }
+  }
 
-    c.addLeftButtonInteraction = function(eventType, entranceAnim, exitAnim, newPicIdFn) {
-      let interactionConfig = {
-        DOMHook: c.container.getElementsByClassName('leftButton')[0],
-        eventType: eventType || "click",
-        entranceAnim: entranceAnim || "anim-select-left",
-        exitAnim: exitAnim || "anim-deselect-left",
-        newPicIdFn: newPicIdFn || goLeft
-      }
-      c.carouselInteractionConfigs.push(interactionConfig);
-      addInteractionListener(interactionConfig)
+  function assignClassToSelectedImage(initPicIndex) {
+    requiredConfig.container.getElementsByClassName('carouselImage')[initPicIndex].classList.add("selected");
+  }
+  function addPaginationListeners(paginationConfig) {
+    let x = paginationConfig;
+    let el;
+    let newPicIdFn;
+    for (let i=0; i<requiredConfig.numPics; i++) {
+      el = requiredConfig.container.getElementsByClassName(config.pagination.className)[i];
+      newPicIdFn = ()=>i;
+      el.addEventListener(
+        x.eventType,
+        slideTransition.bind(null, x.entranceAnim, x.exitAnim, newPicIdFn));
     }
+  }
 
-    c.addRightButtonInteraction = function(eventType, entranceAnim, exitAnim, newPicIdFn) {
-      let interactionConfig = {
-        DOMHook: c.container.getElementsByClassName('rightButton')[0],
-        eventType: eventType || "click",
-        entranceAnim: entranceAnim || "anim-select-right",
-        exitAnim: exitAnim || "anim-deselect-right",
-        newPicIdFn: newPicIdFn || goRight
-      }
-      c.carouselInteractionConfigs.push(interactionConfig);
-      addInteractionListener(interactionConfig)
+  function addCustomListeners(customListenersConfig) {
+    customListenersConfig.forEach(function(customListenerConfig) {
+      addListener(customListenerConfig)
+    });
+  }
+
+  function getDOMPics(numPics) {
+    let DOMPics =[];
+    for (var i=0; i<numPics; i++) {
+      DOMPics[i] = requiredConfig.container.getElementsByClassName('carouselImage')[i];
     }
+    return DOMPics;
+  }
 
-    c.addCustomInteraction = function(interactionConfig) {
-      c.carouselInteractionConfigs.push(interactionConfig);
-      addInteractionListener(interactionConfig)
-    }
-
-
-    function getDOMPics(numPics) {
-      let DOMPics =[];
-      for (var i=0; i<numPics; i++) {
-        DOMPics[i] = c.container.getElementsByClassName('carouselImage')[i];
-      }
-      return DOMPics;
-    }
-
-  ///constructing interactions
-  ////
-  function addInteractionListener(carouselInteractionConfig) {
-    let x = carouselInteractionConfig;
-    return x.DOMHook.addEventListener(
+  ///constructing listeners
+  function addListener(carouselListenerConfig) {
+    let x = carouselListenerConfig;
+    let el = requiredConfig.container.getElementsByClassName(x.className)[0];
+    let newPicIdFn = getIndexFunction(x.newPicIdFn)
+    return el.addEventListener(
       x.eventType,
-      slideTransition.bind(c, x.entranceAnim,x.exitAnim, x.newPicIdFn));
+      slideTransition.bind(null, x.entranceAnim,x.exitAnim, newPicIdFn));
   }
 
   function slideTransition(entranceAnim, exitAnim, newPicIdFn) {
-    let newPicId = newPicIdFn(c.currPicId, c.numPics);
-    if (newPicId === c.currPicId) {
+    let newPicId = newPicIdFn(picIndexState, requiredConfig.numPics);
+    if (newPicId === picIndexState) {
       console.log("returned as already right image");
       return;
     }
 
-    let prevPicId = c.currPicId;
-    moveCssClass(c.DOMPics[prevPicId], c.DOMPics[newPicId], 'selected');
-    runAnimationClass(c.DOMPics[newPicId], entranceAnim);
-    runAnimationClass(c.DOMPics[prevPicId], exitAnim);
+    let prevPicId = picIndexState;
+    moveCssClass(DOMPics[prevPicId], DOMPics[newPicId], 'selected');
+    runAnimationClass(DOMPics[newPicId], entranceAnim);
+    runAnimationClass(DOMPics[prevPicId], exitAnim);
 
-    c.currPicId = newPicId;
+    picIndexState = newPicId;
   }
 
   function runAnimationClass(htmlEl, animClass) {
@@ -114,9 +122,37 @@
     b.classList.add(cssClass);
   }
 
+  function merge(defaultConfig, customConfig) {
+    config.initPicIndex= customConfig.initPicIndex || defaultConfig.initPicIndex;
+    if (customConfig.pagination) {
+    Object.assign(config.pagination, customConfig.pagination)
+    }
+    if (customConfig.leftButton) {
+    Object.assign(config.leftButton, customConfig.leftButton)
+    }
+    if (customConfig.rightButton) {
+    Object.assign(config.rightButton, customConfig.rightButton)
+    }
+    if (customConfig.customListeners) {
+      config.customListeners = customConfig.customListeners
+    }
+  }
   /// newPicIdFns
+  function getIndexFunction(string) {
+    if (string === "goLeft") {
+      return goLeft;
+    } else if (string === "goRight") {
+      return goRight;
+    } else if (string === "goRandom") {
+      return goRandom;
+    } else {
+      console.log("error");
+    }
+  }
+
   function goRight(currPicId, numPics) {return (currPicId-1+numPics)%numPics};
   function goLeft(currPicId, numPics) {return (currPicId+1)%numPics};
+  function goRandom(currPicId, numPics) {return Math.floor(Math.random()*numPics)}
   }
 
 }))
