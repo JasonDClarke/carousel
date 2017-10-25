@@ -1,10 +1,14 @@
 
 //Create the default carousel
 let d = new Carousel(3, 0)
+// let d = new Carousel({
+//   amountOfPics: 3,
+//   startOnPic: 0
+// })
 d.init();
 
 //create a non-default carousel
-let e = new Carousel(3,1, [], {
+let e = new Carousel(3,1, {
   paginationButton: 'paginationButton2',
   leftButton: 'leftButton2',
   rightButton: 'rightButton2',
@@ -21,7 +25,6 @@ e.addCustomInteraction({
   exitAnim: "anim-deselect-right",
   newPicIdFn: goRandom
 });
-e.addInteractionListeners();
 //init carousel functions
 //// init carousel
 function goRandom(currPicId, numPics) {return Math.floor(Math.random()*numPics)}
