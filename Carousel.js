@@ -77,8 +77,8 @@
     addListener(config.rightButton)
     }
     if (config.swipableInit) {
-    addSwipeListener(config.swipeLeft)
-    addSwipeListener(config.swipeRight)
+    addListener(config.swipeLeft)
+    addListener(config.swipeRight)
     }
     if (config.customListeners) {
     addCustomListeners(config.customListeners)
@@ -104,11 +104,7 @@
 
   function addCustomListeners(customListenersConfig) {
     customListenersConfig.forEach(function(customListenerConfig) {
-      if (customListenerConfig.eventType.includes("swipe")) {
-      addSwipeListener(customListenerConfig)
-      } else {
       addListener(customListenerConfig)
-      }
     });
   }
 
@@ -126,15 +122,12 @@
     let el = container.getElementsByClassName(x.className)[0];
     let newPicIdFn = getIndexFunction(x.newPicIdFn)
     let callback = slideTransition.bind(null, x.entranceAnim,x.exitAnim, newPicIdFn)
-    return el.addEventListener(x.eventType, callback);
-  }
 
-  function addSwipeListener(carouselListenerConfig) {
-    let x = carouselListenerConfig;
-    let el = container.getElementsByClassName(x.className)[0];
-    let newPicIdFn = getIndexFunction(x.newPicIdFn);
-    let callback = slideTransition.bind(null, x.entranceAnim,x.exitAnim, newPicIdFn)
-    return addSwipe(x.eventType, el, callback);
+    if (carouselListenerConfig.eventType.includes("swipe")) {
+    return addSwipeListener(x.eventType, el, callback);
+    } else {
+    return el.addEventListener(x.eventType, callback);
+    }
   }
 
   function slideTransition(entranceAnim, exitAnim, newPicIdFn) {
@@ -197,7 +190,7 @@
     return indexFunctions[string];
   }
 
-  function addSwipe(swipeType, htmlEl, callback) {
+  function addSwipeListener(swipeType, htmlEl, callback) {
     let touch = {
       startX : 0,
       startY : 0,
