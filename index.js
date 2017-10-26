@@ -2,18 +2,15 @@
 //Create the default carousel
 new Carousel(
   {
-    container: document.getElementsByClassName("carousel")[0],
-    numPics: 3
+    containerSel: "#basicCarousel",
+    paginationInit: false
   }
 )
 
 //create a non-default carousel
 new Carousel(
   {
-    container: document.getElementsByClassName("carousel")[1],
-    numPics: 3
-  },
-  {
+    containerSel: "#curlyCarousel",
     initPicIndex: 2,
     pagination: {
       entranceAnim: "anim-select-top"
@@ -24,6 +21,7 @@ new Carousel(
         entranceAnim: "anim-select-right",
         exitAnim: "anim-deselect-right",
         newPicIdFn: 'goRandom'
-    }]
+    }
+  ]
   }
 );

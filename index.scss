@@ -45,7 +45,7 @@ animation-duration: 0.5s;
 }
 
 @keyframes slideInRight {
-  0%   { left: -$carousel-width; }
+  0%   { left: $carousel-width; }
   100% { left: 0px; }
 }
 
@@ -65,7 +65,7 @@ animation-duration: 0.5s;
 }
 
 @keyframes slideInLeft {
-  0%   { left: $carousel-width; }
+  0%   { left: -$carousel-width; }
   100% { left: 0px; }
 }
 
@@ -92,7 +92,7 @@ animation-duration: 0.5s;
 
 @keyframes slideOutRight {
   0%   { left: 0px; }
-  100% { left: $carousel-width; }
+  100% { left: -$carousel-width; }
 }
 
 .anim-deselect-bottom {
@@ -117,7 +117,7 @@ animation-duration: 0.5s;
 
 @keyframes slideOutLeft {
   0%   { left: 0px; }
-  100% { left: -$carousel-width; }
+  100% { left: $carousel-width; }
 }
 
 

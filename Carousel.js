@@ -4,15 +4,21 @@
     global.Carousel = factory()
 }(this, function() { 'use strict';
 
-  return function(requiredConfig, customConfig) {
+  return function(customConfig) {
 
   let defaultConfig = {
+    //required
+    containerSel: null,
+    //
     initPicIndex: 0,
+    swipableInit: true,
+    paginationInit: true,
+    buttonInit: true,
     pagination: {
       className: 'paginationButton',
       eventType: "click",
       entranceAnim: "anim-select-right",
-      exitAnim: "anim-deselect-right",
+      exitAnim: "anim-deselect-right"
       // newPicIdFn: '()=>i'
     },
     leftButton: {
@@ -28,6 +34,20 @@
       entranceAnim: "anim-select-right",
       exitAnim: "anim-deselect-right",
       newPicIdFn: 'goRight'
+    },
+    swipeLeft: {
+        className: "carouselContainer",
+        eventType: "swipeRight",
+        entranceAnim: "anim-select-left",
+        exitAnim: "anim-deselect-left",
+        newPicIdFn: 'goLeft'
+    },
+    swipeRight: {
+        className: "carouselContainer",
+        eventType: "swipeLeft",
+        entranceAnim: "anim-select-right",
+        exitAnim: "anim-deselect-right",
+        newPicIdFn: 'goRight'
     }
   }
 
@@ -36,33 +56,45 @@
   merge(config, customConfig);
   }
 
+  //Properties
+
+  const container = document.querySelector(config.containerSel);
+  const numPics = container.getElementsByClassName(config.pagination.className).length;
+  const DOMPics = getDOMPics(numPics, container);
+
   //STATE
   let picIndexState = config.initPicIndex;
-
-  
-  const DOMPics = getDOMPics(requiredConfig.numPics);
 
   init();
 
   function init() {
     assignClassToSelectedImage(config.initPicIndex)
+    if (config.paginationInit) {
     addPaginationListeners(config.pagination)
+    }
+    if (config.buttonInit) {
     addListener(config.leftButton)
     addListener(config.rightButton)
+    }
+    if (config.swipableInit) {
+    addSwipeListener(config.swipeLeft)
+    addSwipeListener(config.swipeRight)
+    }
     if (config.customListeners) {
     addCustomListeners(config.customListeners)
     }
   }
 
   function assignClassToSelectedImage(initPicIndex) {
-    requiredConfig.container.getElementsByClassName('carouselImage')[initPicIndex].classList.add("selected");
+    container.getElementsByClassName('carouselImage')[initPicIndex].classList.add("selected");
   }
+
   function addPaginationListeners(paginationConfig) {
     let x = paginationConfig;
     let el;
     let newPicIdFn;
-    for (let i=0; i<requiredConfig.numPics; i++) {
-      el = requiredConfig.container.getElementsByClassName(config.pagination.className)[i];
+    for (let i=0; i<numPics; i++) {
+      el = container.getElementsByClassName(config.pagination.className)[i];
       newPicIdFn = ()=>i;
       el.addEventListener(
         x.eventType,
@@ -72,14 +104,18 @@
 
   function addCustomListeners(customListenersConfig) {
     customListenersConfig.forEach(function(customListenerConfig) {
+      if (customListenerConfig.eventType.includes("swipe")) {
+      addSwipeListener(customListenerConfig)
+      } else {
       addListener(customListenerConfig)
+      }
     });
   }
 
-  function getDOMPics(numPics) {
+  function getDOMPics(numPics, container) {
     let DOMPics =[];
     for (var i=0; i<numPics; i++) {
-      DOMPics[i] = requiredConfig.container.getElementsByClassName('carouselImage')[i];
+      DOMPics[i] = container.getElementsByClassName('carouselImage')[i];
     }
     return DOMPics;
   }
@@ -87,15 +123,22 @@
   ///constructing listeners
   function addListener(carouselListenerConfig) {
     let x = carouselListenerConfig;
-    let el = requiredConfig.container.getElementsByClassName(x.className)[0];
+    let el = container.getElementsByClassName(x.className)[0];
     let newPicIdFn = getIndexFunction(x.newPicIdFn)
-    return el.addEventListener(
-      x.eventType,
-      slideTransition.bind(null, x.entranceAnim,x.exitAnim, newPicIdFn));
+    let callback = slideTransition.bind(null, x.entranceAnim,x.exitAnim, newPicIdFn)
+    return el.addEventListener(x.eventType, callback);
+  }
+
+  function addSwipeListener(carouselListenerConfig) {
+    let x = carouselListenerConfig;
+    let el = container.getElementsByClassName(x.className)[0];
+    let newPicIdFn = getIndexFunction(x.newPicIdFn);
+    let callback = slideTransition.bind(null, x.entranceAnim,x.exitAnim, newPicIdFn)
+    return addSwipe(x.eventType, el, callback);
   }
 
   function slideTransition(entranceAnim, exitAnim, newPicIdFn) {
-    let newPicId = newPicIdFn(picIndexState, requiredConfig.numPics);
+    let newPicId = newPicIdFn(picIndexState, numPics);
     if (newPicId === picIndexState) {
       console.log("returned as already right image");
       return;
@@ -123,7 +166,14 @@
   }
 
   function merge(defaultConfig, customConfig) {
+    if (!customConfig.containerSel) {
+      console.log("you must include a containerSel key")
+    }
+    config.containerSel = customConfig.containerSel;
     config.initPicIndex= customConfig.initPicIndex || defaultConfig.initPicIndex;
+    config.swipableInit= customConfig.swipableInit !== false;
+    config.paginationInit= customConfig.paginationInit !== false;
+    config.buttonInit= customConfig.buttonInit !== false;
     if (customConfig.pagination) {
     Object.assign(config.pagination, customConfig.pagination)
     }
@@ -139,20 +189,40 @@
   }
   /// newPicIdFns
   function getIndexFunction(string) {
-    if (string === "goLeft") {
-      return goLeft;
-    } else if (string === "goRight") {
-      return goRight;
-    } else if (string === "goRandom") {
-      return goRandom;
-    } else {
-      console.log("error");
+    let indexFunctions =  {
+      goLeft: (currPicId, numPics)=>(currPicId-1+numPics)%numPics,
+      goRight: (currPicId, numPics)=>(currPicId+1)%numPics,
+      goRandom: (currPicId, numPics)=>Math.floor(Math.random()*numPics)
     }
+    return indexFunctions[string];
   }
 
-  function goRight(currPicId, numPics) {return (currPicId-1+numPics)%numPics};
-  function goLeft(currPicId, numPics) {return (currPicId+1)%numPics};
-  function goRandom(currPicId, numPics) {return Math.floor(Math.random()*numPics)}
+  function addSwipe(swipeType, htmlEl, callback) {
+    var touchstartX = 0;
+    var touchstartY = 0;
+    var touchendX = 0;
+    var touchendY = 0;
+
+    htmlEl.addEventListener('touchstart', function(event) {
+        touchstartX = event.changedTouches[0].screenX;
+        touchstartY = event.changedTouches[0].screenY;
+    }, false);
+
+    htmlEl.addEventListener('touchend', function(event) {
+      touchendX = event.changedTouches[0].screenX;
+      touchendY = event.changedTouches[0].screenY;
+      let swipeTypeChecks = {
+        swipeLeft: ()=>touchendX<touchstartX,
+        swipeRight: ()=>touchendX>touchstartX,
+        swipeUp: ()=>touchendY<touchstartY,
+        swipeDown: ()=>touchendY>touchstartY
+      }
+      if (swipeTypeChecks[swipeType]()) {
+        callback();
+      }
+    }, false);
+  }
+
   }
 
 }))
