@@ -198,29 +198,36 @@
   }
 
   function addSwipe(swipeType, htmlEl, callback) {
-    var touchstartX = 0;
-    var touchstartY = 0;
-    var touchendX = 0;
-    var touchendY = 0;
+    let touch = {
+      startX : 0,
+      startY : 0,
+      endX : 0,
+      endY : 0
+    }
 
     htmlEl.addEventListener('touchstart', function(event) {
-        touchstartX = event.changedTouches[0].screenX;
-        touchstartY = event.changedTouches[0].screenY;
+        touch.startX = event.changedTouches[0].screenX;
+        touch.startY = event.changedTouches[0].screenY;
     }, false);
 
     htmlEl.addEventListener('touchend', function(event) {
-      touchendX = event.changedTouches[0].screenX;
-      touchendY = event.changedTouches[0].screenY;
-      let swipeTypeChecks = {
-        swipeLeft: ()=>touchendX<touchstartX,
-        swipeRight: ()=>touchendX>touchstartX,
-        swipeUp: ()=>touchendY<touchstartY,
-        swipeDown: ()=>touchendY>touchstartY
-      }
-      if (swipeTypeChecks[swipeType]()) {
+      touch.endX = event.changedTouches[0].screenX;
+      touch.endY = event.changedTouches[0].screenY;
+      if (isSwipeType(swipeType, touch)) {
         callback();
       }
     }, false);
+  }
+
+  function isSwipeType(swipeType, touch) {
+    let swipeTypeChecks = {
+      swipeLeft: (touch)=>touch.endX<touch.startX,
+      swipeRight: (touch)=>touch.endX>touch.startX,
+      swipeUp: (touch)=>touch.endY<touch.startY,
+      swipeDown: (touch)=>touch.endY>touch.startY
+    }
+
+    return swipeTypeChecks[swipeType](touch);
   }
 
   }

@@ -3,7 +3,8 @@
 new Carousel(
   {
     containerSel: "#basicCarousel",
-    paginationInit: false
+    paginationInit: false,
+    swipableInit: false
   }
 )
 
