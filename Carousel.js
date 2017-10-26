@@ -158,26 +158,28 @@
     b.classList.add(cssClass);
   }
 
-  function merge(defaultConfig, customConfig) {
-    if (!customConfig.containerSel) {
-      console.log("you must include a containerSel key")
+  function merge(defaultObject, customObject) {
+    //add custom keys
+    for (var key in customObject) {
+      if (!defaultObject.hasOwnProperty(key)) {
+        defaultObject[key] = customObject[key]
+      } else {
+        console.log(customObject[key])
+      }
+
     }
-    config.containerSel = customConfig.containerSel;
-    config.initPicIndex= customConfig.initPicIndex || defaultConfig.initPicIndex;
-    config.swipableInit= customConfig.swipableInit !== false;
-    config.paginationInit= customConfig.paginationInit !== false;
-    config.buttonInit= customConfig.buttonInit !== false;
-    if (customConfig.pagination) {
-    Object.assign(config.pagination, customConfig.pagination)
-    }
-    if (customConfig.leftButton) {
-    Object.assign(config.leftButton, customConfig.leftButton)
-    }
-    if (customConfig.rightButton) {
-    Object.assign(config.rightButton, customConfig.rightButton)
-    }
-    if (customConfig.customListeners) {
-      config.customListeners = customConfig.customListeners
+
+    //overwrite keys
+    for (var key in defaultObject) {
+      if (defaultObject[key] !== Object(defaultObject[key]) &&
+    customObject.hasOwnProperty(key)) {
+        defaultObject[key] = customObject[key]
+      }
+      //look in next layer
+      else if (defaultObject[key] === Object(defaultObject[key])
+    && customObject[key]) {
+        merge(defaultObject[key], customObject[key])
+      }
     }
   }
   /// newPicIdFns
