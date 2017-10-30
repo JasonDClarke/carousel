@@ -9,7 +9,10 @@
   let defaultConfig = {
     //required
     containerSel: null,
-    //
+    //building a carousel
+    buildCarousel: false,
+    images: null,
+
     initPicIndex: 0,
     swipableInit: true,
     paginationInit: true,
@@ -57,8 +60,13 @@
   }
 
   //Properties
-
   const container = document.querySelector(config.containerSel);
+  if (config.buildCarousel) {
+    let carousel = buildCarousel(config.images, config.containerSel.slice(1))
+    container.innerHTML = carousel
+  }
+
+
   const numPics = container.getElementsByClassName(config.pagination.className).length;
   const DOMPics = getDOMPics(numPics, container);
 
@@ -176,6 +184,7 @@
         defaultObject[key] = customObject[key]
       }
       //look in next layer
+      //checks if key has a nested object (dubious about the trustworthiness of this)
       else if (defaultObject[key] === Object(defaultObject[key])
     && customObject[key]) {
         merge(defaultObject[key], customObject[key])
@@ -225,6 +234,31 @@
     return swipeTypeChecks[swipeType](touch);
   }
 
+  }
+
+  function buildCarousel(images, id) {
+    const noSlides = images.length
+    let imageHTML = ``;
+    for (let i=0; i<noSlides; i++) {
+      imageHTML+=`<img class="carouselImage" src="${images[i]}"/>`
+    }
+
+    let paginationHTML = ``;
+    for (let i=1; i<= noSlides; i++) {
+      paginationHTML+= `<button class="paginationButton">${i}</button>`
+    }
+
+    let carousel = `
+      <div class="carouselContainer">
+        ${imageHTML}
+      </div>
+      <div class="buttons">
+        <button class="leftButton"> &lt; </button>
+        ${paginationHTML}
+        <button class="rightButton"> &gt; </button>
+      </div>
+    `;
+    return carousel;
   }
 
 }))
