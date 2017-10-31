@@ -5,6 +5,12 @@
   overflow: hidden;
 }
 
+svg {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+}
+
 .carouselImage {
   position: absolute;
   width: 100%;
@@ -126,7 +132,6 @@
   }
 }
 .carousel1 .carouselContainer {
-  border: 10px solid green;
   border-radius: 0;
 }
 .carousel1 .paginationButton {

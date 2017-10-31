@@ -11,6 +11,12 @@ $carousel-height: 60vh;
     overflow: hidden;
   }
 
+  svg {
+    position: absolute;
+    top: 0;
+    z-index: 2;
+  }
+
 
   .carouselImage {
   //posiitioned relative to container
@@ -125,7 +131,7 @@ animation-duration: 0.5s;
 //specific stylings
 .carousel1 {
   .carouselContainer {
-    border: 10px solid green;
+    // border: 10px solid green;
     border-radius: 0;
   }
 
