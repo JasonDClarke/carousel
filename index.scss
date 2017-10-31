@@ -17,6 +17,9 @@ $carousel-height: 60vh;
     z-index: 2;
     width: $carousel-width;
     height: $carousel-height;
+    path {
+    fill: rgba(0,0,0,0.5);
+    }
   }
 
 

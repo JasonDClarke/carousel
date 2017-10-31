@@ -78,7 +78,7 @@
   }
 
 
-  const numPics = container.getElementsByClassName(config.pagination.className).length;
+  const numPics = container.getElementsByClassName("carouselImage").length;
   const DOMPics = getDOMPics(numPics, container);
 
   //STATE
@@ -308,8 +308,6 @@
     `);
   };
 
-  }
-
   function buildCarousel(images, id) {
     const noSlides = images.length
     let imageHTML = ``;
@@ -318,8 +316,18 @@
     }
 
     let paginationHTML = ``;
-    for (let i=1; i<= noSlides; i++) {
-      paginationHTML+= `<button class="paginationButton">${i}</button>`
+    if (config.paginationInit) {
+      for (let i=1; i<= noSlides; i++) {
+        paginationHTML+= `<button class="paginationButton">${i}</button>`
+      }
+    }
+
+    let leftButton = ``;
+    let rightButton= ``;
+
+    if (config.buttonInit) {
+      leftButton = `<button class="leftButton"> &lt; </button>`;
+      rightButton = `<button class="rightButton"> &gt; </button>`
     }
 
     let carousel = `
@@ -327,13 +335,17 @@
         ${imageHTML}
       </div>
       <div class="buttons">
-        <button class="leftButton"> &lt; </button>
+        ${leftButton}
         ${paginationHTML}
-        <button class="rightButton"> &gt; </button>
+        ${rightButton}
       </div>
     `;
     return carousel;
   }
+
+  }
+
+
 
 }))
 
