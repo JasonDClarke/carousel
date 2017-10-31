@@ -40,6 +40,31 @@ $carousel-height: 60vh;
 
 //animation classes : note that if making custom animations properties "left" may need to be
 //reset
+.anim-noMove-hop {
+  animation-name: hop;
+  animation-duration: 0.5s;
+}
+
+@keyframes hop {
+  0%   { top: 0px; }
+  50%  { top: -$carousel-height/2;}
+  100% { top: 0px; }
+}
+
+.anim-noMove-wiggle {
+  animation-name: wiggle;
+  animation-duration: 0.5s;
+}
+
+@keyframes hop {
+  0%   { left: 0px; }
+  20%  { left: -20px;}
+  40%  { left: 20px;}
+  60%  { left: -20px;}
+  80%  { left: 20px;}
+  100% { top: 0px; }
+}
+
 .anim-select-top {
 animation-name: slideInTop;
 animation-duration: 0.5s;
@@ -131,7 +156,38 @@ animation-duration: 0.5s;
   100% { left: $carousel-width; }
 }
 
+.anim-deselect-shrink {
+  animation-name: shrink;
+  animation-duration: 1s;
+}
 
+@keyframes shrink {
+  0%   { left: 0px; }
+  100% {
+        width:0px;
+        height:0px;
+        }
+}
+
+.anim-select-bigShrink {
+  animation-name: bigShrink;
+  animation-delay: 1s;
+  animation-duration: 1s;
+  animation-fill-mode: backwards;
+}
+
+@keyframes bigShrink {
+  0% {visibility: hidden;}
+  1% {visibility: visible;
+        transform: translate(-$carousel-width, $carousel-height);
+         width: 2*$carousel-width;
+         height: 2*$carousel-height;
+   }
+  100% { left: 0px;
+        width:$carousel-width;
+        height:$carousel-height;
+        }
+}
 
 //specific stylings
 .carousel1 {

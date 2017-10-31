@@ -28,6 +28,47 @@ svg path {
   z-index: 1;
 }
 
+.anim-noMove-hop {
+  animation-name: hop;
+  animation-duration: 0.5s;
+}
+
+@keyframes hop {
+  0% {
+    top: 0px;
+  }
+  50% {
+    top: -30vh;
+  }
+  100% {
+    top: 0px;
+  }
+}
+.anim-noMove-wiggle {
+  animation-name: wiggle;
+  animation-duration: 0.5s;
+}
+
+@keyframes hop {
+  0% {
+    left: 0px;
+  }
+  20% {
+    left: -20px;
+  }
+  40% {
+    left: 20px;
+  }
+  60% {
+    left: -20px;
+  }
+  80% {
+    left: 20px;
+  }
+  100% {
+    top: 0px;
+  }
+}
 .anim-select-top {
   animation-name: slideInTop;
   animation-duration: 0.5s;
@@ -134,6 +175,43 @@ svg path {
   }
   100% {
     left: 100%;
+  }
+}
+.anim-deselect-shrink {
+  animation-name: shrink;
+  animation-duration: 1s;
+}
+
+@keyframes shrink {
+  0% {
+    left: 0px;
+  }
+  100% {
+    width: 0px;
+    height: 0px;
+  }
+}
+.anim-select-bigShrink {
+  animation-name: bigShrink;
+  animation-delay: 1s;
+  animation-duration: 1s;
+  animation-fill-mode: backwards;
+}
+
+@keyframes bigShrink {
+  0% {
+    visibility: hidden;
+  }
+  1% {
+    visibility: visible;
+    transform: translate(-100%, 60vh);
+    width: 200%;
+    height: 120vh;
+  }
+  100% {
+    left: 0px;
+    width: 100%;
+    height: 60vh;
   }
 }
 .carousel1 .carouselContainer {

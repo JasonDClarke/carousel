@@ -24,6 +24,8 @@
     frame: 'square',
     customFrame: null,
 
+    noMoveAnim: 'anim-noMove-hop',
+
     initPicIndex: 0,
     swipableInit: true,
     paginationInit: true,
@@ -156,7 +158,7 @@
   function slideTransition(entranceAnim, exitAnim, newPicIdFn) {
     let newPicId = newPicIdFn(picIndexState, numPics);
     if (newPicId === picIndexState) {
-      console.log("returned as already right image");
+      runNoMoveAnim()
       return;
     }
 
@@ -166,6 +168,11 @@
     runAnimationClass(DOMPics[prevPicId], exitAnim);
 
     picIndexState = newPicId;
+  }
+
+  function runNoMoveAnim() {
+  runAnimationClass(DOMPics[picIndexState], config.noMoveAnim);
+  console.log("returned as already right image");
   }
 
   function runAnimationClass(htmlEl, animClass) {

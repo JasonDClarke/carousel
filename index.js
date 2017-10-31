@@ -103,8 +103,8 @@ new Carousel(
     customListeners: [{
         className: "magicButton",
         eventType: "click",
-        entranceAnim: "anim-select-right",
-        exitAnim: "anim-deselect-right",
+        entranceAnim: "anim-select-bigShrink",
+        exitAnim: "anim-deselect-shrink",
         newPicIdFn: 'goRandom'
     }
   ]
