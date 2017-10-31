@@ -15,6 +15,8 @@ $carousel-height: 60vh;
     position: absolute;
     top: 0;
     z-index: 2;
+    width: $carousel-width;
+    height: $carousel-height;
   }
 
 
