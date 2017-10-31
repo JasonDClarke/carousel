@@ -70,8 +70,12 @@ new Carousel(
     paginationInit: false,
     swipableInit: false,
     SVGInit: true,
-    frame: "curly",
-    thickness:4
+    frame: "custom",
+    customFrame: `M2 2
+    H98
+    V98
+    H2
+    L50 2`
   }
 )
 

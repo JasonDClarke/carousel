@@ -13,7 +13,8 @@
     //required
     containerSel: null,
 
-    //optional
+    //optional below:
+    //html template?
     renderFromJSHTMLTemplate: false, // if false, need to build own HTML template in the document.*1
     images: null,
 
@@ -21,7 +22,7 @@
     SVGInit: false,
     thickness: 2,
     frame: 'square',
-
+    customFrame: null,
 
     initPicIndex: 0,
     swipableInit: true,
@@ -251,8 +252,8 @@
   function SVGFrame(thickness, type) {
 
     let path = container.querySelector("#path");
-    let height = 60;
-    let width = 60;
+    let height = 100;
+    let width = 100;
     let w = width,
         h = height,
         t = thickness;
@@ -299,7 +300,8 @@
     Q${t} ${h-5*t} ${3*t} ${h/2+t}
     Q${3.1*t} ${h/2} ${3*t} ${h/2-t}
     Q${t} ${5*t} ${3*t} ${3*t}
-    `
+    `,
+    custom: config.customFrame
     }
 
     path.setAttribute('d', `
