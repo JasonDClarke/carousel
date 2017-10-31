@@ -1,3 +1,6 @@
+// Business rules:
+
+
 ;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
@@ -9,8 +12,9 @@
   let defaultConfig = {
     //required
     containerSel: null,
-    //building a carousel
-    buildCarousel: false,
+
+    //optional
+    renderFromJSHTMLTemplate: false, // if false, need to build own HTML template in the document.*1
     images: null,
 
     initPicIndex: 0,
@@ -61,7 +65,7 @@
 
   //Properties
   const container = document.querySelector(config.containerSel);
-  if (config.buildCarousel) {
+  if (config.renderFromJSHTMLTemplate) {
     let carousel = buildCarousel(config.images, config.containerSel.slice(1))
     container.innerHTML = carousel
   }
@@ -262,3 +266,7 @@
   }
 
 }))
+
+
+
+//*1
