@@ -16,33 +16,32 @@
     //optional below:
     //html template?
     renderFromJSHTMLTemplate: false, // if false, need to build own HTML template in the document.*1
-    images: null,
+    images: null, //include image srces in array. Only required when JS template used
 
     //SVG Frame
-    SVGInit: false,
-    thickness: 2,
-    frame: 'square',
-    customFrame: null,
+    SVGInit: false, //no frame if false
+    thickness: 2, //vary thickness of frame, no effect for custom frames
+    frame: 'square', //type of SVG frame
+    customFrame: null, //takes an SVG path. Need to define "hole" in 100*100 square. Hole is stretched to match
 
-    noMoveAnim: 'anim-noMove-hop',
+    noMoveAnim: 'anim-noMove-hop',   //animation if current slide is selected again. css class
 
-    initPicIndex: 0,
-    swipableInit: true,
-    paginationInit: true,
-    buttonInit: true,
+    initPicIndex: 0, //index of first image shown. 0-indexed
+    swipableInit: true, //are touch listeners initialised?
+    paginationInit: true, //are pagination listeners initialised? Also not included by render if false
+    buttonInit: true, //are left/right buttons initialised? Also not included by render if false
     pagination: {
-      className: 'paginationButton',
-      eventType: "click",
-      entranceAnim: "anim-select-right",
-      exitAnim: "anim-deselect-right"
-      // newPicIdFn: '()=>i'
+      className: 'paginationButton', //class name of pagination buttons in HTML
+      eventType: "click", //event occurs on click
+      entranceAnim: "anim-select-right", //animation of entering image. css class.
+      exitAnim: "anim-deselect-right" //animation of exiting image. css class.
     },
     leftButton: {
       className: 'leftButton',
       eventType: "click",
       entranceAnim: "anim-select-left",
       exitAnim: "anim-deselect-left",
-      newPicIdFn: 'goLeft'
+      newPicIdFn: 'goLeft' //function deciding what the index of the next image is
     },
     rightButton: {
       className: 'rightButton',
@@ -51,7 +50,7 @@
       exitAnim: "anim-deselect-right",
       newPicIdFn: 'goRight'
     },
-    swipeLeft: {
+    swipeLeft: { //animations when swiping the image left (ie touch)
         className: "carouselContainer",
         eventType: "swipeRight",
         entranceAnim: "anim-select-left",
