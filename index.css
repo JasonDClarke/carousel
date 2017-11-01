@@ -214,46 +214,87 @@ svg path {
     height: 60vh;
   }
 }
+html, body {
+  background-color: black;
+}
+
 .carousel1 .carouselContainer {
   border-radius: 0;
-}
-.carousel1 .paginationButton {
-  width: 100px;
-  height: 100px;
-  color: red;
-  background-color: white;
-  border: 10px solid black;
-  font-size: 50px;
-}
-.carousel1 .paginationButton:hover {
-  border-radius: 50%;
-  border-style: solid;
-  border-color: rgba(100, 100, 100, 0.5);
-  border-width: 4px;
 }
 .carousel1 .buttons {
   text-align: center;
   width: 100%;
   margin-top: 10px;
+  margin-bottom: 10px;
+}
+.carousel1 .paginationButton,
+.carousel1 .leftButton,
+.carousel1 .rightButton {
+  width: 100px;
+  height: 100px;
+  color: red;
+  background-color: white;
+  border-radius: 20%;
+  font-size: 50px;
+  transition: 0.5s;
+}
+.carousel1 .paginationButton:hover,
+.carousel1 .leftButton:hover,
+.carousel1 .rightButton:hover {
+  border-radius: 50%;
+  border-style: solid;
+  border-color: rgba(100, 100, 100, 0.5);
+  border-width: 4px;
+  transition: 0.5s;
 }
 
 .carousel2 .carouselContainer {
   border: 1px solid red;
   border-radius: 50%;
 }
-.carousel2 .paginationButton {
+.carousel2 #path2 {
+  fill: rgba(255, 0, 0, 0.5);
+}
+.carousel2 .paginationButton,
+.carousel2 .leftButton,
+.carousel2 .rightButton {
   width: 100px;
   height: 100px;
   color: red;
   background-color: white;
-  border: none;
+  border-radius: 20%;
   font-size: 50px;
+  transition: 0.5s;
 }
-.carousel2 .paginationButton:hover {
+.carousel2 .paginationButton:hover,
+.carousel2 .leftButton:hover,
+.carousel2 .rightButton:hover {
   border-radius: 50%;
   border-style: solid;
   border-color: rgba(100, 100, 100, 0.5);
   border-width: 4px;
+  transition: 0.5s;
+}
+.carousel2 .magicButton {
+  position: relative;
+  color: purple;
+  background-color: green;
+  border: 2px solid purple;
+  border-radius: 5px;
+  box-shadow: 0px 5px #885ead;
+  padding: 10px;
+  margin: 20px;
+  width: 80%;
+  height: 60px;
+  transition: 0.2s;
+}
+.carousel2 .magicButton:hover {
+  background-color: #7fff7f;
+  transition: 0.2s;
+}
+.carousel2 .magicButton:active {
+  transform: translateY(5px);
+  box-shadow: none;
 }
 .carousel2 .buttons {
   text-align: center;

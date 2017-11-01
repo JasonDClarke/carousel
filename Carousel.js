@@ -339,8 +339,16 @@
       rightButton = `<button class="rightButton"> &gt; </button>`
     }
 
+    let svg = ``;
+    if (config.SVGInit) {
+      svg = `<svg viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path id="path" fill-rule="even-odd"/>
+        </svg>`
+    }
+
     let carousel = `
       <div class="carouselContainer">
+        ${svg}
         ${imageHTML}
       </div>
       <div class="buttons">

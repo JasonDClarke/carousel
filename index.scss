@@ -189,6 +189,10 @@ animation-duration: 0.5s;
         }
 }
 
+html, body {
+  background-color: black;
+}
+
 //specific stylings
 .carousel1 {
   .carouselContainer {
@@ -196,26 +200,31 @@ animation-duration: 0.5s;
     border-radius: 0;
   }
 
-  .paginationButton {
-    width: 100px;
-    height: 100px;
-    color: red;
-    background-color: white;
-    border: 10px solid black;
-    font-size: 50px;
-    &:hover {
-      border-radius:  50%;
-      border-style: solid;
-      border-color: rgba(100, 100, 100, 0.5);
-      border-width: 4px;
-    }
-  }
 
   .buttons {
     text-align: center;
     width: 100%;
     margin-top: 10px;
+    margin-bottom: 10px;
+  }
 
+  .paginationButton,
+  .leftButton,
+  .rightButton {
+    width: 100px;
+    height: 100px;
+    color: red;
+    background-color: white;
+    border-radius: 20%;
+    font-size: 50px;
+    transition: 0.5s;
+    &:hover {
+      border-radius:  50%;
+      border-style: solid;
+      border-color: rgba(100, 100, 100, 0.5);
+      border-width: 4px;
+      transition: 0.5s;
+    }
   }
 }
 
@@ -224,19 +233,46 @@ animation-duration: 0.5s;
     border: 1px solid red;
     border-radius: 50%;
   }
-
-  .paginationButton {
+  #path2 {
+    fill: rgba(255,0,0,0.5);
+  }
+  .paginationButton,
+  .leftButton,
+  .rightButton {
     width: 100px;
     height: 100px;
     color: red;
     background-color: white;
-    border: none;
+    border-radius: 20%;
     font-size: 50px;
+    transition: 0.5s;
     &:hover {
       border-radius:  50%;
       border-style: solid;
       border-color: rgba(100, 100, 100, 0.5);
       border-width: 4px;
+      transition: 0.5s;
+    }
+  }
+  .magicButton {
+    position: relative;
+    color: purple;
+    background-color: green;
+    border: 2px solid purple;
+    border-radius: 5px;
+    box-shadow: 0px 5px #885ead;
+    padding: 10px;
+    margin: 20px;
+    width: 80%;
+    height: 60px;
+    transition: 0.2s;
+    &:hover {
+      background-color: rgb(127, 255, 127);
+      transition: 0.2s;
+    }
+    &:active {
+      transform: translateY(5px);
+      box-shadow: none;
     }
   }
 
