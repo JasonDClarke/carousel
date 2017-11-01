@@ -1,6 +1,3 @@
-// Business rules:
-
-
 ;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
@@ -11,10 +8,9 @@
 
   let defaultConfig = {
     //required
-    containerSel: null,
+    containerSel: null, //selector of containing element in html, must be unique
 
     //optional below:
-    //html template?
     renderFromJSHTMLTemplate: false, // if false, need to build own HTML template in the document.*1
     images: null, //include image srces in array. Only required when JS template used
 
@@ -32,11 +28,11 @@
     buttonInit: true, //are left/right buttons initialised? Also not included by render if false
     pagination: {
       className: 'paginationButton', //class name of pagination buttons in HTML
-      eventType: "click", //event occurs on click
+      eventType: "click", //event occurs on [click] of pagination button
       entranceAnim: "anim-select-right", //animation of entering image. css class.
       exitAnim: "anim-deselect-right" //animation of exiting image. css class.
     },
-    leftButton: {
+    leftButton: { //describes event when clicking the left button
       className: 'leftButton',
       eventType: "click",
       entranceAnim: "anim-select-left",
@@ -50,7 +46,7 @@
       exitAnim: "anim-deselect-right",
       newPicIdFn: 'goRight'
     },
-    swipeLeft: { //animations when swiping the image left (ie touch)
+    swipeLeft: { //describes event when swiping the image left (ie touch)
         className: "carouselContainer",
         eventType: "swipeRight",
         entranceAnim: "anim-select-left",
