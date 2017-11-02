@@ -29,21 +29,21 @@
     pagination: {
       className: 'paginationButton', //class name of pagination buttons in HTML
       eventType: "click", //event occurs on [click] of pagination button
-      entranceAnim: "anim-select-right", //animation of entering image. css class.
-      exitAnim: "anim-deselect-right" //animation of exiting image. css class.
+      entranceAnim: "anim-select-top", //animation of entering image. css class.
+      exitAnim: "anim-deselect-bottom" //animation of exiting image. css class.
     },
     leftButton: { //describes event when clicking the left button
       className: 'leftButton',
       eventType: "click",
       entranceAnim: "anim-select-left",
-      exitAnim: "anim-deselect-left",
+      exitAnim: "anim-deselect-right",
       newPicIndexFn: 'goLeft' //function deciding what the index of the next image is
     },
     rightButton: {
       className: 'rightButton',
       eventType: "click",
       entranceAnim: "anim-select-right",
-      exitAnim: "anim-deselect-right",
+      exitAnim: "anim-deselect-left",
       newPicIndexFn: 'goRight'
     },
     swipeLeft: { //describes event when swiping the image left (ie touch)
