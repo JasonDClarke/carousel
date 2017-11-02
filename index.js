@@ -7,7 +7,13 @@ new Carousel(
   "https://metrouk2.files.wordpress.com/2016/04/11951840_382970415232674_1167170684506797359_n.jpg?quality=80&strip=all"
 ],
 SVGInit: true,
-noMoveAnim: 'anim-noMove-hop'
+noMoveAnim: 'anim-noMove-hop',
+pagination: {
+  className: 'paginationButton', //class name of pagination buttons in HTML
+  eventType: "click", //event occurs on [click] of pagination button
+  entranceAnim: "anim-select-top", //animation of entering image. css class.
+  exitAnim: "anim-deselect-bottom" //animation of exiting image. css class.
+}
 }
 )
 

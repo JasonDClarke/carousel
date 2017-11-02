@@ -46,9 +46,9 @@ $carousel-height: 60vh;
 }
 
 @keyframes hop {
-  0%   { top: 0px; }
-  50%  { top: calc(-100%/2);}
-  100% { top: 0px; }
+  0%   { transform: none}
+  50%  { transform: translateY(calc(-100%/2));}
+  100% { transform: none }
 }
 
 .anim-noMove-wiggle {
@@ -57,104 +57,67 @@ $carousel-height: 60vh;
 }
 
 @keyframes wiggle {
-  0%   { left: 0px; }
-  20%  { left: -20px;}
-  40%  { left: 20px;}
-  60%  { left: -20px;}
-  80%  { left: 20px;}
-  100% { top: 0px; }
+  0%   { transform: translateX(20px); }
+  20%  { transform: translateX(-20px);}
+  40%  { transform: translateX(20px);}
+  60%  { transform: translateX(-20px);}
+  80%  { transform: translateX(20px);}
+  100% { transform: translateX(-0px);}
 }
 
-.anim-select-top {
-animation-name: slideInTop;
-animation-duration: 0.5s;
-}
-
-@keyframes slideInTop {
-  0%   { top: -100%; }
-  100% { top: 0px; }
-}
-
-.anim-select-right {
-animation-name: slideInRight;
-animation-duration: 0.5s;
-}
-
-@keyframes slideInRight {
-  0%   { left: 100%; }
-  100% { left: 0px; }
-}
-
-.anim-select-bottom {
-animation-name: slideInBottom;
-animation-duration: 0.5s;
-}
-
-@keyframes slideInBottom {
-  0%   { top: 100%; }
-  100% { top: 0px; }
-}
-
-.anim-select-left {
-animation-name: slideInLeft;
-animation-duration: 0.5s;
-}
-
-@keyframes slideInLeft {
-  0%   { left: -100%; }
-  100% { left: 0px; }
-}
-
-.anim-deselect-top {
-  animation-name: slideOutTop;
-  animation-duration: 0.5s;
-}
-
-@keyframes slideOutTop {
-  0%   {
-    top: 0px;
+$list: "top", "left", "bottom", "right";
+@each $direction in $list {
+  .anim-deselect-#{$direction} {
+    animation-name: slideout-#{$direction};
+    animation-duration: 0.5s;
     left:0px;
-   }
-  100% {
-    top: -100%;
-    left:0px;
+  }
+
+  .anim-select-#{$direction} {
+    animation-name: slidein-#{$direction};
+    animation-duration: 0.5s;
   }
 }
 
-.anim-deselect-right {
-animation-name: slideOutRight;
-animation-duration: 0.5s;
+@keyframes slidein-top {
+  0%   { transform: translateY(-100%); }
+  100% { transform: none; }
 }
 
-@keyframes slideOutRight {
-  0%   { left: 0px; }
-  100% { left: -100%; }
+@keyframes slidein-right {
+  0%   { transform: translateX(100%); }
+  100% { transform: none; }
 }
 
-.anim-deselect-bottom {
-animation-name: slideOutBottom;
-animation-duration: 0.5s;
+@keyframes slidein-bottom {
+  0%   { transform: translateY(100%); }
+  100% { transform: none; }
 }
 
-@keyframes slideOutBottom {
-  0%   {
-    top: 0px;
-    left:0px;
-   }
-  100% {
-    top: 100%;
-    left:0px; }
+@keyframes slidein-left {
+  0%   { transform: translateX(-100%); }
+  100% { transform: none; }
 }
 
-.anim-deselect-left {
-animation-name: slideOutLeft;
-animation-duration: 0.5s;
+@keyframes slideout-top {
+  100% {transform: translateY(-100%);}
 }
 
-@keyframes slideOutLeft {
-  0%   { left: 0px; }
-  100% { left: 100%; }
+@keyframes slideout-right {
+  100% {transform:translateX(-100%);}
 }
+
+@keyframes slideout-bottom {
+  100% {transform: translateY(100%)};
+}
+
+@keyframes slideout-left {
+  100% { transform: translateX(100%);}
+}
+
+
+
+
 
 .anim-deselect-shrink {
   animation-name: shrink;

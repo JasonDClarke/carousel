@@ -35,13 +35,13 @@ svg path {
 
 @keyframes hop {
   0% {
-    top: 0px;
+    transform: none;
   }
   50% {
-    top: calc(-100%/2);
+    transform: translateY(calc(-100%/2));
   }
   100% {
-    top: 0px;
+    transform: none;
   }
 }
 .anim-noMove-wiggle {
@@ -51,130 +51,118 @@ svg path {
 
 @keyframes wiggle {
   0% {
-    left: 0px;
+    transform: translateX(20px);
   }
   20% {
-    left: -20px;
+    transform: translateX(-20px);
   }
   40% {
-    left: 20px;
+    transform: translateX(20px);
   }
   60% {
-    left: -20px;
+    transform: translateX(-20px);
   }
   80% {
-    left: 20px;
+    transform: translateX(20px);
   }
   100% {
-    top: 0px;
-  }
-}
-.anim-select-top {
-  animation-name: slideInTop;
-  animation-duration: 0.5s;
-}
-
-@keyframes slideInTop {
-  0% {
-    top: -100%;
-  }
-  100% {
-    top: 0px;
-  }
-}
-.anim-select-right {
-  animation-name: slideInRight;
-  animation-duration: 0.5s;
-}
-
-@keyframes slideInRight {
-  0% {
-    left: 100%;
-  }
-  100% {
-    left: 0px;
-  }
-}
-.anim-select-bottom {
-  animation-name: slideInBottom;
-  animation-duration: 0.5s;
-}
-
-@keyframes slideInBottom {
-  0% {
-    top: 100%;
-  }
-  100% {
-    top: 0px;
-  }
-}
-.anim-select-left {
-  animation-name: slideInLeft;
-  animation-duration: 0.5s;
-}
-
-@keyframes slideInLeft {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 0px;
+    transform: translateX(0px);
   }
 }
 .anim-deselect-top {
-  animation-name: slideOutTop;
+  animation-name: slideout-top;
+  animation-duration: 0.5s;
+  left: 0px;
+}
+
+.anim-select-top {
+  animation-name: slidein-top;
   animation-duration: 0.5s;
 }
 
-@keyframes slideOutTop {
-  0% {
-    top: 0px;
-    left: 0px;
-  }
-  100% {
-    top: -100%;
-    left: 0px;
-  }
-}
-.anim-deselect-right {
-  animation-name: slideOutRight;
-  animation-duration: 0.5s;
-}
-
-@keyframes slideOutRight {
-  0% {
-    left: 0px;
-  }
-  100% {
-    left: -100%;
-  }
-}
-.anim-deselect-bottom {
-  animation-name: slideOutBottom;
-  animation-duration: 0.5s;
-}
-
-@keyframes slideOutBottom {
-  0% {
-    top: 0px;
-    left: 0px;
-  }
-  100% {
-    top: 100%;
-    left: 0px;
-  }
-}
 .anim-deselect-left {
-  animation-name: slideOutLeft;
+  animation-name: slideout-left;
+  animation-duration: 0.5s;
+  left: 0px;
+}
+
+.anim-select-left {
+  animation-name: slidein-left;
   animation-duration: 0.5s;
 }
 
-@keyframes slideOutLeft {
+.anim-deselect-bottom {
+  animation-name: slideout-bottom;
+  animation-duration: 0.5s;
+  left: 0px;
+}
+
+.anim-select-bottom {
+  animation-name: slidein-bottom;
+  animation-duration: 0.5s;
+}
+
+.anim-deselect-right {
+  animation-name: slideout-right;
+  animation-duration: 0.5s;
+  left: 0px;
+}
+
+.anim-select-right {
+  animation-name: slidein-right;
+  animation-duration: 0.5s;
+}
+
+@keyframes slidein-top {
   0% {
-    left: 0px;
+    transform: translateY(-100%);
   }
   100% {
-    left: 100%;
+    transform: none;
+  }
+}
+@keyframes slidein-right {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes slidein-bottom {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes slidein-left {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes slideout-top {
+  100% {
+    transform: translateY(-100%);
+  }
+}
+@keyframes slideout-right {
+  100% {
+    transform: translateX(-100%);
+  }
+}
+@keyframes slideout-bottom {
+  100% {
+    transform: translateY(100%);
+  }
+}
+@keyframes slideout-left {
+  100% {
+    transform: translateX(100%);
   }
 }
 .anim-deselect-shrink {
