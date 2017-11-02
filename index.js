@@ -1,4 +1,4 @@
-new Carousel(
+new Carousel.start(
 {
   containerSel: "#dog",
   renderFromJSHTMLTemplate: true,
@@ -18,7 +18,7 @@ pagination: {
 )
 
 //Create the default carousel
-new Carousel(
+new Carousel.start(
   {
     containerSel: "#basicCarousel",
     paginationInit: true,

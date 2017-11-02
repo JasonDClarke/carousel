@@ -4,7 +4,7 @@
     global.Carousel = factory(merge, addSwipeListener)
 }(this, function(merge, addSwipeListener) { 'use strict';
 
-  return function(customConfig) {
+  function start(customConfig) {
 
   let defaultConfig = {
     //required
@@ -329,7 +329,10 @@
 
   }
 
-
+  return {
+    start: start,
+    __merge: merge
+  }
 
 }))
 
