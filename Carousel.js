@@ -37,28 +37,28 @@
       eventType: "click",
       entranceAnim: "anim-select-left",
       exitAnim: "anim-deselect-left",
-      newPicIdFn: 'goLeft' //function deciding what the index of the next image is
+      newPicIndexFn: 'goLeft' //function deciding what the index of the next image is
     },
     rightButton: {
       className: 'rightButton',
       eventType: "click",
       entranceAnim: "anim-select-right",
       exitAnim: "anim-deselect-right",
-      newPicIdFn: 'goRight'
+      newPicIndexFn: 'goRight'
     },
     swipeLeft: { //describes event when swiping the image left (ie touch)
         className: "carouselContainer",
         eventType: "swipeRight",
         entranceAnim: "anim-select-left",
         exitAnim: "anim-deselect-left",
-        newPicIdFn: 'goLeft'
+        newPicIndexFn: 'goLeft'
     },
     swipeRight: {
         className: "carouselContainer",
         eventType: "swipeLeft",
         entranceAnim: "anim-select-right",
         exitAnim: "anim-deselect-right",
-        newPicIdFn: 'goRight'
+        newPicIndexFn: 'goRight'
     }
   }
 
@@ -110,13 +110,13 @@
   function addPaginationListeners(paginationConfig) {
     let x = paginationConfig;
     let el;
-    let newPicIdFn;
+    let newPicIndexFn;
     for (let i=0; i<numPics; i++) {
       el = container.getElementsByClassName(config.pagination.className)[i];
-      newPicIdFn = ()=>i;
+      newPicIndexFn = ()=>i;
       el.addEventListener(
         x.eventType,
-        slideTransition.bind(null, x.entranceAnim, x.exitAnim, newPicIdFn));
+        slideTransition.bind(null, x.entranceAnim, x.exitAnim, newPicIndexFn));
     }
   }
 
@@ -148,8 +148,8 @@
   function addListener(carouselListenerConfig) {
     let x = carouselListenerConfig;
     let el = container.getElementsByClassName(x.className)[0];
-    let newPicIdFn = getIndexFunction(x.newPicIdFn)
-    let callback = slideTransition.bind(null, x.entranceAnim,x.exitAnim, newPicIdFn)
+    let newPicIndexFn = getIndexFunction(x.newPicIndexFn)
+    let callback = slideTransition.bind(null, x.entranceAnim,x.exitAnim, newPicIndexFn)
 
     if (carouselListenerConfig.eventType.includes("swipe")) {
     return addSwipeListener(x.eventType, el, callback);
@@ -158,8 +158,8 @@
     }
   }
 
-  function slideTransition(entranceAnim, exitAnim, newPicIdFn) {
-    let newPicId = newPicIdFn(picIndexState, numPics);
+  function slideTransition(entranceAnim, exitAnim, newPicIndexFn) {
+    let newPicId = newPicIndexFn(picIndexState, numPics);
     if (newPicId === picIndexState) {
       runNoMoveAnim()
       return;
@@ -215,7 +215,7 @@
       }
     }
   }
-  /// newPicIdFns
+  /// newPicIndexFns
   function getIndexFunction(string) {
     let indexFunctions =  {
       goLeft: (currPicId, numPics)=>(currPicId-1+numPics)%numPics,
@@ -344,7 +344,7 @@
     let svg = ``;
     if (config.SVGInit) {
       svg = `<svg viewBox="0 0 100 100" preserveAspectRatio="none">
-        <path id="path" fill-rule="even-odd"/>
+        <path class="path" fill-rule="even-odd"/>
         </svg>`
     }
 
