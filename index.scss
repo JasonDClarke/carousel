@@ -1,6 +1,6 @@
 //necessary "structural" CSS
-$carousel-width: 100%;
-$carousel-height: 60vh;
+$carousel-width: 10%;
+$carousel-height: 100vh;
 
   .carouselContainer {
     width: $carousel-width;
@@ -15,8 +15,8 @@ $carousel-height: 60vh;
     position: absolute;
     top: 0;
     z-index: 2;
-    width: $carousel-width;
-    height: $carousel-height;
+    width: 100%;
+    height: 100%;
     path {
     fill: rgba(0,0,0,0.5);
     }
@@ -26,9 +26,9 @@ $carousel-height: 60vh;
   .carouselImage {
   //posiitioned relative to container
   position: absolute;
-  width: $carousel-width;
-  height: $carousel-height;
-  left: $carousel-width;
+  width: 100%;
+  height: 100%;
+  left: 100%;
   }
 
   .selected {
@@ -47,7 +47,7 @@ $carousel-height: 60vh;
 
 @keyframes hop {
   0%   { top: 0px; }
-  50%  { top: -$carousel-height/2;}
+  50%  { top: -100%/2;}
   100% { top: 0px; }
 }
 
@@ -81,7 +81,7 @@ animation-duration: 0.5s;
 }
 
 @keyframes slideInRight {
-  0%   { left: $carousel-width; }
+  0%   { left: 100%; }
   100% { left: 0px; }
 }
 
@@ -91,7 +91,7 @@ animation-duration: 0.5s;
 }
 
 @keyframes slideInBottom {
-  0%   { top: $carousel-height; }
+  0%   { top: 100%; }
   100% { top: 0px; }
 }
 
@@ -101,7 +101,7 @@ animation-duration: 0.5s;
 }
 
 @keyframes slideInLeft {
-  0%   { left: -$carousel-width; }
+  0%   { left: -100%; }
   100% { left: 0px; }
 }
 
@@ -116,7 +116,7 @@ animation-duration: 0.5s;
     left:0px;
    }
   100% {
-    top: -$carousel-width;
+    top: -100%;
     left:0px;
   }
 }
@@ -128,7 +128,7 @@ animation-duration: 0.5s;
 
 @keyframes slideOutRight {
   0%   { left: 0px; }
-  100% { left: -$carousel-width; }
+  100% { left: -100%; }
 }
 
 .anim-deselect-bottom {
@@ -142,7 +142,7 @@ animation-duration: 0.5s;
     left:0px;
    }
   100% {
-    top: $carousel-width;
+    top: 100%;
     left:0px; }
 }
 
@@ -153,7 +153,7 @@ animation-duration: 0.5s;
 
 @keyframes slideOutLeft {
   0%   { left: 0px; }
-  100% { left: $carousel-width; }
+  100% { left: 100%; }
 }
 
 .anim-deselect-shrink {
@@ -179,13 +179,13 @@ animation-duration: 0.5s;
 @keyframes bigShrink {
   0% {visibility: hidden;}
   1% {visibility: visible;
-        transform: translate(-$carousel-width, $carousel-height);
-         width: 2*$carousel-width;
-         height: 2*$carousel-height;
+        transform: translate(-100%, 100%);
+         width: 2*100%;
+         height: 2*100%;
    }
   100% { left: 0px;
-        width:$carousel-width;
-        height:$carousel-height;
+        width:100%;
+        height:100%;
         }
 }
 
