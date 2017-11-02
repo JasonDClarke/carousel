@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 grunt.initConfig({
   watch: {
       css: {
-        files: ['./index.scss'],
+        files: ['./*.scss'],
         tasks: ['sass:dist']
       },
     },
@@ -13,7 +13,8 @@ grunt.initConfig({
        style: 'expanded'
      },
      files: {                         // Dictionary of files
-       'index.css': 'index.scss'      // 'destination': 'source'
+       'index.css': 'index.scss',
+       'extraAnimations.css': 'extraAnimations.scss'     // 'destination': 'source'
      }
    }
  }

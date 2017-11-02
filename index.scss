@@ -1,4 +1,4 @@
-//necessary "structural" CSS
+//core CSS
 $carousel-width: 100%;
 $carousel-height: 60vh;
 
@@ -16,7 +16,9 @@ svg {
   top: 0;
   width: 100%;
   height: 100%;
+  z-index:2;
 }
+
 .carouselImage {
 position: absolute;
 width: 100%;
@@ -24,7 +26,7 @@ height: 100%;
 // //images hidden to right of container by default
 left:100%;
 }
-
+//must be below .carouselImage to overwrite left property when this class is added
 .selected {
 left: 0px;
 }
@@ -78,138 +80,4 @@ $listMap: (
   80%  { transform: translateX(20px);}
   100% { transform: translateX(-0px);}
 }
-
-// other animations
 //
-.anim-noMove-hop {
-  animation-name: hop;
-  animation-duration: 0.5s;
-}
-
-@keyframes hop {
-  0%   { transform: none}
-  50%  { transform: translateY(calc(-100%/2));}
-  100% { transform: none }
-}
-
-.anim-deselect-shrink {
-  animation-name: shrink;
-  animation-duration: 1s;
-  left:0px;
-}
-
-@keyframes shrink {
-  100% {opacity: 0;
-    transform: scale(0);}
-}
-
-.anim-select-bigShrink {
-  animation-name: bigShrink;
-  animation-delay: 1s;
-  animation-duration: 1s;
-  animation-fill-mode: backwards;
-}
-
-@keyframes bigShrink {
-  0% {opacity:0;
-     transform: scale(2);}
-  100% {opacity:1;
-    transform: scale(1);}
-}
-//
-
-////specific stylings
-html, body {
-  background-color: black;
-}
-
-
-// .carousel1 {
-//   .carouselContainer {
-//     // border: 10px solid green;
-//     border-radius: 0;
-//   }
-//
-//
-//   .buttons {
-//     text-align: center;
-//     width: 100%;
-//     margin-top: 10px;
-//     margin-bottom: 10px;
-//   }
-//
-//   .paginationButton,
-//   .leftButton,
-//   .rightButton {
-//     width: 100px;
-//     height: 100px;
-//     color: red;
-//     background-color: white;
-//     border-radius: 20%;
-//     font-size: 50px;
-//     transition: 0.5s;
-//     &:hover {
-//       border-radius:  50%;
-//       border-style: solid;
-//       border-color: rgba(100, 100, 100, 0.5);
-//       border-width: 4px;
-//       transition: 0.5s;
-//     }
-//   }
-// }
-//
-// .carousel2 {
-//   .carouselContainer {
-//     border: 1px solid red;
-//     border-radius: 50%;
-//   }
-//   #path2 {
-//     fill: rgba(255,0,0,0.5);
-//   }
-//   .paginationButton,
-//   .leftButton,
-//   .rightButton {
-//     width: 100px;
-//     height: 100px;
-//     color: red;
-//     background-color: white;
-//     border-radius: 20%;
-//     font-size: 50px;
-//     transition: 0.5s;
-//     &:hover {
-//       border-radius:  50%;
-//       border-style: solid;
-//       border-color: rgba(100, 100, 100, 0.5);
-//       border-width: 4px;
-//       transition: 0.5s;
-//     }
-//   }
-//   .magicButton {
-//     position: relative;
-//     color: purple;
-//     background-color: green;
-//     border: 2px solid purple;
-//     border-radius: 5px;
-//     box-shadow: 0px 5px #885ead;
-//     padding: 10px;
-//     margin: 20px;
-//     width: 80%;
-//     height: 60px;
-//     transition: 0.2s;
-//     &:hover {
-//       background-color: rgb(127, 255, 127);
-//       transition: 0.2s;
-//     }
-//     &:active {
-//       transform: translateY(5px);
-//       box-shadow: none;
-//     }
-//   }
-//
-//   .buttons {
-//     text-align: center;
-//     width: 100%;
-//     margin-top: 10px;
-//   }
-//
-// }
