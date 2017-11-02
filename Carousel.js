@@ -67,24 +67,22 @@
   merge(config, customConfig);
   }
 
-  //Properties
-  let container = document.querySelector(config.containerSel);
-
-  if (config.renderFromJSHTMLTemplate) {
-    let carousel = buildCarousel(config.images, config.containerSel.slice(1))
-    container.innerHTML = carousel
-  }
-
-
-  const numPics = container.getElementsByClassName("carouselImage").length;
-  const DOMPics = getDOMPics(numPics, container);
-
   //STATE
   let picIndexState = config.initPicIndex;
+
+  let container = document.querySelector(config.containerSel);
+  const numPics = getNumPics(container)
+  //DOM hooks to carousel images
+  let DOMPics; //note: hooks to DOM elements must be collected after they are rendered!
 
   init();
 
   function init() {
+    if (config.renderFromJSHTMLTemplate) {
+      let carouselHTML = buildCarousel(config.images, config.containerSel.slice(1))
+      container.innerHTML = carouselHTML
+    }
+    DOMPics = getDOMPics(numPics, container); //note: can only access DOM elements once they exist!
     assignClassToSelectedImage(config.initPicIndex)
     if (config.paginationInit) {
     addPaginationListeners(config.pagination)
@@ -128,6 +126,14 @@
     });
   }
 
+  function getNumPics(container) {
+    //if JS-rendered, number of pics comes from config.images.length
+    //else number of pics comes from looking at html
+    return Math.max(
+      config.images.length,
+      container.getElementsByClassName("carouselImage").length);
+  }
+
   function getDOMPics(numPics, container) {
     let DOMPics =[];
     for (var i=0; i<numPics; i++) {
@@ -167,7 +173,6 @@
 
   function runNoMoveAnim() {
   runAnimationClass(DOMPics[picIndexState], config.noMoveAnim);
-  console.log("returned as already right image");
   }
 
   function runAnimationClass(htmlEl, animClass) {
