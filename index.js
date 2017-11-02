@@ -22,7 +22,14 @@ new Carousel(
     H98
     L50 98
     H2
-    L50 2`
+    L50 2`,
+    customListeners: [{
+        className: "magicButton",
+        eventType: "click",
+        entranceAnim: "anim-select-bigShrink",
+        exitAnim: "anim-deselect-shrink",
+        newPicIndexFn: 'goRandom'
+    }]
   }
 )
 
