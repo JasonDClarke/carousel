@@ -129,9 +129,11 @@
   function getNumPics(container) {
     //if JS-rendered, number of pics comes from config.images.length
     //else number of pics comes from looking at html
-    return Math.max(
-      config.images.length,
-      container.getElementsByClassName("carouselImage").length);
+    if (config.images) {
+      return config.images.length;
+    } else {
+      return container.getElementsByClassName("carouselImage").length;
+    }
   }
 
   function getDOMPics(numPics, container) {
@@ -258,7 +260,7 @@
 
   function SVGFrame(thickness, type) {
 
-    let path = container.querySelector("#path");
+    let path = container.querySelector(".path");
     let height = 100;
     let width = 100;
     let w = width,

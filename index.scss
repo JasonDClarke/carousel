@@ -11,13 +11,6 @@ $carousel-height: 60vh;
     overflow: hidden;
   }
 
-let carouselContainerStyle = {
-  width: $carousel-width;
-  height: $carousel-height;
-  position: relative;
-  overflow: hidden;
-}
-
   svg {
     position: absolute;
     top: 0;
