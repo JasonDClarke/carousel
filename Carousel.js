@@ -1,8 +1,8 @@
 ;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    global.Carousel = factory(merge, addSwipeListener)
-}(this, function(merge, addSwipeListener) { 'use strict';
+    global.Carousel = factory()
+}(this, function() { 'use strict';
 
   function start(customConfig) {
 
@@ -327,6 +327,65 @@
     return carousel;
   }
 
+  }
+
+  function merge(defaultObject, customObject) {
+    //add custom keys
+    for (var key in customObject) {
+      if (!defaultObject.hasOwnProperty(key)) {
+        defaultObject[key] = customObject[key]
+      } else {
+        console.log(customObject[key])
+      }
+
+    }
+
+    //overwrite keys
+    for (var key in defaultObject) {
+      if (defaultObject[key] !== Object(defaultObject[key]) &&
+    customObject.hasOwnProperty(key)) {
+        defaultObject[key] = customObject[key]
+      }
+      //look in next layer
+      //checks if key has a nested object (dubious about the trustworthiness of this)
+      else if (defaultObject[key] === Object(defaultObject[key])
+    && customObject[key]) {
+        merge(defaultObject[key], customObject[key])
+      }
+    }
+  }
+
+  function addSwipeListener(swipeType, htmlEl, callback) {
+    let touch = {
+      startX : 0,
+      startY : 0,
+      endX : 0,
+      endY : 0
+    }
+
+    htmlEl.addEventListener('touchstart', function(event) {
+        touch.startX = event.changedTouches[0].screenX;
+        touch.startY = event.changedTouches[0].screenY;
+    }, false);
+
+    htmlEl.addEventListener('touchend', function(event) {
+      touch.endX = event.changedTouches[0].screenX;
+      touch.endY = event.changedTouches[0].screenY;
+      if (isSwipeType(swipeType, touch)) {
+        callback();
+      }
+    }, false);
+  }
+
+  function isSwipeType(swipeType, touch) {
+    let swipeTypeChecks = {
+      swipeLeft: (touch)=>touch.endX<touch.startX,
+      swipeRight: (touch)=>touch.endX>touch.startX,
+      swipeUp: (touch)=>touch.endY<touch.startY,
+      swipeDown: (touch)=>touch.endY>touch.startY
+    }
+
+    return swipeTypeChecks[swipeType](touch);
   }
 
   return {

@@ -1,5 +1,6 @@
 describe("Merge function", function() {
   let obj1, obj2;
+  let merge = Carousel.__merge;
   it("should successfully merge objects nested one deep", function() {
     obj1 = {a:1, b:2, c:3};
     obj2 = {c:4, d:5, e:6};
