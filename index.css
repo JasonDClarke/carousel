@@ -168,15 +168,12 @@ svg path {
 .anim-deselect-shrink {
   animation-name: shrink;
   animation-duration: 1s;
+  left: 0px;
 }
 
 @keyframes shrink {
-  0% {
-    left: 0px;
-  }
   100% {
-    width: 0px;
-    height: 0px;
+    transform: scale(0);
   }
 }
 .anim-select-bigShrink {
@@ -192,14 +189,10 @@ svg path {
   }
   1% {
     visibility: visible;
-    transform: translate(-100%, 100%);
-    width: 200%;
-    height: 200%;
+    transform: scale(2);
   }
   100% {
-    left: 0px;
-    width: 100%;
-    height: 100%;
+    transform: scale(1);
   }
 }
 html, body {
