@@ -71,7 +71,7 @@ animation-duration: 0.5s;
 }
 
 @keyframes slideInTop {
-  0%   { top: -$carousel-height; }
+  0%   { top: -100%; }
   100% { top: 0px; }
 }
 
