@@ -11,6 +11,7 @@
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-contrib-watch": "^1.0.0",
-    "jasmine": "^2.8.0"
+    "jasmine": "^2.8.0",
+    "jasmine_dom_matchers": "^1.4.0"
   }
 }
