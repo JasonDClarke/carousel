@@ -173,6 +173,7 @@ svg path {
 
 @keyframes shrink {
   100% {
+    opacity: 0;
     transform: scale(0);
   }
 }
@@ -185,13 +186,11 @@ svg path {
 
 @keyframes bigShrink {
   0% {
-    visibility: hidden;
-  }
-  1% {
-    visibility: visible;
+    opacity: 0;
     transform: scale(2);
   }
   100% {
+    opacity: 1;
     transform: scale(1);
   }
 }

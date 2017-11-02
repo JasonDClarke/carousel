@@ -122,7 +122,8 @@ $list: "top", "left", "bottom", "right";
 }
 
 @keyframes shrink {
-  100% {transform: scale(0);}
+  100% {opacity: 0;
+    transform: scale(0);}
 }
 
 .anim-select-bigShrink {
@@ -133,10 +134,10 @@ $list: "top", "left", "bottom", "right";
 }
 
 @keyframes bigShrink {
-  0% {visibility: hidden;}
-  1% {visibility: visible;
+  0% {opacity:0;
      transform: scale(2);}
-  100% {transform: scale(1);}
+  100% {opacity:1;
+    transform: scale(1);}
 }
 
 html, body {
