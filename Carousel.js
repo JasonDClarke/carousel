@@ -20,7 +20,7 @@
     frame: 'square', //type of SVG frame
     customFrame: null, //takes an SVG path. Need to define "hole" in 100*100 square. Hole is stretched to match
 
-    noMoveAnim: 'anim-noMove-hop',   //animation if current slide is selected again. css class
+    noMoveAnim: 'anim-noMove-wiggle',   //animation if current slide is selected again. css class
 
     initPicIndex: 0, //index of first image shown. 0-indexed
     swipableInit: true, //are touch listeners initialised?
@@ -320,10 +320,33 @@
   };
 
   function buildCarousel(images, id) {
+    let carouselContainerStyles = [
+    //allows images to be positioned absolutely relative to the container
+    `position: relative;`,
+    //hides images not in view
+    `overflow: hidden;`
+  ].join("");
+
+  let svgStyles = [
+    `position: absolute;`,
+    `top: 0;`,
+    `z-index: 2;`,
+    `width: 100%;`,
+    `height: 100%;`
+  ].join("");
+
+  let carouselImageStyles = [
+    `position: absolute;`,
+    `width: 100%;`,
+    `height: 100%;`
+    // `left: ${carouselWidth};`
+  ].join("");
+
     const noSlides = images.length
     let imageHTML = ``;
     for (let i=0; i<noSlides; i++) {
-      imageHTML+=`<img class="carouselImage" src="${images[i]}"/>`
+      imageHTML+=`<img class="carouselImage" src="${images[i]}"
+      style="${carouselImageStyles}"/>`
     }
 
     let paginationHTML = ``;
@@ -343,13 +366,14 @@
 
     let svg = ``;
     if (config.SVGInit) {
-      svg = `<svg viewBox="0 0 100 100" preserveAspectRatio="none">
+      svg = `<svg viewBox="0 0 100 100" preserveAspectRatio="none"
+      style="${svgStyles}">
         <path class="path" fill-rule="even-odd"/>
         </svg>`
     }
 
     let carousel = `
-      <div class="carouselContainer">
+      <div class="carouselContainer" style="${carouselContainerStyles}">
         ${svg}
         ${imageHTML}
       </div>

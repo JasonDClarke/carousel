@@ -38,7 +38,7 @@ svg path {
     top: 0px;
   }
   50% {
-    top: -100%/2;
+    top: calc(-100%/2);
   }
   100% {
     top: 0px;
@@ -49,7 +49,7 @@ svg path {
   animation-duration: 0.5s;
 }
 
-@keyframes hop {
+@keyframes wiggle {
   0% {
     left: 0px;
   }

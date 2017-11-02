@@ -47,7 +47,7 @@ $carousel-height: 60vh;
 
 @keyframes hop {
   0%   { top: 0px; }
-  50%  { top: -100%/2;}
+  50%  { top: calc(-100%/2);}
   100% { top: 0px; }
 }
 
@@ -56,7 +56,7 @@ $carousel-height: 60vh;
   animation-duration: 0.5s;
 }
 
-@keyframes hop {
+@keyframes wiggle {
   0%   { left: 0px; }
   20%  { left: -20px;}
   40%  { left: 20px;}
