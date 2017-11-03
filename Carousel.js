@@ -104,7 +104,11 @@
   }
 
   function assignClassToSelectedImage(initPicIndex) {
+    if (container.getElementsByClassName('carouselImage')[initPicIndex]) {
     container.getElementsByClassName('carouselImage')[initPicIndex].classList.add("selected");
+    } else {
+      console.error("Initial picture index does not exist!");
+    }
   }
 
   function addPaginationListeners(paginationConfig) {
@@ -334,10 +338,7 @@
     for (var key in customObject) {
       if (!defaultObject.hasOwnProperty(key)) {
         defaultObject[key] = customObject[key]
-      } else {
-        console.log(customObject[key])
       }
-
     }
 
     //overwrite keys
