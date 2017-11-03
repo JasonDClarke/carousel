@@ -1,3 +1,4 @@
+"use strict"
 describe("Carousel rendering (using renderFromJSHTMLTemplate)", function() {
 
   afterEach(function() {

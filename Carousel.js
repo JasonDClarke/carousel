@@ -4,74 +4,72 @@
     global.Carousel = factory()
 }(this, function() { 'use strict';
 
-  function start(customConfig) {
+let defaultConfig = {
+  //required
+  containerSel: null, //selector of containing element in html, must be unique
 
-  let defaultConfig = {
-    //required
-    containerSel: null, //selector of containing element in html, must be unique
+  //optional below:
+  renderFromJSHTMLTemplate: false, // if false, need to build own HTML template in the document.*1
+  images: null, //include image srces in array. Only required when JS template used
 
-    //optional below:
-    renderFromJSHTMLTemplate: false, // if false, need to build own HTML template in the document.*1
-    images: null, //include image srces in array. Only required when JS template used
+  //SVG Frame
+  SVGInit: false, //no frame if false
+  thickness: 2, //vary thickness of frame, no effect for custom frames
+  frame: 'square', //type of SVG frame
+  customFrame: null, //takes an SVG path. Need to define "hole" in 100*100 square. Hole is stretched to match
 
-    //SVG Frame
-    SVGInit: false, //no frame if false
-    thickness: 2, //vary thickness of frame, no effect for custom frames
-    frame: 'square', //type of SVG frame
-    customFrame: null, //takes an SVG path. Need to define "hole" in 100*100 square. Hole is stretched to match
+  noMoveAnim: 'anim-noMove-wiggle',   //animation if current slide is selected again. css class
 
-    noMoveAnim: 'anim-noMove-wiggle',   //animation if current slide is selected again. css class
-
-    initPicIndex: 0, //index of first image shown. 0-indexed
-    swipableInit: true, //are touch listeners initialised?
-    paginationInit: true, //are pagination listeners initialised? Also not included by render if false
-    buttonInit: true, //are left/right buttons initialised? Also not included by render if false
-    pagination: {
-      className: 'paginationButton', //class name of pagination buttons in HTML
-      eventType: "click", //event occurs on [click] of pagination button
-      entranceAnim: "anim-select-top", //animation of entering image. css class.
-      exitAnim: "anim-deselect-bottom" //animation of exiting image. css class.
-    },
-    leftButton: { //describes event when clicking the left button
-      className: 'leftButton',
-      eventType: "click",
+  initPicIndex: 0, //index of first image shown. 0-indexed
+  swipableInit: true, //are touch listeners initialised?
+  paginationInit: true, //are pagination listeners initialised? Also not included by render if false
+  buttonInit: true, //are left/right buttons initialised? Also not included by render if false
+  pagination: {
+    className: 'paginationButton', //class name of pagination buttons in HTML
+    eventType: "click", //event occurs on [click] of pagination button
+    entranceAnim: "anim-select-top", //animation of entering image. css class.
+    exitAnim: "anim-deselect-bottom" //animation of exiting image. css class.
+  },
+  leftButton: { //describes event when clicking the left button
+    className: 'leftButton',
+    eventType: "click",
+    entranceAnim: "anim-select-left",
+    exitAnim: "anim-deselect-right",
+    newPicIndexFn: 'goLeft' //function deciding what the index of the next image is
+  },
+  rightButton: {
+    className: 'rightButton',
+    eventType: "click",
+    entranceAnim: "anim-select-right",
+    exitAnim: "anim-deselect-left",
+    newPicIndexFn: 'goRight'
+  },
+  swipeLeft: { //describes event when swiping the image left (ie touch)
+      className: "carouselContainer",
+      eventType: "swipeRight",
       entranceAnim: "anim-select-left",
       exitAnim: "anim-deselect-right",
-      newPicIndexFn: 'goLeft' //function deciding what the index of the next image is
-    },
-    rightButton: {
-      className: 'rightButton',
-      eventType: "click",
+      newPicIndexFn: 'goLeft'
+  },
+  swipeRight: {
+      className: "carouselContainer",
+      eventType: "swipeLeft",
       entranceAnim: "anim-select-right",
       exitAnim: "anim-deselect-left",
       newPicIndexFn: 'goRight'
-    },
-    swipeLeft: { //describes event when swiping the image left (ie touch)
-        className: "carouselContainer",
-        eventType: "swipeRight",
-        entranceAnim: "anim-select-left",
-        exitAnim: "anim-deselect-right",
-        newPicIndexFn: 'goLeft'
-    },
-    swipeRight: {
-        className: "carouselContainer",
-        eventType: "swipeLeft",
-        entranceAnim: "anim-select-right",
-        exitAnim: "anim-deselect-left",
-        newPicIndexFn: 'goRight'
-    }
   }
+}
 
-  let config=defaultConfig;
-  if (customConfig) {
+  function start(customConfig) {
+
+  let config=JSON.parse(JSON.stringify(defaultConfig));
   merge(config, customConfig);
-  }
-
+  Object.freeze(config);
   //STATE
   let picIndexState = config.initPicIndex;
 
   let container = document.querySelector(config.containerSel);
-  const numPics = getNumPics(container)
+  const numPics = getNumPics(config, container)
   //DOM hooks to carousel images
   let DOMPics; //note: hooks to DOM elements must be collected after they are rendered!
 
@@ -79,11 +77,11 @@
 
   function init() {
     if (config.renderFromJSHTMLTemplate) {
-      let carouselHTML = buildCarousel(config.images, config.containerSel.slice(1))
+      let carouselHTML = buildCarousel(config)
       container.innerHTML = carouselHTML
     }
     DOMPics = getDOMPics(numPics, container); //note: can only access DOM elements once they exist!
-    assignClassToSelectedImage(config.initPicIndex)
+    assignClassToSelectedImage(config.initPicIndex, container)
     if (config.paginationInit) {
     addPaginationListeners(config.pagination)
     }
@@ -99,15 +97,7 @@
     addCustomListeners(config.customListeners)
     }
     if (config.SVGInit) {
-    SVGFrame(config.thickness, config.frame)
-    }
-  }
-
-  function assignClassToSelectedImage(initPicIndex) {
-    if (container.getElementsByClassName('carouselImage')[initPicIndex]) {
-    container.getElementsByClassName('carouselImage')[initPicIndex].classList.add("selected");
-    } else {
-      console.error("Initial picture index does not exist!");
+    SVGFrame(config, container)
     }
   }
 
@@ -120,7 +110,7 @@
       newPicIndexFn = ()=>i;
       el.addEventListener(
         x.eventType,
-        slideTransition.bind(null, x.entranceAnim, x.exitAnim, newPicIndexFn));
+        slideTransition.bind(null, x.entranceAnim, x.exitAnim));
     }
   }
 
@@ -130,30 +120,14 @@
     });
   }
 
-  function getNumPics(container) {
-    //if JS-rendered, number of pics comes from config.images.length
-    //else number of pics comes from looking at html
-    if (config.images) {
-      return config.images.length;
-    } else {
-      return container.getElementsByClassName("carouselImage").length;
-    }
-  }
 
-  function getDOMPics(numPics, container) {
-    let DOMPics =[];
-    for (var i=0; i<numPics; i++) {
-      DOMPics[i] = container.getElementsByClassName('carouselImage')[i];
-    }
-    return DOMPics;
-  }
 
   ///constructing listeners
   function addListener(carouselListenerConfig) {
     let x = carouselListenerConfig;
     let el = container.getElementsByClassName(x.className)[0];
     let newPicIndexFn = getIndexFunction(x.newPicIndexFn)
-    let callback = slideTransition.bind(null, x.entranceAnim,x.exitAnim, newPicIndexFn)
+    let callback = slideTransition.bind(null, x.entranceAnim,x.exitAnim)
 
     if (carouselListenerConfig.eventType.includes("swipe")) {
     return addSwipeListener(x.eventType, el, callback);
@@ -165,7 +139,7 @@
   function slideTransition(entranceAnim, exitAnim, newPicIndexFn) {
     let newPicId = newPicIndexFn(picIndexState, numPics);
     if (newPicId === picIndexState) {
-      runNoMoveAnim()
+      runNoMoveAnim(config, DOMPics, picIndexState)
       return;
     }
 
@@ -177,33 +151,19 @@
     picIndexState = newPicId;
   }
 
-  function runNoMoveAnim() {
+
+
+
+  /// newPicIndexFns
+  }
+
+  function runNoMoveAnim(config, DOMPics, picIndexState) {
   runAnimationClass(DOMPics[picIndexState], config.noMoveAnim);
   }
 
-  function runAnimationClass(htmlEl, animClass) {
-    htmlEl.classList.add(animClass);
-    htmlEl.addEventListener("animationend", function i() {
-      htmlEl.classList.remove(animClass);
-      htmlEl.removeEventListener("animationend", i);
-    })
-  }
-
-  function moveCssClass(a, b, cssClass) {
-    a.classList.remove(cssClass);
-    b.classList.add(cssClass);
-  }
-  /// newPicIndexFns
-  function getIndexFunction(string) {
-    let indexFunctions =  {
-      goLeft: (currPicId, numPics)=>(currPicId-1+numPics)%numPics,
-      goRight: (currPicId, numPics)=>(currPicId+1)%numPics,
-      goRandom: (currPicId, numPics)=>Math.floor(Math.random()*numPics)
-    }
-    return indexFunctions[string];
-  }
-
-  function SVGFrame(thickness, type) {
+  function SVGFrame(config, container) {
+    let thickness = config.thickness,
+        type      = config.frame;
 
     let path = container.querySelector(".path");
     let height = 100;
@@ -264,7 +224,9 @@
     `);
   };
 
-  function buildCarousel(images, id) {
+  function buildCarousel(config) {
+    let images = config.images,
+        id     = config.containerSel.slice(1)
     let carouselContainerStyles = [
     //allows images to be positioned absolutely relative to the container
     `position: relative;`,
@@ -331,8 +293,6 @@
     return carousel;
   }
 
-  }
-
   function merge(defaultObject, customObject) {
     //add custom keys
     for (var key in customObject) {
@@ -388,6 +348,56 @@
 
     return swipeTypeChecks[swipeType](touch);
   }
+
+  function runAnimationClass(htmlEl, animClass) {
+    htmlEl.classList.add(animClass);
+    htmlEl.addEventListener("animationend", function i() {
+      htmlEl.classList.remove(animClass);
+      htmlEl.removeEventListener("animationend", i);
+    })
+  }
+
+  function moveCssClass(a, b, cssClass) {
+    a.classList.remove(cssClass);
+    b.classList.add(cssClass);
+  }
+
+  function getIndexFunction(string) {
+    let indexFunctions =  {
+      goLeft: (currPicId, numPics)=>(currPicId-1+numPics)%numPics,
+      goRight: (currPicId, numPics)=>(currPicId+1)%numPics,
+      goRandom: (currPicId, numPics)=>Math.floor(Math.random()*numPics)
+    }
+    return indexFunctions[string];
+  }
+
+  function getNumPics(config, container) {
+    //if JS-rendered, number of pics comes from config.images.length
+    //else number of pics comes from looking at html
+    if (config.images) {
+      return config.images.length;
+    } else {
+      return container.getElementsByClassName("carouselImage").length;
+    }
+  }
+
+  function getDOMPics(numPics, container) {
+    let DOMPics =[];
+    for (var i=0; i<numPics; i++) {
+      DOMPics[i] = container.getElementsByClassName('carouselImage')[i];
+    }
+    return DOMPics;
+  }
+
+  function assignClassToSelectedImage(initPicIndex, container) {
+    if (container.getElementsByClassName('carouselImage')[initPicIndex]) {
+    container.getElementsByClassName('carouselImage')[initPicIndex].classList.add("selected");
+    } else {
+      console.error("Initial picture index does not exist!");
+    }
+  }
+
+
 
   return {
     start: start,
