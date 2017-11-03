@@ -64,6 +64,8 @@ let defaultConfig = {
   //html must be added manually ie not using renderFromJSHTMLTemplate
 }
 
+
+
   function start(customConfig) {
 
   let config=JSON.parse(JSON.stringify(defaultConfig));
@@ -82,7 +84,7 @@ let defaultConfig = {
   //
   //props
   const numPics = getNumPics(config, container)
-  const DOMPics= getDOMPics(numPics, container);
+  const DOMPics = getDOMPics(numPics, container)
   //
   init();
 
@@ -141,18 +143,18 @@ let defaultConfig = {
   }
 
   function slideTransition(entranceAnim, exitAnim, newPicIndexFn) {
-    let newPicId = newPicIndexFn(picIndexState, numPics);
-    if (newPicId === picIndexState) {
+    let newPicIndex = newPicIndexFn(picIndexState, numPics);
+    if (newPicIndex === picIndexState) {
       runNoMoveAnim()
       return;
     }
 
-    let prevPicId = picIndexState;
-    moveCssClass(DOMPics[prevPicId], DOMPics[newPicId], 'selected');
-    runAnimationClass(DOMPics[newPicId], entranceAnim);
-    runAnimationClass(DOMPics[prevPicId], exitAnim);
+    let prevPicIndex = picIndexState;
+    moveCssClass(DOMPics[prevPicIndex], DOMPics[newPicIndex], 'selected');
+    runAnimationClass(DOMPics[newPicIndex], entranceAnim);
+    runAnimationClass(DOMPics[prevPicIndex], exitAnim);
 
-    picIndexState = newPicId;
+    picIndexState = newPicIndex;
   }
 
   function runNoMoveAnim() {
