@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Jasmine Spec Runner v2.4.1</title>
+    <link rel="stylesheet" href="node_modules\jasmine-core\lib\jasmine-core/jasmine.css">
+    <link rel="stylesheet" href="index.css" type="text/css"></link>
+    <script src="node_modules\jasmine-core\lib\jasmine-core/jasmine.js"></script>
+    <script src="node_modules\jasmine-core\lib\jasmine-core/jasmine-html.js"></script>
+    <script src="node_modules\jasmine-core\lib\jasmine-core/boot.js"></script>
+
+    <!-- include source files here... -->
+    <script src = "Carousel.js"></script>
+
+    <!-- include spec files here... -->
+    <script src="spec/specCarouselBuilt.test.js"></script>
+</head>
+
+<body>
+  <!--set display to none so it does not appear in test report  -->
+  <div id="basicCarousel" class="carousel2" style="display:none;">
+    <div class="carouselContainer">
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path class="path" fill-rule="even-odd"/>
+      </svg>
+      <img class="carouselImage" src="http://media.timeout.com/blogimages/wp-content/uploads/2013/01/tumblr_lw7h7q5JKc1r3pgwbo1_500.jpeg" />
+      <img class="carouselImage" src="https://metrouk2.files.wordpress.com/2017/01/512513451.jpg?quality=80&strip=all" />
+      <img class="carouselImage" src="https://metrouk2.files.wordpress.com/2016/04/11951840_382970415232674_1167170684506797359_n.jpg?quality=80&strip=all" />
+    </div>
+
+    <div class="buttons">
+      <button class="leftButton"> &lt; </button>
+      <button class="paginationButton">0</button>
+      <button class="paginationButton">1</button>
+      <button class="paginationButton">2</button>
+      <button class="rightButton"> &gt; </button>
+    </div>
+  </div>
+</body>
+</html>
