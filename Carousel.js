@@ -110,7 +110,7 @@ let defaultConfig = {
       newPicIndexFn = ()=>i;
       el.addEventListener(
         x.eventType,
-        slideTransition.bind(null, x.entranceAnim, x.exitAnim));
+        slideTransition.bind(null, x.entranceAnim, x.exitAnim, newPicIndexFn));
     }
   }
 
@@ -127,7 +127,7 @@ let defaultConfig = {
     let x = carouselListenerConfig;
     let el = container.getElementsByClassName(x.className)[0];
     let newPicIndexFn = getIndexFunction(x.newPicIndexFn)
-    let callback = slideTransition.bind(null, x.entranceAnim,x.exitAnim)
+    let callback = slideTransition.bind(null, x.entranceAnim,x.exitAnim, newPicIndexFn)
 
     if (carouselListenerConfig.eventType.includes("swipe")) {
     return addSwipeListener(x.eventType, el, callback);
