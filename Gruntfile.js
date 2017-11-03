@@ -13,8 +13,8 @@ grunt.initConfig({
        style: 'expanded'
      },
      files: {                         // Dictionary of files
-       'index.css': 'index.scss',
-       'extraAnimations.css': 'extraAnimations.scss'     // 'destination': 'source'
+       'css/Carousel.css': 'Carousel.scss',
+       'css/extraAnimations.css': 'extraAnimations.scss'     // 'destination': 'source'
      }
    }
  }
