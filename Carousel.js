@@ -67,7 +67,6 @@ let defaultConfig = {
   Object.freeze(config);
   //STATE
   let picIndexState = config.initPicIndex;
-
   let container = document.querySelector(config.containerSel);
   const numPics = getNumPics(config, container)
   //DOM hooks to carousel images
@@ -120,8 +119,6 @@ let defaultConfig = {
     });
   }
 
-
-
   ///constructing listeners
   function addListener(carouselListenerConfig) {
     let x = carouselListenerConfig;
@@ -139,7 +136,7 @@ let defaultConfig = {
   function slideTransition(entranceAnim, exitAnim, newPicIndexFn) {
     let newPicId = newPicIndexFn(picIndexState, numPics);
     if (newPicId === picIndexState) {
-      runNoMoveAnim(config, DOMPics, picIndexState)
+      runNoMoveAnim()
       return;
     }
 
@@ -151,15 +148,13 @@ let defaultConfig = {
     picIndexState = newPicId;
   }
 
-
-
-
-  /// newPicIndexFns
-  }
-
-  function runNoMoveAnim(config, DOMPics, picIndexState) {
+  function runNoMoveAnim() {
   runAnimationClass(DOMPics[picIndexState], config.noMoveAnim);
   }
+
+  }
+
+
 
   function SVGFrame(config, container) {
     let thickness = config.thickness,
@@ -401,7 +396,18 @@ let defaultConfig = {
 
   return {
     start: start,
-    __merge: merge
+    __merge: merge,
+    __buildCarousel: buildCarousel,
+    __SVGFrame: SVGFrame,
+    __addSwipeListener: addSwipeListener,
+    __isSwipeType: isSwipeType,
+    __runAnimationClass: runAnimationClass,
+    __moveCssClass: moveCssClass,
+    __getIndexFunction: getIndexFunction,
+    __getNumPics: getNumPics,
+    __getDOMPics: getDOMPics,
+    __assignClassToSelectedImage: assignClassToSelectedImage,
+    __defaultConfig: JSON.parse(JSON.stringify(defaultConfig))
   }
 
 }))

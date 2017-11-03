@@ -1,4 +1,3 @@
-"use strict"
 describe("Carousel rendering (using renderFromJSHTMLTemplate)", function() {
 
   afterEach(function() {
@@ -126,4 +125,43 @@ describe("Carousel rendering (using renderFromJSHTMLTemplate)", function() {
       expect(document.getElementById("carousel").querySelector(".paginationButton")).toBeFalsy();
     });
   });
+
+  describe("event listeners added", function() {
+    let container;
+    let defaultConfig = Carousel.__defaultConfig;
+    let merge = Carousel.__merge;
+    beforeEach(function() {
+      container = document.getElementById("carousel");
+      merge(defaultConfig,
+        {
+          containerSel: "#carousel",
+          renderFromJSHTMLTemplate: false,
+          images: ["./spec/testImage.jpg"]
+       })
+      container.innerHTML = Carousel.__buildCarousel(defaultConfig)
+    })
+
+    it("should add event listeners to appropriate parts of the carousel",
+     function() {
+      let leftButton = container.querySelector(".leftButton");
+      let rightButton = container.querySelector(".rightButton");
+      let paginationButton0 = container.querySelector(".paginationButton");
+      let carouselContainer = container.querySelector(".carouselContainer");
+      spyOn(leftButton, 'addEventListener');
+      spyOn(rightButton, 'addEventListener');
+      spyOn(paginationButton0, 'addEventListener');
+      spyOn(carouselContainer, 'addEventListener')
+      let test = new Carousel.start(
+        {
+          containerSel: "#carousel",
+          renderFromJSHTMLTemplate: false,
+          images: ["./spec/testImage.jpg"]
+        }
+      )
+      expect(leftButton.addEventListener).toHaveBeenCalled();
+      expect(rightButton.addEventListener).toHaveBeenCalled();
+      expect(paginationButton0.addEventListener).toHaveBeenCalled();
+      expect(carouselContainer.addEventListener).toHaveBeenCalled();
+    })
+  })
 });
