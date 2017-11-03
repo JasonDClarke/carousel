@@ -29,7 +29,7 @@ describe("Carousel rendering (using renderFromJSHTMLTemplate)", function() {
         containerSel: "#carousel",
         renderFromJSHTMLTemplate: true,
         images: ["./spec/testImage.jpg", "./spec/testImage.jpg"],
-        SVGInit: true
+        init: {SVGFrame: true}
       }
     )
     let carousel = document.getElementById("carousel");
@@ -43,7 +43,7 @@ describe("Carousel rendering (using renderFromJSHTMLTemplate)", function() {
           containerSel: "#carousel",
           renderFromJSHTMLTemplate: true,
           images: ["./spec/testImage.jpg", "./spec/testImage.jpg"],
-          SVGInit: true
+          init: {SVGFrame: true}
         }
       )
       let carousel = document.getElementById("carousel");
@@ -91,7 +91,6 @@ describe("Carousel rendering (using renderFromJSHTMLTemplate)", function() {
           containerSel: "#carousel",
           renderFromJSHTMLTemplate: true,
           images: ["./spec/testImage.jpg"],
-          SVGInit: false
         }
       )
       let carousel = document.getElementById("carousel");
@@ -105,7 +104,7 @@ describe("Carousel rendering (using renderFromJSHTMLTemplate)", function() {
           containerSel: "#carousel",
           renderFromJSHTMLTemplate: true,
           images: ["./spec/testImage.jpg"],
-          paginationInit: false
+          init: {pagination: false}
         }
       )
       let carousel = document.getElementById("carousel");
@@ -119,10 +118,10 @@ describe("Carousel rendering (using renderFromJSHTMLTemplate)", function() {
           containerSel: "#carousel",
           renderFromJSHTMLTemplate: true,
           images: [],
-          paginationButton: false
+          init: {button: false}
         }
       )
-      expect(document.getElementById("carousel").querySelector(".paginationButton")).toBeFalsy();
+      expect(document.getElementById("carousel").querySelector(".leftButton")).toBeFalsy();
     });
   });
 

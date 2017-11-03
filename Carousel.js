@@ -10,20 +10,17 @@ let defaultConfig = {
 
   //optional below:
   renderFromJSHTMLTemplate: false, // if false, need to build own HTML template in the document.*1
-  images: null, //include image srces in array. Only required when JS template used
-
-  //SVG Frame
-  SVGInit: false, //no frame if false
-  thickness: 2, //vary thickness of frame, no effect for custom frames
-  frame: 'square', //type of SVG frame
-  customFrame: null, //takes an SVG path. Need to define "hole" in 100*100 square. Hole is stretched to match
+  images: null, //include image srces in array. Only required when JS template used,
+  //when renderFromJSHTMLTemplate false, image srces collected from html
 
   noMoveAnim: 'anim-noMove-wiggle',   //animation if current slide is selected again. css class
-
-  initPicIndex: 0, //index of first image shown. 0-indexed
-  swipableInit: true, //are touch listeners initialised?
-  paginationInit: true, //are pagination listeners initialised? Also not included by render if false
-  buttonInit: true, //are left/right buttons initialised? Also not included by render if false
+  init: {
+    picIndex: 0, //the index of first image shown. 0-indexed
+    pagination: true,//are touch listeners initialised?
+    swipable: true,//are pagination listeners initialised? Also the html not included by render if false
+    button: true,//are left/right buttons initialised? Also the html not included by render if false
+    SVGFrame: false//no frame if false. Also the not included by render if false
+  },
   pagination: {
     className: 'paginationButton', //class name of pagination buttons in HTML
     eventType: "click", //event occurs on [click] of pagination button
@@ -57,7 +54,14 @@ let defaultConfig = {
       entranceAnim: "anim-select-right",
       exitAnim: "anim-deselect-left",
       newPicIndexFn: 'goRight'
-  }
+  },
+  SVGFrame: {
+    thickness: 2, //vary thickness of frame, no effect for custom frames
+    frame: 'square', //type of SVG frame
+    customFrame: null, //takes an SVG path. Need to define "hole" in 100*100 square. Hole is stretched to match
+  },
+  customListeners: [] //takes an array of objects similar to eg the config.leftButton object
+  //html must be added manually ie not using renderFromJSHTMLTemplate
 }
 
   function start(customConfig) {
@@ -65,38 +69,41 @@ let defaultConfig = {
   let config=JSON.parse(JSON.stringify(defaultConfig));
   merge(config, customConfig);
   Object.freeze(config);
-  //STATE
-  let picIndexState = config.initPicIndex;
-  let container = document.querySelector(config.containerSel);
-  const numPics = getNumPics(config, container)
-  //DOM hooks to carousel images
-  let DOMPics; //note: hooks to DOM elements must be collected after they are rendered!
 
+
+  let container = document.querySelector(config.containerSel);
+  if (config.renderFromJSHTMLTemplate) {
+    let carouselHTML = buildCarousel(config)
+    container.innerHTML = carouselHTML
+  }
+
+  //STATE
+  let picIndexState = config.init.picIndex;
+  //
+  //props
+  const numPics = getNumPics(config, container)
+  const DOMPics= getDOMPics(numPics, container);
+  //
   init();
 
-  function init() {
-    if (config.renderFromJSHTMLTemplate) {
-      let carouselHTML = buildCarousel(config)
-      container.innerHTML = carouselHTML
-    }
-    DOMPics = getDOMPics(numPics, container); //note: can only access DOM elements once they exist!
-    assignClassToSelectedImage(config.initPicIndex, container)
-    if (config.paginationInit) {
+  function init(configInit) {
+    assignClassToSelectedImage(config.init.picIndex, container)
+    if (config.init.pagination) {
     addPaginationListeners(config.pagination)
     }
-    if (config.buttonInit) {
+    if (config.init.button) {
     addListener(config.leftButton)
     addListener(config.rightButton)
     }
-    if (config.swipableInit) {
+    if (config.init.swipable) {
     addListener(config.swipeLeft)
     addListener(config.swipeRight)
     }
     if (config.customListeners) {
     addCustomListeners(config.customListeners)
     }
-    if (config.SVGInit) {
-    SVGFrame(config, container)
+    if (config.init.SVGFrame) {
+    SVGFrame(config.SVGFrame, container)
     }
   }
 
@@ -105,7 +112,7 @@ let defaultConfig = {
     let el;
     let newPicIndexFn;
     for (let i=0; i<numPics; i++) {
-      el = container.getElementsByClassName(config.pagination.className)[i];
+      el = container.getElementsByClassName(x.className)[i];
       newPicIndexFn = ()=>i;
       el.addEventListener(
         x.eventType,
@@ -156,9 +163,9 @@ let defaultConfig = {
 
 
 
-  function SVGFrame(config, container) {
-    let thickness = config.thickness,
-        type      = config.frame;
+  function SVGFrame(configSVGFrame, container) {
+    let thickness = configSVGFrame.thickness,
+        type      = configSVGFrame.frame;
 
     let path = container.querySelector(".path");
     let height = 100;
@@ -210,7 +217,7 @@ let defaultConfig = {
     Q${3.1*t} ${h/2} ${3*t} ${h/2-t}
     Q${t} ${5*t} ${3*t} ${3*t}
     `,
-    custom: config.customFrame
+    custom: configSVGFrame.customFrame
     }
 
     path.setAttribute('d', `
@@ -252,7 +259,7 @@ let defaultConfig = {
     }
 
     let paginationHTML = ``;
-    if (config.paginationInit) {
+    if (config.init.pagination) {
       for (let i=1; i<= noSlides; i++) {
         paginationHTML+= `<button class="paginationButton">${i}</button>`
       }
@@ -261,13 +268,13 @@ let defaultConfig = {
     let leftButton = ``;
     let rightButton= ``;
 
-    if (config.buttonInit) {
+    if (config.init.button) {
       leftButton = `<button class="leftButton"> &lt; </button>`;
       rightButton = `<button class="rightButton"> &gt; </button>`
     }
 
     let svg = ``;
-    if (config.SVGInit) {
+    if (config.init.SVGFrame) {
       svg = `<svg viewBox="0 0 100 100" preserveAspectRatio="none"
       style="${svgStyles}">
         <path class="path" fill-rule="even-odd"/>
