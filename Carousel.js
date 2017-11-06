@@ -43,17 +43,17 @@
     },
     swipeLeft: { //describes event when swiping the image left (ie touch)
         className: "carouselContainer",
-        eventType: "swipeRight",
-        entranceAnim: "anim-select-left",
-        exitAnim: "anim-deselect-right",
-        newPicIndexFn: 'goLeft'
-    },
-    swipeRight: {
-        className: "carouselContainer",
         eventType: "swipeLeft",
         entranceAnim: "anim-select-right",
         exitAnim: "anim-deselect-left",
         newPicIndexFn: 'goRight'
+    },
+    swipeRight: {
+        className: "carouselContainer",
+        eventType: "swipeRight",
+        entranceAnim: "anim-select-left",
+        exitAnim: "anim-deselect-right",
+        newPicIndexFn: 'goLeft'
     },
     SVGFrame: {
       thickness: 2, //vary thickness of frame, no effect for custom frames
@@ -64,7 +64,8 @@
     //html must be added manually ie not using renderFromJSHTMLTemplate
   }
 
-  function start(customConfig) {
+  function start(customConfig, id) {
+    if (id) {customConfig.containerSel = `#carousel${id}`};
 
     let config=getDefaults(); //a copy made so original defaultconfig can be used for testing
     merge(config, customConfig);
@@ -167,26 +168,27 @@
     return JSON.parse(JSON.stringify(defaultConfig));
   }
 
-  function render(customConfig) {
-    type({renderFromJSHTMLTemplate: true}, customConfig)
+  function render(customConfig, id) {
+    type({renderFromJSHTMLTemplate: true}, customConfig, id)
   }
 
-  function noPagination(customConfig) {
+  function noPagination(customConfig, id) {
     type({init: {pagination: false},
-          renderFromJSHTMLTemplate: true}, customConfig)
+          renderFromJSHTMLTemplate: true}, customConfig, id)
   }
 
-  function justSlides(customConfig) {
+  function justSlides(customConfig, id) {
     type({init: {pagination: false,
                  button: false},
-          renderFromJSHTMLTemplate: true}, customConfig)
+          renderFromJSHTMLTemplate: true}, customConfig, id)
   }
 
-  function type(typeConfig, customConfig) {
+  function type(typeConfig, customConfig, id) {
+    typeConfig = JSON.parse(JSON.stringify(typeConfig));
     if (customConfig) {
     merge(typeConfig, customConfig);
     }
-    start(typeConfig);
+    start(typeConfig, id);
   }
 
   function SVGFrame(configSVGFrame, container) {
