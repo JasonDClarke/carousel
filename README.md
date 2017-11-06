@@ -1,3 +1,65 @@
+# carousel
+carousel module
+
+
+
+##
+
+# Carousel Module
+
+A configurable carousel allowing multiple slide transitions and custom image frames.
+
+## Quickstart
+
+1. link in the css file css/Carousel.css
+
+2. in html body: 
+
+<div id ="carousel1"></div>
+
+3. In JS:
+
+```
+new Carousel.render({id:1, images: ["image1.jpg", "image2.jpg"]});
+```
+
+### Prerequisites
+
+None! Build versions use es6 and sass.
+
+### Essential files
+
+es5/Carousel.js
+
+css/Carousel.css
+
+css/extraAnimations.css if extra animations are required
+
+
+## Running the tests
+
+open specRunner.html in chrome.
+
+The above tests the carousel when the template is rendered by javascript. It also tests some helper functions in Carousel.js
+
+open specRunner--CarouselInHTML.html in chrome
+
+This tests that event listeners are added to the html already provided when template is written in html and not rendered by javascript.
+
+## methods available
+
+The Carousel is controlled by a config object. Below is the default config object. Only the values you wish to change
+from the default need to be included in any custom configurations.
+
+
+```
+let defaultConfig = {
+    //required: containerSel
+    containerSel: null, //selector of containing element in html, must be unique
+
+    //optional below:
+    renderFromJSHTMLTemplate: false, // if false, need to build own HTML template in the document.*1
+    images: null, //include image srces in array. Only required when JS template used,
     //when renderFromJSHTMLTemplate false, image srces collected from html
 
     noMoveAnim: 'anim-noMove-wiggle',   //animation if current slide is selected again. css class
@@ -52,6 +114,9 @@
   }
 
 ```
+
+
+##Methods
 
 Carousel.getDefault() shows the config object.
 
