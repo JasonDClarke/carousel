@@ -13,7 +13,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   var defaultConfig = {
     //required: containerSel or its shorthand, id
     containerSel: null, //selector of containing element in html, must be unique
-    id: null, //shorthand for containerSel, sets containerSel as '#carousel${id}'
+    // id: null, //shorthand for containerSel, sets containerSel as '#carousel${id}'
 
     //optional below:
     renderFromJSHTMLTemplate: false, // if false, need to build own HTML template in the document.*1
