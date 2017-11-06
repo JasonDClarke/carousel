@@ -64,13 +64,9 @@
     //html must be added manually ie not using renderFromJSHTMLTemplate
   }
 
-  function setDefaults(customConfig) {
-    merge(defaultConfig, customConfig);
-  }
-
   function start(customConfig) {
 
-    let config=JSON.parse(JSON.stringify(defaultConfig)); //a copy made so original defaultconfig can be used for testing
+    let config=getDefaults(); //a copy made so original defaultconfig can be used for testing
     merge(config, customConfig);
     Object.freeze(config);
 
@@ -161,6 +157,14 @@
     function runNoMoveAnim() {
     runAnimationClass(DOMPics[picIndexState], config.noMoveAnim);
     }
+  }
+
+  function setDefaults(customConfig) {
+    merge(defaultConfig, customConfig);
+  }
+
+  function getDefaults() {
+    return JSON.parse(JSON.stringify(defaultConfig));
   }
 
   function SVGFrame(configSVGFrame, container) {
@@ -388,14 +392,15 @@
 
   return {
     start: start,
-    setDefaults: setDefaults
+    setDefaults: setDefaults,
+    getDefaults: getDefaults
     //testing
     ,
     __merge: merge,
     __buildCarousel: buildCarousel,
     __addSwipeListener: addSwipeListener,
     __moveCssClass: moveCssClass,
-    __defaultConfig: JSON.parse(JSON.stringify(defaultConfig))
+    __defaultConfig: getDefaults()
     //
   }
 
