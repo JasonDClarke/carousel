@@ -4,24 +4,27 @@ let typeConfig = {
 }
 
 new Carousel.type(typeConfig, {
+  id: 1,
   noMoveAnim: 'anim-noMove-wiggle',   //animation if current slide is selected again. css class
   init: {SVGFrame: true},//no frame if false. Also the not included by render if false
   SVGFrame: {
     frame: 'curly',
     thickness: 4 //type of SVG frame
   }
-}, 1);
+});
 
 new Carousel.type(typeConfig, {
+  id: 2,
   pagination: {
     className: 'paginationButton', //class name of pagination buttons in HTML
     eventType: "click", //event occurs on [click] of pagination button
     entranceAnim: "anim-select-right", //animation of entering image. css class.
     exitAnim: "anim-deselect-left"
   }
-}, 2);
+});
 
 new Carousel.type(typeConfig, {
+  id: 3,
   leftButton: { //describes event when clicking the left button
     className: 'leftButton',
     eventType: "mouseover",
@@ -36,9 +39,10 @@ new Carousel.type(typeConfig, {
     exitAnim: "anim-deselect-right",
     newPicIndexFn: 'goRandom' //function deciding what the index of the next image is
   }
-}, 3);
+});
 
 new Carousel.type(typeConfig, {
+  id: 4,
   swipeLeft: { //describes event when swiping the image left (ie touch)
       className: "carouselContainer",
       eventType: "swipeUp",
@@ -53,7 +57,8 @@ new Carousel.type(typeConfig, {
       exitAnim: "anim-deselect-bottom",
       newPicIndexFn: 'goRight'
   }
-}, 4);
+});
 new Carousel.type(typeConfig, {
+  id: 5,
   init: {pagination: false}
-}, 5);
+});

@@ -11,8 +11,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   'use strict';
 
   var defaultConfig = {
-    //required
+    //required: containerSel or its shorthand, id
     containerSel: null, //selector of containing element in html, must be unique
+    id: null, //shorthand for containerSel, sets containerSel as '#carousel${id}'
 
     //optional below:
     renderFromJSHTMLTemplate: false, // if false, need to build own HTML template in the document.*1
@@ -70,10 +71,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     //html must be added manually ie not using renderFromJSHTMLTemplate
   };
 
-  function start(customConfig, id) {
+  function start(customConfig) {
     //if id is given the container selector name is generated from the id
-    if (id) {
-      customConfig.containerSel = '#carousel' + id;
+    if (customConfig.id) {
+      customConfig.containerSel = '#carousel' + customConfig.id;
     };
 
     var config = getDefaults(); //a copy made so original defaultconfig can be used for testing
@@ -182,30 +183,16 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     return JSON.parse(JSON.stringify(defaultConfig));
   }
   //id is just for syntactic sugar as a shorthand for putting the container selector
-  function render(customConfig, id) {
-    type({ renderFromJSHTMLTemplate: true }, customConfig, id);
+  function render(customConfig) {
+    type({ renderFromJSHTMLTemplate: true }, customConfig);
   }
 
-  function noPagination(customConfig, id) {
-    type({ init: { pagination: false },
-      renderFromJSHTMLTemplate: true }, customConfig, id);
-  }
-
-  function justSlides(customConfig, id) {
-    type({ init: {
-        pagination: false,
-        button: false
-      },
-      renderFromJSHTMLTemplate: true
-    }, customConfig, id);
-  }
-
-  function type(typeConfig, customConfig, id) {
+  function type(typeConfig, customConfig) {
     typeConfig = JSON.parse(JSON.stringify(typeConfig));
     if (customConfig) {
       merge(typeConfig, customConfig);
     }
-    start(typeConfig, id);
+    start(typeConfig);
   }
 
   function SVGFrame(configSVGFrame, container) {
@@ -383,8 +370,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     setDefaults: setDefaults,
     getDefaults: getDefaults,
     render: render,
-    noPagination: noPagination,
-    justSlides: justSlides,
     type: type
     //testing
 
