@@ -1,10 +1,3 @@
-# carousel
-carousel module
-
-
-
-##
-
 # Carousel Module
 
 A configurable carousel allowing multiple slide transitions and custom image frames.
@@ -52,15 +45,36 @@ This tests that event listeners are added to the html already provided when temp
 The Carousel is controlled by a config object. See below for the default config object. Only the values you wish to change
 from the default need to be included in any custom configurations.
 
-Carousel.getDefault() shows the config object.
 
-Carousel.setDefault(configObject) overwrites the default config object with values in the passed configObject.
+```
+new Carousel.start(configObject)
+```
+
+Builds a Carousel based on the config object passed in combined with default values.
+
+
+```
+new Carousel.render(configObject)
+```
+
+As above, but renderFromJSHTMLTemplate is set to true.
+
+
+```
+Carousel.getDefault()
+```
+
+Shows the current default config object.
+
+
+```
+Carousel.setDefault(configObject) 
+```
+
+Overwrites the default config object with values in the passed configObject.
 
 Any keys not included in the configObject remain set to the previous default.
 
-new Carousel.start(configObject) builds a Carousel based on the config object passed in combined with default values.
-
-new Carousel.render(configObject) is the same as above, but renderFromJSHTMLTemplate is set to true.
 
 ## Controls
 
