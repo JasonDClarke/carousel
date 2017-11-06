@@ -64,6 +64,10 @@
     //html must be added manually ie not using renderFromJSHTMLTemplate
   }
 
+  function setDefaults(customConfig) {
+    merge(defaultConfig, customConfig);
+  }
+
   function start(customConfig) {
 
     let config=JSON.parse(JSON.stringify(defaultConfig)); //a copy made so original defaultconfig can be used for testing
@@ -383,7 +387,8 @@
   }
 
   return {
-    start: start
+    start: start,
+    setDefaults: setDefaults
     //testing
     ,
     __merge: merge,

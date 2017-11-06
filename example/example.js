@@ -1,3 +1,4 @@
+Carousel.setDefaults({init: {SVGFrame: true}})
 new Carousel.start(
 {
   containerSel: "#dog",
@@ -6,7 +7,7 @@ new Carousel.start(
   "https://metrouk2.files.wordpress.com/2017/01/512513451.jpg?quality=80&strip=all",
   "https://metrouk2.files.wordpress.com/2016/04/11951840_382970415232674_1167170684506797359_n.jpg?quality=80&strip=all"
 ],
-init: {SVGFrame: true},
+// init: {SVGFrame: true},
 noMoveAnim: 'anim-noMove-hop',
 pagination: {
   className: 'paginationButton', //class name of pagination buttons in HTML
@@ -21,7 +22,7 @@ pagination: {
 new Carousel.start(
   {
     containerSel: "#basicCarousel",
-    init: {SVGFrame: true},
+    // init: {SVGFrame: true},
     SVGFrame: {
       frame: "custom",
       customFrame: `M2 2
