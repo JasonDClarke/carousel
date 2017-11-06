@@ -9,7 +9,8 @@ carousel module
 
 <div id ="carousel1"></div>
 
-3. In JS:
+3. In JS: 
+
 new Carousel.render({id:1, images: ["image1.jpg", "image2.jpg"]});
 
 ##
