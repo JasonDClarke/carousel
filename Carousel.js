@@ -167,6 +167,28 @@
     return JSON.parse(JSON.stringify(defaultConfig));
   }
 
+  function render(customConfig) {
+    type({renderFromJSHTMLTemplate: true}, customConfig)
+  }
+
+  function noPagination(customConfig) {
+    type({init: {pagination: false},
+          renderFromJSHTMLTemplate: true}, customConfig)
+  }
+
+  function justSlides(customConfig) {
+    type({init: {pagination: false,
+                 button: false},
+          renderFromJSHTMLTemplate: true}, customConfig)
+  }
+
+  function type(typeConfig, customConfig) {
+    if (customConfig) {
+    merge(typeConfig, customConfig);
+    }
+    start(typeConfig);
+  }
+
   function SVGFrame(configSVGFrame, container) {
     let thickness = configSVGFrame.thickness,
         type      = configSVGFrame.frame;
@@ -393,7 +415,11 @@
   return {
     start: start,
     setDefaults: setDefaults,
-    getDefaults: getDefaults
+    getDefaults: getDefaults,
+    render: render,
+    noPagination: noPagination,
+    justSlides: justSlides,
+    type: type
     //testing
     ,
     __merge: merge,
