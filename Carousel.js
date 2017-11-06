@@ -68,7 +68,7 @@ let defaultConfig = {
 
   function start(customConfig) {
 
-  let config=JSON.parse(JSON.stringify(defaultConfig));
+  let config=JSON.parse(JSON.stringify(defaultConfig)); //a copy made so original defaultconfig can be used for testing
   merge(config, customConfig);
   Object.freeze(config);
 
@@ -88,7 +88,7 @@ let defaultConfig = {
   //
   init();
 
-  function init(configInit) {
+  function init() {
     assignClassToSelectedImage(config.init.picIndex, container)
     if (config.init.pagination) {
     addPaginationListeners(config.pagination)

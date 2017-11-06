@@ -1,4 +1,10 @@
 describe("Carousel rendering (using renderFromJSHTMLTemplate)", function() {
+let defaultTestConfig = {
+  containerSel: "#carousel",
+  renderFromJSHTMLTemplate: true,
+  images: ["./spec/testImage.jpg", "./spec/testImage.jpg"],
+}
+
 
   afterEach(function() {
     let carousel = document.getElementById("carousel");
@@ -6,13 +12,8 @@ describe("Carousel rendering (using renderFromJSHTMLTemplate)", function() {
   })
 
   it("should build carousel HTML when configured to", function() {
-    let test = new Carousel.start(
-      {
-        containerSel: "#carousel",
-        renderFromJSHTMLTemplate: true,
-        images: ["./spec/testImage.jpg", "./spec/testImage.jpg"],
-      }
-    )
+    new Carousel.start(defaultTestConfig)
+
     let carousel = document.getElementById("carousel");
     expect(carousel.querySelectorAll(".paginationButton").length).toBe(2);
     expect(carousel.querySelectorAll(".carouselImage").length).toBe(2);
@@ -23,29 +24,21 @@ describe("Carousel rendering (using renderFromJSHTMLTemplate)", function() {
     expect(carousel.querySelector(".path")).toBeFalsy();
   });
 
-  it("should build a frame when configured to", function() {
-    let test = new Carousel.start(
-      {
-        containerSel: "#carousel",
-        renderFromJSHTMLTemplate: true,
-        images: ["./spec/testImage.jpg", "./spec/testImage.jpg"],
-        init: {SVGFrame: true}
-      }
-    )
+  it("should build an SVG frame when configured to", function() {
+    let config = JSON.parse(JSON.stringify(defaultTestConfig));
+    config.init = {SVGFrame: true};
+    new Carousel.start(config);
+
     let carousel = document.getElementById("carousel");
     expect(carousel.querySelector(".path")).toExist();
   });
 
   describe("default values", function() {
-    it("should produce default frame when frame initialised", function() {
-      let test = new Carousel.start(
-        {
-          containerSel: "#carousel",
-          renderFromJSHTMLTemplate: true,
-          images: ["./spec/testImage.jpg", "./spec/testImage.jpg"],
-          init: {SVGFrame: true}
-        }
-      )
+    it("should produce a frame when frame initialised", function() {
+      let config = JSON.parse(JSON.stringify(defaultTestConfig));
+      config.init = {SVGFrame: true};
+      new Carousel.start(config);
+
       let carousel = document.getElementById("carousel");
       expect(carousel.querySelector(".path")).toExist();
       expect(typeof carousel.querySelector(".path").getAttribute("d")).toBe("string");
@@ -54,16 +47,10 @@ describe("Carousel rendering (using renderFromJSHTMLTemplate)", function() {
     });
 
     it("should show first image by default", function() {
-      let test = new Carousel.start(
-        {
-          containerSel: "#carousel",
-          renderFromJSHTMLTemplate: true,
-          images: ["./spec/testImage.jpg", "./spec/testImage.jpg"],
-          SVGInit: true
-        }
-      )
+      let test = new Carousel.start(defaultTestConfig)
+
       let carousel = document.getElementById("carousel");
-      expect(carousel.querySelector(".carouselImage").classList).toContain("selected");
+      expect(carousel.querySelectorAll(".carouselImage")[0].classList).toContain("selected");
       expect(carousel.querySelectorAll(".carouselImage")[1].classList).not.toContain("selected");
     })
   })
@@ -72,55 +59,39 @@ describe("Carousel rendering (using renderFromJSHTMLTemplate)", function() {
 
   describe("build configs", function() {
     it("should not build image elements when no images are entered", function() {
-      let test = new Carousel.start(
-        {
-          containerSel: "#carousel",
-          renderFromJSHTMLTemplate: true,
-          images: []
-        }
-      )
+      let config = JSON.parse(JSON.stringify(defaultTestConfig));
+      config.images = [];
+      new Carousel.start(config);
+
       let carousel = document.getElementById("carousel");
       expect(carousel.querySelector(".buttons")).toExist();
       expect(carousel.querySelector(".carouselImage")).toBeFalsy();
       })
 
 
-    it("should not build frame when not configured to", function() {
-      let test = new Carousel.start(
-        {
-          containerSel: "#carousel",
-          renderFromJSHTMLTemplate: true,
-          images: ["./spec/testImage.jpg"],
-        }
-      )
+    it("should not build frame in default case when not configured to", function() {
+      new Carousel.start(defaultTestConfig)
+      
       let carousel = document.getElementById("carousel");
       expect(carousel.querySelector(".carouselImage")).toExist();
       expect(carousel.querySelector("svg")).toBeFalsy();
     });
 
     it("should not build pagination elements when not configured to", function() {
-      let test = new Carousel.start(
-        {
-          containerSel: "#carousel",
-          renderFromJSHTMLTemplate: true,
-          images: ["./spec/testImage.jpg"],
-          init: {pagination: false}
-        }
-      )
+      let config = JSON.parse(JSON.stringify(defaultTestConfig));
+      config.init = {pagination: false};
+      new Carousel.start(config);
+
       let carousel = document.getElementById("carousel");
       expect(carousel.querySelector(".carouselImage")).toExist();
       expect(carousel.querySelector(".paginationButton")).toBeFalsy();
     });
 
     it("should not build button elements when not configured to", function() {
-      let test = new Carousel.start(
-        {
-          containerSel: "#carousel",
-          renderFromJSHTMLTemplate: true,
-          images: [],
-          init: {button: false}
-        }
-      )
+      let config = JSON.parse(JSON.stringify(defaultTestConfig));
+      config.init = {button: false};
+      new Carousel.start(config)
+
       expect(document.getElementById("carousel").querySelector(".leftButton")).toBeFalsy();
     });
   });

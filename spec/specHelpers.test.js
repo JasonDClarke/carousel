@@ -10,6 +10,7 @@ describe("Helper functions", function() {
     it("should move a css class from one class to another", function() {
       affix("div.example");
       affix("main");
+
       let a = document.querySelector("div.example");
       let b = document.querySelector("main");
       moveCssClass(a, b, "example");
@@ -21,8 +22,9 @@ describe("Helper functions", function() {
   describe("addSwipeListener", function() {
     it("should add listener on touch start and touch end", function() {
       affix("div");
-      let div = document.querySelector("div");
       let callback = function() {};
+
+      let div = document.querySelector("div");
       spyOn(div, 'addEventListener');
       addSwipeListener('left', div, callback);
       expect(div.addEventListener.calls.count()).toEqual(2);
