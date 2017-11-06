@@ -45,19 +45,24 @@ This tests that event listeners are added to the html already provided when temp
 The Carousel is controlled by a config object. See below for the default config object. Only the values you wish to change
 from the default need to be included in any custom configurations.
 
+In all cases the containerSel key must be given so that it is know where to build the carousel.
+
 
 ```
 new Carousel.start(configObject)
 ```
 
 Builds a Carousel based on the config object passed in combined with default values.
+If renderFromJSHTMLTemplate is set to false, a HTML template must be provided.
+If renderFromJSHTMLTemplate is set to true, a div with the given container selector will be filled with
+the carousel HTML.
 
 
 ```
 new Carousel.render(configObject)
 ```
 
-As above, but renderFromJSHTMLTemplate is set to true.
+As above, but renderFromJSHTMLTemplate is automatically set to true.
 
 
 ```
@@ -88,7 +93,7 @@ let defaultConfig = {
     containerSel: null, //selector of containing element in html, must be unique
 
     //optional below:
-    renderFromJSHTMLTemplate: false, // if false, need to build own HTML template in the document.*1
+    renderFromJSHTMLTemplate: false, // if false, need to build own HTML template in the document.
     images: null, //include image srces in array. Only required when JS template used,
     //when renderFromJSHTMLTemplate false, image srces collected from html
 
@@ -145,7 +150,26 @@ let defaultConfig = {
 
 ```
 
+## HTML template
 
+
+```
+<div id="containerSel">
+ <div class="carouselContainer" style="position: relative;overflow: hidden;">
+   <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position: absolute;top: 0;z-index: 2;width: 100%;height: 100%;">
+    <path class="path" fill-rule="even-odd"></path>
+  </svg>
+  <img class="carouselImage" src="image1.jpg" />
+  <img class="carouselImage" src="image2.jpg" />
+  <img class="carouselImage" src="image3.jpg" />
+</div>
+<div class="buttons">
+  <button class="leftButton"> &lt; </button>
+  <button class="paginationButton">1</button><button class="paginationButton">2</button><button class="paginationButton">3</button>
+  <button class="rightButton"> &gt; </button>
+</div>
+</div>
+```
 
 
 ## Acknowledgments
