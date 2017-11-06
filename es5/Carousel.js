@@ -71,6 +71,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   };
 
   function start(customConfig, id) {
+    //if id is given the container selector name is generated from the id
     if (id) {
       customConfig.containerSel = '#carousel' + id;
     };
@@ -180,7 +181,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   function getDefaults() {
     return JSON.parse(JSON.stringify(defaultConfig));
   }
-
+  //id is just for syntactic sugar as a shorthand for putting the container selector
   function render(customConfig, id) {
     type({ renderFromJSHTMLTemplate: true }, customConfig, id);
   }
@@ -191,9 +192,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   }
 
   function justSlides(customConfig, id) {
-    type({ init: { pagination: false,
-        button: false },
-      renderFromJSHTMLTemplate: true }, customConfig, id);
+    type({ init: {
+        pagination: false,
+        button: false
+      },
+      renderFromJSHTMLTemplate: true
+    }, customConfig, id);
   }
 
   function type(typeConfig, customConfig, id) {

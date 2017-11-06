@@ -7,7 +7,6 @@ new Carousel.type(typeConfig, {
   noMoveAnim: 'anim-noMove-wiggle',   //animation if current slide is selected again. css class
   init: {SVGFrame: true},//no frame if false. Also the not included by render if false
   SVGFrame: {
-    thickness: 2, //vary thickness of frame, no effect for custom frames
     frame: 'curly',
     thickness: 4 //type of SVG frame
   }

@@ -65,6 +65,7 @@
   }
 
   function start(customConfig, id) {
+    //if id is given the container selector name is generated from the id
     if (id) {customConfig.containerSel = `#carousel${id}`};
 
     let config=getDefaults(); //a copy made so original defaultconfig can be used for testing
@@ -167,7 +168,7 @@
   function getDefaults() {
     return JSON.parse(JSON.stringify(defaultConfig));
   }
-
+  //id is just for syntactic sugar as a shorthand for putting the container selector
   function render(customConfig, id) {
     type({renderFromJSHTMLTemplate: true}, customConfig, id)
   }
@@ -178,9 +179,12 @@
   }
 
   function justSlides(customConfig, id) {
-    type({init: {pagination: false,
-                 button: false},
-          renderFromJSHTMLTemplate: true}, customConfig, id)
+    type({init: {
+        pagination: false,
+        button: false
+      },
+      renderFromJSHTMLTemplate: true
+    }, customConfig, id)
   }
 
   function type(typeConfig, customConfig, id) {
