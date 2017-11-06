@@ -46,7 +46,23 @@ open specRunner--CarouselInHTML.html in chrome
 
 This tests that event listeners are added to the html already provided when template is written in html and not rendered by javascript.
 
-## methods available
+
+## Methods
+
+The Carousel is controlled by a config object. See below for the default config object. Only the values you wish to change
+from the default need to be included in any custom configurations.
+
+Carousel.getDefault() shows the config object.
+
+Carousel.setDefault(configObject) overwrites the default config object with values in the passed configObject.
+
+Any keys not included in the configObject remain set to the previous default.
+
+new Carousel.start(configObject) builds a Carousel based on the config object passed in combined with default values.
+
+new Carousel.render(configObject) is the same as above, but renderFromJSHTMLTemplate is set to true.
+
+## Controls
 
 The Carousel is controlled by a config object. Below is the default config object. Only the values you wish to change
 from the default need to be included in any custom configurations.
@@ -114,20 +130,6 @@ let defaultConfig = {
   }
 
 ```
-
-
-##Methods
-
-Carousel.getDefault() shows the config object.
-
-Carousel.setDefault(configObject) overwrites the default config object with values in the passed configObject.
-
-Any keys not included in the configObject remain set to the previous default.
-
-new Carousel.start(configObject) builds a Carousel based on the config object passed in combined with default values.
-
-new Carousel.render(configObject) is the same as above, but renderFromJSHTMLTemplate is set to true.
-
 
 
 
