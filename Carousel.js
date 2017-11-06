@@ -70,7 +70,6 @@
     merge(config, customConfig);
     Object.freeze(config);
 
-
     let container = document.querySelector(config.containerSel);
     if (config.renderFromJSHTMLTemplate) {
       let carouselHTML = buildCarousel(config)

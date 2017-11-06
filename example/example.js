@@ -6,7 +6,7 @@ new Carousel.start(
   "https://metrouk2.files.wordpress.com/2017/01/512513451.jpg?quality=80&strip=all",
   "https://metrouk2.files.wordpress.com/2016/04/11951840_382970415232674_1167170684506797359_n.jpg?quality=80&strip=all"
 ],
-SVGInit: true,
+init: {SVGFrame: true},
 noMoveAnim: 'anim-noMove-hop',
 pagination: {
   className: 'paginationButton', //class name of pagination buttons in HTML
@@ -21,16 +21,14 @@ pagination: {
 new Carousel.start(
   {
     containerSel: "#basicCarousel",
-    paginationInit: true,
-    swipableInit: true,
-    SVGInit: true,
+    init: {SVGFrame: true},
     SVGFrame: {
-    frame: "custom",
-    customFrame: `M2 2
-    H98
-    L50 98
-    H2
-    L50 2`
+      frame: "custom",
+      customFrame: `M2 2
+      H98
+      L50 98
+      H2
+      L50 2`
     },
     customListeners: [{
         className: "magicButton",
