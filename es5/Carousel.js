@@ -71,7 +71,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
   function start(customConfig) {
 
-    var config = getDefaults(); //a copy made so original defaultconfig can be used for testing
+    var config = copy(defaultConfig); //a copy made so original defaultconfig can be used for testing
     merge(config, customConfig);
     Object.freeze(config);
 
@@ -173,16 +173,16 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     merge(defaultConfig, customConfig);
   }
 
-  function getDefaults() {
-    return JSON.parse(JSON.stringify(defaultConfig));
+  function copy(object) {
+    return JSON.parse(JSON.stringify(object));
   }
-  //id is just for syntactic sugar as a shorthand for putting the container selector
+
   function render(customConfig) {
     type({ renderFromJSHTMLTemplate: true }, customConfig);
   }
 
   function type(typeConfig, customConfig) {
-    typeConfig = JSON.parse(JSON.stringify(typeConfig));
+    typeConfig = copy(typeConfig);
     if (customConfig) {
       merge(typeConfig, customConfig);
     }
@@ -362,7 +362,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   return {
     start: start,
     setDefaults: setDefaults,
-    getDefaults: getDefaults,
+    getDefaults: copy(defaultConfig),
     render: render,
     type: type
     //testing
@@ -371,7 +371,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     __buildCarousel: buildCarousel,
     __addSwipeListener: addSwipeListener,
     __moveCssClass: moveCssClass,
-    __defaultConfig: getDefaults()
+    __defaultConfig: copy(defaultConfig)
     //
   };
 });
