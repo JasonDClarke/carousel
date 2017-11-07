@@ -124,7 +124,10 @@ anim-noMove-wiggle
 anim-noMove-hop (extra animations)
 ```
 
-## Choices for choosing next image
+Animations are accessed from css by class name. It is possible to define your own animations.
+Make sure that the "left" attribute of the .carouselImage class is explicitly set throughout the animation.
+
+## Choices for choosing next image (newPicIndexFn)
 
 ```
 goLeft
@@ -161,22 +164,22 @@ let defaultConfig = {
 
     //optional below:
     renderFromJSHTMLTemplate: false, // if false, need to build own HTML template in the document.
-    images: null, //include image srces in array. Only required when JS template used,
-    //when renderFromJSHTMLTemplate false, image srces collected from html
+    images: null,                    //include image srces in array. Only required when JS template used,
+                                     //when renderFromJSHTMLTemplate false, image srces collected from html
 
-    noMoveAnim: 'anim-noMove-wiggle',   //animation if current slide is selected again. css class
+    noMoveAnim: 'anim-noMove-wiggle',//animation if current slide is selected again. css class
     init: {
-      picIndex: 0, //the index of first image shown. 0-indexed
-      pagination: true,//are touch listeners initialised?
-      swipable: true,//are pagination listeners initialised? Also the html not included by render if false
-      button: true,//are left/right buttons initialised? Also the html not included by render if false
-      SVGFrame: false//no frame if false. Also the not included by render if false
+      picIndex: 0,       //the index of first image shown. 0-indexed
+      pagination: true,  //are pagination listeners initialised? Also, associated html not included by render if false
+      swipable: true,    //are touch listeners initialised?
+      button: true,      //are left/right buttons initialised? Also, associated html not included by render if false
+      SVGFrame: false    //no frame if false. Also, associated html not included by render if false
     },
     pagination: {
-      className: 'paginationButton', //class name of pagination buttons in HTML
-      eventType: "click", //event occurs on [click] of pagination button
-      entranceAnim: "anim-select-top", //animation of entering image. css class.
-      exitAnim: "anim-deselect-bottom" //animation of exiting image. css class.
+      className: 'paginationButton',  //class name of pagination buttons in HTML
+      eventType: "click",             //event occurs on [click] of pagination button
+      entranceAnim: "anim-select-top",//animation of entering image. A css classname.
+      exitAnim: "anim-deselect-bottom"//animation of exiting image. A css classname.
     },
     leftButton: { //describes event when clicking the left button
       className: 'leftButton',
@@ -207,12 +210,12 @@ let defaultConfig = {
         newPicIndexFn: 'goLeft'
     },
     SVGFrame: {
-      thickness: 2, //vary thickness of frame, no effect for custom frames
-      frame: 'square', //type of SVG frame
+      thickness: 2,      //vary thickness of frame, no effect for custom frames
+      frame: 'square',   //type of SVG frame
       customFrame: null, //takes an SVG path. Need to define "hole" in 100*100 square. Hole is stretched to match
     },
     customListeners: [] //takes an array of objects similar to eg the config.leftButton object
-    //html must be added manually ie not using renderFromJSHTMLTemplate
+                        //html must be added manually ie not using renderFromJSHTMLTemplate
   }
 
 ```
