@@ -4,7 +4,7 @@ grunt.initConfig({
   watch: {
       css: {
         files: ['./*.scss', 'Carousel.js'],
-        tasks: ['sass:dist', 'babel:dist']
+        tasks: ['sass:dist', 'babel:dist', 'uglify']
       },
     },
   sass: {                              // Task
@@ -17,6 +17,16 @@ grunt.initConfig({
        'css/extraAnimations.css': 'extraAnimations.scss'     // 'destination': 'source'
      }
    }
+ },
+ uglify: {
+    options: {
+      mangle: false
+    },
+    my_target: {
+      files: {
+        'es5/Carousel.min.js': ['es5/Carousel.js']
+      }
+    }
  },
  babel: {
    options: {
@@ -34,6 +44,7 @@ grunt.initConfig({
 grunt.loadNpmTasks('grunt-contrib-sass');
 grunt.loadNpmTasks('grunt-contrib-watch');
 grunt.loadNpmTasks('grunt-babel')
+grunt.loadNpmTasks('grunt-contrib-uglify')
 
 
 

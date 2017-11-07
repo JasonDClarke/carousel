@@ -5,7 +5,6 @@
 }(this, function() { 'use strict';
 
   let defaultConfig = {
-    //required: containerSel or its shorthand, id
     containerSel: null, //selector of containing element in html, must be unique
 
     //optional below:

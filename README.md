@@ -4,7 +4,7 @@ A configurable carousel allowing multiple slide transitions and custom image fra
 
 ## Quickstart
 
-1. Link the css file css/Carousel.css into your css file.
+1. Link the css file css/Carousel.css into your html file.
 
 2. in html body: a continer div with an id selector. This is where your carousel will live.
 
@@ -12,7 +12,9 @@ A configurable carousel allowing multiple slide transitions and custom image fra
 <div id ="carousel1"></div>
 ```
 
-3. In JS:
+3.Link to es5/Carousel.min.js and your own js file, index.js.
+
+4. In index.js:
 
 ```
 new Carousel.render({containerSel:"carousel1", images: ["image1.jpg", "image2.jpg"]});
@@ -20,15 +22,9 @@ new Carousel.render({containerSel:"carousel1", images: ["image1.jpg", "image2.jp
 
 ### Prerequisites
 
-None! Build versions use es6 and sass.
+None! Prebuild versions use es6 and sass.
 
-### Essential Files
-
-es5/Carousel.js
-
-css/Carousel.css
-
-css/extraAnimations.css if extra animations are required
+To examine prebuild code see Carousel.js and Carousel.scss in root folder.
 
 
 ## Running the Tests
