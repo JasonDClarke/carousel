@@ -34,3 +34,70 @@
   100% {opacity:1;
     transform: scale(1);}
 }
+
+$diagonalMap: (
+"topLeft":translate(-100%, -100%),
+"topRight":translate(100%, -100%),
+"bottomRight":translate(100%, 100%),
+"bottomLeft":translate(-100%, 100%)
+);
+
+@each $direction, $translation in $diagonalMap {
+  .anim-deselect-#{$direction} {
+    animation-name: slideout-#{$direction};
+    animation-duration: 0.5s;
+    //fixes frame of reference as class changes during animation
+    left:0;
+  }
+
+  .anim-select-#{$direction} {
+    animation-name: slidein-#{$direction};
+    animation-duration: 0.5s;
+  }
+
+  @keyframes slidein-#{$direction} {
+    0%   { transform: #{$translation}; }
+    100% { transform: none; }
+  }
+
+  @keyframes slideout-#{$direction} {
+    100% {transform: #{$translation};}
+  }
+}
+
+.anim-noMove-wiggle {
+  animation-name: wiggle;
+  animation-duration: 0.5s;
+}
+
+@keyframes wiggle {
+  0%   { transform: translateX(20px); }
+  20%  { transform: translateX(-20px);}
+  40%  { transform: translateX(20px);}
+  60%  { transform: translateX(-20px);}
+  80%  { transform: translateX(20px);}
+  100% { transform: translateX(-0px);}
+}
+
+.anim-select-rotate {
+  animation-name: enter-rotate;
+  animation-duration: 0.5s;
+}
+
+@keyframes enter-rotate {
+  0% {transform: rotateX(270deg);}
+  50% {transform: rotateX(270deg);}
+  100% {transform: rotateX(360deg);}
+}
+
+.anim-deselect-rotate {
+  animation-name: exit-rotate;
+  animation-duration: 0.5s;
+  left:0px;
+}
+
+@keyframes exit-rotate {
+  0% {transform: rotateX(0deg)};
+  50% {transform: rotateX(90deg)}
+  100% {transform: rotateX(90deg);}
+}
