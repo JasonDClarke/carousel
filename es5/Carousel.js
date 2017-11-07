@@ -70,17 +70,16 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   };
 
   function start(customConfig) {
-
+    //create config
     var config = copy(defaultConfig); //a copy made so original defaultconfig can be used for testing
     merge(config, customConfig);
     Object.freeze(config);
-
+    //hook to carousel, build carousel if needed
     var container = document.querySelector(config.containerSel);
     if (config.renderFromJSHTMLTemplate) {
       var carouselHTML = buildCarousel(config);
       container.innerHTML = carouselHTML;
     }
-
     //STATE
     var picIndexState = config.init.picIndex;
     //

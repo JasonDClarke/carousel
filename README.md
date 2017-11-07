@@ -50,7 +50,7 @@ Further stylings can be added to modify the carousel.
 The Carousel is controlled by a config object. See below for the default config object. Only the values you wish to change
 from the default need to be included in any custom configurations.
 
-In all cases the containerSel key must be given so that it is know where to build the carousel.
+In all cases the containerSel key must be given so that it is known where to build the carousel.
 
 
 ```
@@ -146,7 +146,7 @@ custom
 
 A custom frame is defined using a custom path. The image is assumed to be a 100*100 square for the purpose of defining the path.
 This square is then stretched to match the size of the image. To define a custom frame, enter the SVG path that defines a "hole"
-that shows the image.
+that shows the image. See example/example.js
 
 ## Controls
 

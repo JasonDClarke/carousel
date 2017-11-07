@@ -64,17 +64,16 @@
   }
 
   function start(customConfig) {
-
+    //create config
     let config=copy(defaultConfig); //a copy made so original defaultconfig can be used for testing
     merge(config, customConfig);
     Object.freeze(config);
-
+    //hook to carousel, build carousel if needed
     let container = document.querySelector(config.containerSel);
     if (config.renderFromJSHTMLTemplate) {
       let carouselHTML = buildCarousel(config)
       container.innerHTML = carouselHTML
     }
-
     //STATE
     let picIndexState = config.init.picIndex;
     //
