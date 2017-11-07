@@ -127,7 +127,7 @@ goRight
 goRandom
 ```
 
-##choices for SVG Frame
+## choices for SVG Frame
 
 
 ```
