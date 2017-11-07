@@ -8,7 +8,7 @@ A configurable carousel allowing multiple slide transitions and custom image fra
 
 2. In html body: a continer div with an id selector. This is where your carousel will live.
 
-```
+```html
 <div id ="carousel1"></div>
 ```
 
@@ -53,7 +53,7 @@ from the default need to be included in any custom configurations.
 In all cases the containerSel key must be given so that it is known where to build the carousel.
 
 
-```
+```js
 new Carousel.start(configObject)
 ```
 
@@ -63,7 +63,7 @@ If renderFromJSHTMLTemplate is set to false, a HTML template must be provided.
 ### Example HTML template
 
 
-```
+```html
 <div id="containerSel">
   <div class="carouselContainer" style="position: relative;overflow: hidden;">
     <svg viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -87,21 +87,21 @@ If renderFromJSHTMLTemplate is set to true, a div with the given container selec
 the carousel HTML.
 
 
-```
+```js
 new Carousel.render(configObject)
 ```
 
 As above, but renderFromJSHTMLTemplate is automatically set to true.
 
 
-```
+```js
 Carousel.getDefault()
 ```
 
 Shows the current default config object.
 
 
-```
+```js
 Carousel.setDefault(configObject)
 ```
 
@@ -110,7 +110,7 @@ Overwrites the default config object with values in the passed configObject.
 Any keys not included in the configObject remain set to the previous default.
 
 
-```
+```js
 new Carousel.type(typeObject, configObject)
 ```
 
@@ -128,7 +128,7 @@ anim-select-top
 anim-select-right
 anim-select-bottom
 anim-select-left
-anim-select-rotate3D (uses sass)
+anim-select-rotate3D (Warning: uses sass/build process)
 
 (extraAnimations.css)
 anim-select-bigShrink
@@ -147,7 +147,7 @@ anim-deselect-top
 anim-deselect-right
 anim-deselect-bottom
 anim-deselect-left
-anim-deselect-rotate3D (uses sass)
+anim-deselect-rotate3D (Warning: uses sass/build process)
 
 (extraAnimations.css)
 anim-deselect-shrink
@@ -200,7 +200,7 @@ The Carousel is controlled by a config object. Below is the default config objec
 from the default need to be included in any custom configurations.
 
 
-```
+```js
 let defaultConfig = {
     //required: containerSel
     containerSel: null, //selector of containing element in html, must be unique
