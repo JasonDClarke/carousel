@@ -29,11 +29,11 @@ To examine prebuild code see Carousel.js and Carousel.scss in root folder.
 
 ## Running the Tests
 
-open specRunner.html in chrome.
+Open specRunner.html in a browser.
 
 The above tests the carousel when the template is rendered by javascript. It also tests some helper functions in Carousel.js
 
-open specRunner--CarouselInHTML.html in chrome
+open specRunner--CarouselInHTML.html in a browser.
 
 This tests that event listeners are added to the html already provided when template is written in html and not rendered by javascript.
 
@@ -114,7 +114,8 @@ Any keys not included in the configObject remain set to the previous default.
 new Carousel.type(typeObject, configObject)
 ```
 
-This allows you to create a carousel 'type' with the typeObject. In this way you could create many similar carousels.
+This allows you to create a carousel 'type' with the typeObject. In this way you could create many similar carousels,
+with for example the same set of images.
 See example/example2
 
 
