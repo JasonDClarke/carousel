@@ -4,7 +4,7 @@ let typeConfig = {
 }
 
 new Carousel.type(typeConfig, {
-  id: 1,
+  containerSel: "#carousel1",
   noMoveAnim: 'anim-noMove-wiggle',   //animation if current slide is selected again. css class
   init: {SVGFrame: true},//no frame if false. Also the not included by render if false
   SVGFrame: {
@@ -14,7 +14,7 @@ new Carousel.type(typeConfig, {
 });
 
 new Carousel.type(typeConfig, {
-  id: 2,
+  containerSel: "#carousel2",
   pagination: {
     className: 'paginationButton', //class name of pagination buttons in HTML
     eventType: "click", //event occurs on [click] of pagination button
@@ -24,7 +24,7 @@ new Carousel.type(typeConfig, {
 });
 
 new Carousel.type(typeConfig, {
-  id: 3,
+  containerSel: "#carousel3",
   leftButton: { //describes event when clicking the left button
     className: 'leftButton',
     eventType: "mouseover",
@@ -42,7 +42,7 @@ new Carousel.type(typeConfig, {
 });
 
 new Carousel.type(typeConfig, {
-  id: 4,
+  containerSel: "#carousel4",
   swipeLeft: { //describes event when swiping the image left (ie touch)
       className: "carouselContainer",
       eventType: "swipeUp",
@@ -59,6 +59,6 @@ new Carousel.type(typeConfig, {
   }
 });
 new Carousel.type(typeConfig, {
-  id: 5,
+  containerSel: "#carousel5",
   init: {pagination: false}
 });

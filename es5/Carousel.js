@@ -13,7 +13,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   var defaultConfig = {
     //required: containerSel or its shorthand, id
     containerSel: null, //selector of containing element in html, must be unique
-    // id: null, //shorthand for containerSel, sets containerSel as '#carousel${id}'
 
     //optional below:
     renderFromJSHTMLTemplate: false, // if false, need to build own HTML template in the document.*1
@@ -72,10 +71,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   };
 
   function start(customConfig) {
-    //if id is given the container selector name is generated from the id
-    if (customConfig.id) {
-      customConfig.containerSel = '#carousel' + customConfig.id;
-    };
 
     var config = getDefaults(); //a copy made so original defaultconfig can be used for testing
     merge(config, customConfig);
@@ -382,7 +377,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   };
 });
 
-//Builds something like
+// Builds something like
 // <div id="containerSel">
 //  <div class="carouselContainer" style="position: relative;overflow: hidden;">
 //    <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position: absolute;top: 0;z-index: 2;width: 100%;height: 100%;">
@@ -404,5 +399,5 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //   <button class="paginationButton">1</button><button class="paginationButton">2</button><button class="paginationButton">3</button>
 //   <button class="rightButton"> &gt; </button>
 // </div>
-//</div>
+// </div>
 //# sourceMappingURL=Carousel.js.map

@@ -1,5 +1,5 @@
 Carousel.setDefaults({init: {SVGFrame: true}})
-new Carousel.noPagination(
+new Carousel.render(
 {
   containerSel: "#dog",
   images: ["http://media.timeout.com/blogimages/wp-content/uploads/2013/01/tumblr_lw7h7q5JKc1r3pgwbo1_500.jpeg",
@@ -11,8 +11,8 @@ noMoveAnim: 'anim-noMove-hop',
 pagination: {
   className: 'paginationButton', //class name of pagination buttons in HTML
   eventType: "click", //event occurs on [click] of pagination button
-  entranceAnim: "anim-select-top", //animation of entering image. css class.
-  exitAnim: "anim-deselect-bottom" //animation of exiting image. css class.
+  entranceAnim: "anim-select-bigShrink", //animation of entering image. css class.
+  exitAnim: "anim-deselect-shrink" //animation of exiting image. css class.
 }
 }
 )
@@ -39,27 +39,3 @@ new Carousel.start(
     }]
   }
 )
-
-
-
-//create a non-default carousel
-// new Carousel(
-//   {
-//     containerSel: "#curlyCarousel",
-//     initPicIndex: 2,
-//     SVGInit: true,
-//     frame: "square",
-//     width: 50,
-//     pagination: {
-//       entranceAnim: "anim-select-top"
-//     },
-//     customListeners: [{
-//         className: "magicButton",
-//         eventType: "click",
-//         entranceAnim: "anim-select-bigShrink",
-//         exitAnim: "anim-deselect-shrink",
-//         newPicIdFn: 'goRandom'
-//     }
-//   ]
-//   }
-// );

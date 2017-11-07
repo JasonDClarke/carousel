@@ -1,6 +1,6 @@
 
 new Carousel.render({
-  id: 1,
+  containerSel: '#carousel1',
   images: ['350150.png', '350150.png', '350150.png', '350150.png'],
   noMoveAnim: 'anim-noMove-wiggle',   //animation if current slide is selected again. css class
   init: {SVGFrame: true},//no frame if false. Also the not included by render if false
@@ -11,7 +11,7 @@ new Carousel.render({
 });
 
 new Carousel.render({
-  id: 2,
+  containerSel: '#carousel2',
   images: ['350150.png', '350150.png', '350150.png', '350150.png'],
   pagination: {
     className: 'paginationButton', //class name of pagination buttons in HTML
@@ -22,7 +22,7 @@ new Carousel.render({
 });
 
 new Carousel.render({
-  id: 3,
+  containerSel: '#carousel3',
   renderFromJSHTMLTemplate: true,
   images: ['350150.png', '350150.png', '350150.png', '350150.png'],
   leftButton: { //describes event when clicking the left button
@@ -42,7 +42,7 @@ new Carousel.render({
 });
 
 new Carousel.render({
-  id:4,
+  containerSel: '#carousel4',
   images: ['350150.png', '350150.png', '350150.png', '350150.png'],
   swipeLeft: { //describes event when swiping the image left (ie touch)
       className: "carouselContainer",
@@ -61,6 +61,6 @@ new Carousel.render({
 });
 
 new Carousel.render({
-  id: 5,
+  containerSel: '#carousel5',
   images: ['350150.png', '350150.png', '350150.png', '350150.png']
 });

@@ -4,23 +4,25 @@ A configurable carousel allowing multiple slide transitions and custom image fra
 
 ## Quickstart
 
-1. link in the css file css/Carousel.css
+1. Link the css file css/Carousel.css into your css file.
 
-2. in html body: 
+2. in html body: a continer div with an id selector. This is where your carousel will live.
 
+```
 <div id ="carousel1"></div>
+```
 
 3. In JS:
 
 ```
-new Carousel.render({id:1, images: ["image1.jpg", "image2.jpg"]});
+new Carousel.render({containerSel:"carousel1", images: ["image1.jpg", "image2.jpg"]});
 ```
 
 ### Prerequisites
 
 None! Build versions use es6 and sass.
 
-### Essential files
+### Essential Files
 
 es5/Carousel.js
 
@@ -29,7 +31,7 @@ css/Carousel.css
 css/extraAnimations.css if extra animations are required
 
 
-## Running the tests
+## Running the Tests
 
 open specRunner.html in chrome.
 
@@ -38,6 +40,13 @@ The above tests the carousel when the template is rendered by javascript. It als
 open specRunner--CarouselInHTML.html in chrome
 
 This tests that event listeners are added to the html already provided when template is written in html and not rendered by javascript.
+
+## Styling the Carousel
+
+The css already is given is important to the functioning of the carousel, with these exceptions.
+To change the size of the carousel the width and height of the carousel container can be altered.
+The SVG frame is coloured translucent black by default. This can be changed.
+Further stylings can be added to modify the carousel.
 
 
 ## Methods
@@ -73,13 +82,75 @@ Shows the current default config object.
 
 
 ```
-Carousel.setDefault(configObject) 
+Carousel.setDefault(configObject)
 ```
 
 Overwrites the default config object with values in the passed configObject.
 
 Any keys not included in the configObject remain set to the previous default.
 
+
+```
+new Carousel.type(typeObject, configObject)
+```
+
+This allows you to create a carousel 'type' with the typeObject. In this way you could create many similar carousels.
+See example/example2
+
+
+## Available animations
+
+These entrance animations are available:
+
+```
+anim-select-top
+anim-select-right
+anim-select-bottom
+anim-select-left
+anim-select-bigShrink (extra animations)
+
+```
+
+These exit animations are available:
+
+```
+anim-deselect-top
+anim-deselect-right
+anim-deselect-bottom
+anim-deselect-left
+anim-deselect-shrink (extra animations)
+```
+
+These animations are available for when the current slide is selected:
+
+```
+anim-noMove-wiggle
+anim-noMove-hop (extra animations)
+```
+
+## Choices for choosing next image
+
+```
+goLeft
+goRight
+goRandom
+```
+
+## choices for SVG Frame
+
+
+```
+square
+elliptical
+chevron
+curly
+wavy
+custom
+```
+
+A custom frame is defined using a custom path. The image is assumed to be a 100*100 square for the purpose of defining the path.
+This square is then stretched to match the size of the image. To define a custom frame, enter the SVG path that defines a "hole"
+that shows the image.
 
 ## Controls
 

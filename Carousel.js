@@ -62,14 +62,9 @@
     },
     customListeners: [] //takes an array of objects similar to eg the config.leftButton object
     //html must be added manually ie not using renderFromJSHTMLTemplate
-
-    //not used
-    id: null, //shorthand for containerSel, sets containerSel as '#carousel${id}'
   }
 
   function start(customConfig) {
-    //if id is given the container selector name is generated from the id
-    if (customConfig.id) {customConfig.containerSel = `#carousel${customConfig.id}`};
 
     let config=getDefaults(); //a copy made so original defaultconfig can be used for testing
     merge(config, customConfig);
