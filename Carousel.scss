@@ -80,4 +80,27 @@ $listMap: (
   80%  { transform: translateX(20px);}
   100% { transform: translateX(-0px);}
 }
+
+.anim-select-rotate3D {
+  animation-name: enter-rotate3D;
+  animation-duration: 0.5s;
+  transform-origin: center center $carousel-height/2;
+}
+
+@keyframes enter-rotate3D {
+  0% {transform: rotateX(270deg);}
+  100% {transform: rotateX(360deg);}
+}
+
+.anim-deselect-rotate3D {
+  animation-name: exit-rotate3D;
+  animation-duration: 0.5s;
+  left:0px;
+  transform-origin: center center $carousel-height/2;
+}
+
+@keyframes exit-rotate3D {
+  0% {transform: rotateX(0deg)};
+  100% {transform: rotateX(90deg);}
+}
 //

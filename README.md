@@ -128,7 +128,15 @@ anim-select-top
 anim-select-right
 anim-select-bottom
 anim-select-left
-anim-select-bigShrink (extraAnimations.css)
+anim-select-rotate3D
+
+(extraAnimations.css)
+anim-select-bigShrink
+anim-select-topLeft
+anim-select-topRight
+anim-select-bottomLeft
+anim-select-bottomRight
+anim-select-rotate
 
 ```
 
@@ -139,7 +147,15 @@ anim-deselect-top
 anim-deselect-right
 anim-deselect-bottom
 anim-deselect-left
-anim-deselect-shrink (extraAnimations.css)
+anim-deselect-rotate3D
+
+(extraAnimations.css)
+anim-deselect-shrink
+anim-deselect-topLeft
+anim-deselect-topRight
+anim-deselect-bottomLeft
+anim-deselect-bottomRight
+anim-deselect-rotate
 ```
 
 These animations are available for when the current slide is selected:
