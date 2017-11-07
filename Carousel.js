@@ -417,27 +417,3 @@
   }
 
 }))
-
-// Builds something like
-// <div id="containerSel">
-//  <div class="carouselContainer" style="position: relative;overflow: hidden;">
-//    <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position: absolute;top: 0;z-index: 2;width: 100%;height: 100%;">
-//     <path class="path" fill-rule="even-odd" d="
-//         M0 0 V100 H100 V0 L0 0
-//           M2 2
-//               H98
-//               V98
-//               H2
-//               L2 2">
-//     </path>
-//   </svg>
-//   <img class="carouselImage" src="" />
-//   <img class="carouselImage" src="" />
-//   <img class="carouselImage" src="" />
-// </div>
-// <div class="buttons">
-//   <button class="leftButton"> &lt; </button>
-//   <button class="paginationButton">1</button><button class="paginationButton">2</button><button class="paginationButton">3</button>
-//   <button class="rightButton"> &gt; </button>
-// </div>
-// </div>
