@@ -15,6 +15,7 @@
     "grunt-babel": "^7.0.0",
     "grunt-contrib-uglify": "^3.1.0",
     "grunt-contrib-watch": "^1.0.0",
+    "jQuery": "^1.7.4",
     "jasmine": "^2.8.0",
     "jasmine-fixture": "^2.0.0",
     "jasmine_dom_matchers": "^1.4.0"

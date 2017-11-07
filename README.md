@@ -6,7 +6,7 @@ A configurable carousel allowing multiple slide transitions and custom image fra
 
 1. Link the css file css/Carousel.css into your html file.
 
-2. in html body: a continer div with an id selector. This is where your carousel will live.
+2. In html body: a continer div with an id selector. This is where your carousel will live.
 
 ```
 <div id ="carousel1"></div>
