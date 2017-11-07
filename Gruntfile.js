@@ -20,7 +20,7 @@ grunt.initConfig({
  },
  uglify: {
     options: {
-      mangle: false
+      mangle: true
     },
     my_target: {
       files: {
