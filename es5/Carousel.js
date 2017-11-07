@@ -237,7 +237,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
 
     if (config.init.SVGFrame) {
-      svg = '<svg viewBox="0 0 100 100" preserveAspectRatio="none">\n        <path class="path" fill-rule="even-odd"/>\n        </svg>';
+      svg = '<svg class="carouselSVG" viewBox="0 0 100 100" preserveAspectRatio="none">\n        <path class="path" fill-rule="even-odd"/>\n        </svg>';
     }
 
     var carousel = '\n      <div class="carouselContainer">\n        ' + svg + '\n        ' + imageHTML + '\n      </div>\n      <div class="buttons">\n        ' + leftButton + '\n        ' + paginationHTML + '\n        ' + rightButton + '\n      </div>\n    ';

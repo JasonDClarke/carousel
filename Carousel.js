@@ -264,7 +264,7 @@
     }
 
     if (config.init.SVGFrame) {
-      svg = `<svg viewBox="0 0 100 100" preserveAspectRatio="none">
+      svg = `<svg class="carouselSVG" viewBox="0 0 100 100" preserveAspectRatio="none">
         <path class="path" fill-rule="even-odd"/>
         </svg>`
     }
