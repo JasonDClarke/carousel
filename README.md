@@ -150,7 +150,8 @@ anim-noMove-hop (extra animations)
 ```
 
 Animations are accessed from css by class name. It is possible to define your own animations.
-Make sure that the "left" attribute of the .carouselImage class is explicitly set throughout the animation.
+For safety, make sure that the "left" attribute of the .carouselImage class is explicitly set throughout the animation. This
+attribute is used to hide the images when they are not displayed.
 
 ## Choices for choosing next image (newPicIndexFn)
 
