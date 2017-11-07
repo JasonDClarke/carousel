@@ -12,7 +12,7 @@ A configurable carousel allowing multiple slide transitions and custom image fra
 <div id ="carousel1"></div>
 ```
 
-3.Link to es5/Carousel.min.js and your own js file, index.js.
+3. Link to es5/Carousel.min.js and your own js file, index.js.
 
 4. In index.js:
 
