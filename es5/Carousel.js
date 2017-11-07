@@ -214,12 +214,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   };
 
   function buildCarousel(config) {
-    var carouselContainerStyles = ['position: relative;', 'overflow: hidden;'].join("");
-
-    var svgStyles = ['position: absolute;', 'top: 0;', 'z-index: 2;', 'width: 100%;', 'height: 100%;'].join("");
-
-    var carouselImageStyles = ['position: absolute;', 'width: 100%;', 'height: 100%;'].join("");
-
     var noSlides = config.images.length;
     var imageHTML = '';
     var paginationHTML = '';
@@ -228,7 +222,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     var svg = '';
 
     for (var i = 0; i < noSlides; i++) {
-      imageHTML += '<img class="carouselImage" src="' + config.images[i] + '"\n      style="' + carouselImageStyles + '"/>';
+      imageHTML += '<img class="carouselImage" src="' + config.images[i] + '"/>';
     }
 
     if (config.init.pagination) {
@@ -243,10 +237,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
 
     if (config.init.SVGFrame) {
-      svg = '<svg viewBox="0 0 100 100" preserveAspectRatio="none"\n      style="' + svgStyles + '">\n        <path class="path" fill-rule="even-odd"/>\n        </svg>';
+      svg = '<svg viewBox="0 0 100 100" preserveAspectRatio="none">\n        <path class="path" fill-rule="even-odd"/>\n        </svg>';
     }
 
-    var carousel = '\n      <div class="carouselContainer" style="' + carouselContainerStyles + '">\n        ' + svg + '\n        ' + imageHTML + '\n      </div>\n      <div class="buttons">\n        ' + leftButton + '\n        ' + paginationHTML + '\n        ' + rightButton + '\n      </div>\n    ';
+    var carousel = '\n      <div class="carouselContainer">\n        ' + svg + '\n        ' + imageHTML + '\n      </div>\n      <div class="buttons">\n        ' + leftButton + '\n        ' + paginationHTML + '\n        ' + rightButton + '\n      </div>\n    ';
     return carousel;
   }
 

@@ -241,25 +241,6 @@
   };
 
   function buildCarousel(config) {
-    let carouselContainerStyles = [
-      `position: relative;`,
-      `overflow: hidden;`
-    ].join("");
-
-    let svgStyles = [
-      `position: absolute;`,
-      `top: 0;`,
-      `z-index: 2;`,
-      `width: 100%;`,
-      `height: 100%;`
-    ].join("");
-
-    let carouselImageStyles = [
-      `position: absolute;`,
-      `width: 100%;`,
-      `height: 100%;`
-    ].join("");
-
     const noSlides = config.images.length
     let imageHTML = ``;
     let paginationHTML = ``;
@@ -268,8 +249,7 @@
     let svg = ``;
 
     for (let i=0; i<noSlides; i++) {
-      imageHTML+=`<img class="carouselImage" src="${config.images[i]}"
-      style="${carouselImageStyles}"/>`
+      imageHTML+=`<img class="carouselImage" src="${config.images[i]}"/>`
     }
 
     if (config.init.pagination) {
@@ -284,14 +264,13 @@
     }
 
     if (config.init.SVGFrame) {
-      svg = `<svg viewBox="0 0 100 100" preserveAspectRatio="none"
-      style="${svgStyles}">
+      svg = `<svg viewBox="0 0 100 100" preserveAspectRatio="none">
         <path class="path" fill-rule="even-odd"/>
         </svg>`
     }
 
     let carousel = `
-      <div class="carouselContainer" style="${carouselContainerStyles}">
+      <div class="carouselContainer">
         ${svg}
         ${imageHTML}
       </div>

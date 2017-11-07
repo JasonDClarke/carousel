@@ -22,7 +22,12 @@ new Carousel.render({containerSel:"carousel1", images: ["image1.jpg", "image2.jp
 
 ### Prerequisites
 
-None! Prebuild versions use es6 and sass.
+None, but to use 3D rotation animation the animation css requires the height of the carousel as a variable. See Carousel.scss.
+
+
+Prebuild versions use es6 and sass. Build process uses autoprefixer, babel, uglify and grunt. 
+
+Tests use jQuery, jasmine, jasmine-fixtures and jasmine_dom_matchers. 
 
 To examine prebuild code see Carousel.js and Carousel.scss in root folder.
 
