@@ -128,7 +128,7 @@ anim-select-top
 anim-select-right
 anim-select-bottom
 anim-select-left
-anim-select-bigShrink (extra animations)
+anim-select-bigShrink (extraAnimations.css)
 
 ```
 
@@ -139,14 +139,14 @@ anim-deselect-top
 anim-deselect-right
 anim-deselect-bottom
 anim-deselect-left
-anim-deselect-shrink (extra animations)
+anim-deselect-shrink (extraAnimations.css)
 ```
 
 These animations are available for when the current slide is selected:
 
 ```
 anim-noMove-wiggle
-anim-noMove-hop (extra animations)
+anim-noMove-hop (extraAnimations.css)
 ```
 
 Animations are accessed from css by class name. It is possible to define your own animations.
