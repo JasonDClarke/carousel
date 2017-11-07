@@ -16,7 +16,7 @@ A configurable carousel allowing multiple slide transitions and custom image fra
 
 4. In index.js:
 
-```
+```js
 new Carousel.render({containerSel:"carousel1", images: ["image1.jpg", "image2.jpg"]});
 ```
 
