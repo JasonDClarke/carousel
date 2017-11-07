@@ -128,7 +128,7 @@ anim-select-top
 anim-select-right
 anim-select-bottom
 anim-select-left
-anim-select-rotate3D
+anim-select-rotate3D (uses sass)
 
 (extraAnimations.css)
 anim-select-bigShrink
@@ -147,7 +147,7 @@ anim-deselect-top
 anim-deselect-right
 anim-deselect-bottom
 anim-deselect-left
-anim-deselect-rotate3D
+anim-deselect-rotate3D (uses sass)
 
 (extraAnimations.css)
 anim-deselect-shrink
@@ -168,6 +168,7 @@ anim-noMove-hop (extraAnimations.css)
 Animations are accessed from css by class name. It is possible to define your own animations.
 For safety, make sure that the "left" attribute of the .carouselImage class is explicitly set throughout the animation. This
 attribute is used to hide the images when they are not displayed.
+Note the the 3D rotate animations require the height of the carousel to work correctly. Sass variables are used to make the animation work in all cases.
 
 ## Choices for choosing next image (newPicIndexFn)
 

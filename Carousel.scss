@@ -71,7 +71,7 @@ $listMap: (
   animation-name: wiggle;
   animation-duration: 0.5s;
 }
-
+ 
 @keyframes wiggle {
   0%   { transform: translateX(20px); }
   20%  { transform: translateX(-20px);}

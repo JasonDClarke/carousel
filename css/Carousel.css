@@ -29,153 +29,316 @@ svg {
 }
 
 .anim-deselect-top {
-  animation-name: slideout-top;
-  animation-duration: 0.5s;
+  -webkit-animation-name: slideout-top;
+          animation-name: slideout-top;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
   left: 0;
 }
 
 .anim-select-top {
-  animation-name: slidein-top;
-  animation-duration: 0.5s;
+  -webkit-animation-name: slidein-top;
+          animation-name: slidein-top;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+}
+
+@-webkit-keyframes slidein-top {
+  0% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  100% {
+    -webkit-transform: none;
+            transform: none;
+  }
 }
 
 @keyframes slidein-top {
   0% {
-    transform: translateY(-100%);
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
   }
   100% {
-    transform: none;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+@-webkit-keyframes slideout-top {
+  100% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
   }
 }
 @keyframes slideout-top {
   100% {
-    transform: translateY(-100%);
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
   }
 }
 .anim-deselect-right {
-  animation-name: slideout-right;
-  animation-duration: 0.5s;
+  -webkit-animation-name: slideout-right;
+          animation-name: slideout-right;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
   left: 0;
 }
 
 .anim-select-right {
-  animation-name: slidein-right;
-  animation-duration: 0.5s;
+  -webkit-animation-name: slidein-right;
+          animation-name: slidein-right;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+}
+
+@-webkit-keyframes slidein-right {
+  0% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: none;
+            transform: none;
+  }
 }
 
 @keyframes slidein-right {
   0% {
-    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
   }
   100% {
-    transform: none;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+@-webkit-keyframes slideout-right {
+  100% {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
   }
 }
 @keyframes slideout-right {
   100% {
-    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
   }
 }
 .anim-deselect-bottom {
-  animation-name: slideout-bottom;
-  animation-duration: 0.5s;
+  -webkit-animation-name: slideout-bottom;
+          animation-name: slideout-bottom;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
   left: 0;
 }
 
 .anim-select-bottom {
-  animation-name: slidein-bottom;
-  animation-duration: 0.5s;
+  -webkit-animation-name: slidein-bottom;
+          animation-name: slidein-bottom;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+}
+
+@-webkit-keyframes slidein-bottom {
+  0% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+  }
+  100% {
+    -webkit-transform: none;
+            transform: none;
+  }
 }
 
 @keyframes slidein-bottom {
   0% {
-    transform: translateY(100%);
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
   }
   100% {
-    transform: none;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+@-webkit-keyframes slideout-bottom {
+  100% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
   }
 }
 @keyframes slideout-bottom {
   100% {
-    transform: translateY(100%);
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
   }
 }
 .anim-deselect-left {
-  animation-name: slideout-left;
-  animation-duration: 0.5s;
+  -webkit-animation-name: slideout-left;
+          animation-name: slideout-left;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
   left: 0;
 }
 
 .anim-select-left {
-  animation-name: slidein-left;
-  animation-duration: 0.5s;
+  -webkit-animation-name: slidein-left;
+          animation-name: slidein-left;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+}
+
+@-webkit-keyframes slidein-left {
+  0% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: none;
+            transform: none;
+  }
 }
 
 @keyframes slidein-left {
   0% {
-    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
   }
   100% {
-    transform: none;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+@-webkit-keyframes slideout-left {
+  100% {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
   }
 }
 @keyframes slideout-left {
   100% {
-    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
   }
 }
 .anim-noMove-wiggle {
-  animation-name: wiggle;
-  animation-duration: 0.5s;
+  -webkit-animation-name: wiggle;
+          animation-name: wiggle;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+}
+
+@-webkit-keyframes wiggle {
+  0% {
+    -webkit-transform: translateX(20px);
+            transform: translateX(20px);
+  }
+  20% {
+    -webkit-transform: translateX(-20px);
+            transform: translateX(-20px);
+  }
+  40% {
+    -webkit-transform: translateX(20px);
+            transform: translateX(20px);
+  }
+  60% {
+    -webkit-transform: translateX(-20px);
+            transform: translateX(-20px);
+  }
+  80% {
+    -webkit-transform: translateX(20px);
+            transform: translateX(20px);
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+  }
 }
 
 @keyframes wiggle {
   0% {
-    transform: translateX(20px);
+    -webkit-transform: translateX(20px);
+            transform: translateX(20px);
   }
   20% {
-    transform: translateX(-20px);
+    -webkit-transform: translateX(-20px);
+            transform: translateX(-20px);
   }
   40% {
-    transform: translateX(20px);
+    -webkit-transform: translateX(20px);
+            transform: translateX(20px);
   }
   60% {
-    transform: translateX(-20px);
+    -webkit-transform: translateX(-20px);
+            transform: translateX(-20px);
   }
   80% {
-    transform: translateX(20px);
+    -webkit-transform: translateX(20px);
+            transform: translateX(20px);
   }
   100% {
-    transform: translateX(0px);
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
   }
 }
 .anim-select-rotate3D {
-  animation-name: enter-rotate3D;
-  animation-duration: 0.5s;
-  transform-origin: center center 30vh;
+  -webkit-animation-name: enter-rotate3D;
+          animation-name: enter-rotate3D;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+  -webkit-transform-origin: center center 30vh;
+          transform-origin: center center 30vh;
+}
+
+@-webkit-keyframes enter-rotate3D {
+  0% {
+    -webkit-transform: rotateX(270deg);
+            transform: rotateX(270deg);
+  }
+  100% {
+    -webkit-transform: rotateX(360deg);
+            transform: rotateX(360deg);
+  }
 }
 
 @keyframes enter-rotate3D {
   0% {
-    transform: rotateX(270deg);
+    -webkit-transform: rotateX(270deg);
+            transform: rotateX(270deg);
   }
   100% {
-    transform: rotateX(360deg);
+    -webkit-transform: rotateX(360deg);
+            transform: rotateX(360deg);
   }
 }
 .anim-deselect-rotate3D {
-  animation-name: exit-rotate3D;
-  animation-duration: 0.5s;
+  -webkit-animation-name: exit-rotate3D;
+          animation-name: exit-rotate3D;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
   left: 0px;
-  transform-origin: center center 30vh;
+  -webkit-transform-origin: center center 30vh;
+          transform-origin: center center 30vh;
+}
+
+@-webkit-keyframes exit-rotate3D {
+  0% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+  }
+  100% {
+    -webkit-transform: rotateX(90deg);
+            transform: rotateX(90deg);
+  }
 }
 
 @keyframes exit-rotate3D {
   0% {
-    transform: rotateX(0deg);
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
   }
   100% {
-    transform: rotateX(90deg);
+    -webkit-transform: rotateX(90deg);
+            transform: rotateX(90deg);
   }
 }
 

@@ -4,7 +4,7 @@ grunt.initConfig({
   watch: {
       css: {
         files: ['./*.scss', 'Carousel.js'],
-        tasks: ['sass:dist', 'babel:dist', 'uglify']
+        tasks: ['sass:dist', 'babel:dist', 'uglify', 'postcss']
       },
     },
   sass: {                              // Task
@@ -38,14 +38,25 @@ grunt.initConfig({
        'es5/Carousel.js': 'Carousel.js'
      }
    }
- }
+ },
+ postcss: {
+    options: {
+      map: true, // inline sourcemaps
+      processors: [
+        require('autoprefixer')({browsers: 'last 2 versions'}) // add vendor prefixes
+      ]
+    },
+    dist: {
+      src: 'css/*.css'
+    }
+  }
 })
 
 grunt.loadNpmTasks('grunt-contrib-sass');
 grunt.loadNpmTasks('grunt-contrib-watch');
 grunt.loadNpmTasks('grunt-babel')
 grunt.loadNpmTasks('grunt-contrib-uglify')
-
+grunt.loadNpmTasks('grunt-postcss');
 
 
 
