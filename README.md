@@ -4,23 +4,25 @@ A configurable carousel allowing multiple slide transitions and custom image fra
 
 ## Quickstart
 
-1. link in the css file css/Carousel.css
+1. Link the css file css/Carousel.css into your css file.
 
-2. in html body: 
+2. in html body: a continer div with an id selector. This is where your carousel will live.
 
+```
 <div id ="carousel1"></div>
+```
 
 3. In JS:
 
 ```
-new Carousel.render({id:1, images: ["image1.jpg", "image2.jpg"]});
+new Carousel.render({containerSel:"carousel1", images: ["image1.jpg", "image2.jpg"]});
 ```
 
 ### Prerequisites
 
 None! Build versions use es6 and sass.
 
-### Essential files
+### Essential Files
 
 es5/Carousel.js
 
@@ -29,7 +31,7 @@ css/Carousel.css
 css/extraAnimations.css if extra animations are required
 
 
-## Running the tests
+## Running the Tests
 
 open specRunner.html in chrome.
 
@@ -39,7 +41,7 @@ open specRunner--CarouselInHTML.html in chrome
 
 This tests that event listeners are added to the html already provided when template is written in html and not rendered by javascript.
 
-##styling the carousel
+## Styling the Carousel
 
 The css already is given is important to the functioning of the carousel, with these exceptions.
 To change the size of the carousel the width and height of the carousel container can be altered.
